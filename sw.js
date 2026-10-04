@@ -112,3 +112,32 @@ self.addEventListener('fetch', event => {
       })
   );
 });
+
+// sw.js - Service Worker para receber notificações em segundo plano do Firebase
+importScripts('https://www.gstatic.com/firebasejs/10.12.0/firebase-app-compat.js');
+importScripts('https://www.gstatic.com/firebasejs/10.12.0/firebase-messaging-compat.js');
+
+firebase.initializeApp({
+  apiKey: "AIzaSyADjX2IrWrEHjYIxQjr-jzuyvHlwU9DQKE",
+  authDomain: "carrinho-village-controle.firebaseapp.com",
+  projectId: "carrinho-village-controle",
+  storageBucket: "carrinho-village-controle.firebasestorage.app",
+  messagingSenderId: "680890955138",
+  appId: "1:680890955138:web:ee16694100af20fb208b9b"
+});
+
+const messaging = firebase.messaging();
+
+// Manipula mensagens em segundo plano
+messaging.onBackgroundMessage((payload) => {
+  console.log("Notificação recebida em segundo plano: ", payload);
+  
+  const titulo = payload.notification.title || "Controle de Carrinhos";
+  const opcoes = {
+    body: payload.notification.body || "Novo lembrete de designação.",
+    icon: "./logo.png",
+    badge: "./logo.png"
+  };
+
+  self.registration.showNotification(titulo, opcoes);
+});
