@@ -17,15 +17,44 @@ const messaging = firebase.messaging();
 self.addEventListener('push', function(event) {
   if (!event.data) return;
 
-  const data = event.data.json();
-  const notificationTitle = data.notification?.title || "Carrinho Village";
+  let notificationTitle = "Carrinho Village";
+  let notificationBody = "Nova notificação recebida.";
+
+  try {
+
+    // Mensagem enviada pelo Firebase
+    const data = event.data.json();
+
+    notificationTitle =
+      data.notification?.title ||
+      data.data?.title ||
+      notificationTitle;
+
+    notificationBody =
+      data.notification?.body ||
+      data.data?.body ||
+      notificationBody;
+
+  } catch (erro) {
+
+    // Mensagem simples enviada pelo Chrome DevTools
+    notificationBody =
+      event.data.text() ||
+      notificationBody;
+
+  }
+
   const notificationOptions = {
-    body: data.notification?.body || "Nova notificação recebida.",
-    icon: './logo.png'
+    body: notificationBody,
+    icon: './logo.png',
+    badge: './logo.png'
   };
 
   event.waitUntil(
-    self.registration.showNotification(notificationTitle, notificationOptions)
+    self.registration.showNotification(
+      notificationTitle,
+      notificationOptions
+    )
   );
 });
 
