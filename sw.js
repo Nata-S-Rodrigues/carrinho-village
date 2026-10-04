@@ -88,8 +88,31 @@ self.addEventListener("activate", event => {
 });
 
 self.addEventListener('fetch', event => {
+
+  const url = new URL(event.request.url);
+
+  /*
+   * NÃO intercepta requisições externas.
+   *
+   * Isso é importante porque sua API está no
+   * Google Apps Script (script.google.com).
+   */
+
+  if (url.origin !== self.location.origin) {
+    return;
+  }
+
   event.respondWith(
     caches.match(event.request)
-      .then(response => response || fetch(event.request))
+      .then(response => {
+
+        if (response) {
+          return response;
+        }
+
+        return fetch(event.request);
+
+      })
   );
+
 });
