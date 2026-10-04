@@ -3713,53 +3713,36 @@ function atualizarPreviewMensagem() {
 
 
 async function enviarNotificacaoTeste() {
-
-  if (!(`Notification` in window)) {
-
-    alert(
-      "Seu navegador não oferece suporte a notificações."
-    );
-
+  if (!('Notification' in window)) {
+    alert("Seu navegador não oferece suporte a notificações.");
     return;
-
   }
 
+  let permissao = Notification.permission;
 
-  if (
-    Notification.permission !==
-    "granted"
-  ) {
-
-    const permissao =
-      await Notification.requestPermission();
-
-
-    atualizarStatusNotificacao();
-
-
-    if (permissao !== "granted") {
-
-      alert(
-        "Autorize as notificações primeiro."
-      );
-
-      return;
-
-    }
-
+  if (permissao !== "granted") {
+    permissao = await Notification.requestPermission();
   }
 
+  if (permissao !== "granted") {
+    alert("Autorize as notificações primeiro.");
+    return;
+  }
 
-  new Notification(
-    "Controle de Carrinhos",
-    {
-      body:
-        "🔔 Esta é uma notificação de teste.",
-      icon:
-        "./logo.png"
-    }
-  );
-
+  // Dispara a notificação através do Service Worker (essencial para Android)
+  if ('serviceWorker' in navigator && navigator.serviceWorker.controller) {
+    const registration = await navigator.serviceWorker.ready;
+    registration.showNotification("Controle de Carrinhos", {
+      body: "🔔 Esta é uma notificação de teste.",
+      icon: "./logo.png"
+    });
+  } else {
+    // Fallback caso o service worker demore a responder
+    new Notification("Controle de Carrinhos", {
+      body: "🔔 Esta é uma notificação de teste.",
+      icon: "./logo.png"
+    });
+  }
 }
 
 /* =====================================================
