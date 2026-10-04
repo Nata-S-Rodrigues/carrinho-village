@@ -1600,6 +1600,9 @@ const firebaseConfig = {
 firebase.initializeApp(firebaseConfig);
 const messaging = firebase.messaging();
 
+  const API_URL =
+  "https://script.google.com/macros/s/AKfycbxigrLwmQlKyAAg_fxvQnFPy5NiXWbkYUOWJX0tQdD9ldQWrDcqx2hcLCrGNugRCukS/exec";
+
 async function ativarNotificacoesPush() {
 
   if (!("Notification" in window)) {
