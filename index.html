@@ -2,945 +2,603 @@
 <html lang="pt-BR">
 
 <head>
-
   <meta charset="UTF-8">
 
   <meta
     name="viewport"
-    content="width=device-width, initial-scale=1, viewport-fit=cover"
-  >
+    content="width=device-width, initial-scale=1, viewport-fit=cover">
 
   <meta
     name="theme-color"
-    content="#111827"
-  >
+    content="#ffffff">
 
   <meta
     name="description"
-    content="Lembretes do Carrinho Village"
-  >
+    content="Carrinho Village - lembretes de testemunho público">
 
   <link rel="manifest" href="manifest.json">
 
   <title>Carrinho Village</title>
 
-
   <style>
 
-    :root{
-      --bg:#f4f7fb;
-      --card:#ffffff;
-      --text:#101828;
-      --muted:#667085;
-
-      --primary:#1677ff;
-      --primary2:#0b5bd3;
-
-      --green:#12b76a;
-      --yellow:#f79009;
-      --red:#f04438;
-
-      --border:#e4e7ec;
-
-      --shadow:0 8px 30px rgba(16,24,40,.08);
-
-      --radius:22px;
+    :root {
+      --bg: #f6f7f9;
+      --surface: #ffffff;
+      --surface-2: #f1f3f5;
+      --text: #111827;
+      --muted: #667085;
+      --border: #e5e7eb;
+      --primary: #1677ff;
+      --primary-dark: #0b5bd3;
+      --green: #12b76a;
+      --yellow: #f79009;
+      --red: #f04438;
+      --shadow: 0 4px 18px rgba(16, 24, 40, .07);
+      --radius: 18px;
     }
 
-
-    *{
-      box-sizing:border-box;
+    * {
+      box-sizing: border-box;
     }
 
+    html {
+      scroll-behavior: smooth;
+    }
 
-    body{
-      margin:0;
-
+    body {
+      margin: 0;
+      background: var(--bg);
+      color: var(--text);
       font-family:
         Inter,
-        system-ui,
         -apple-system,
         BlinkMacSystemFont,
         "Segoe UI",
+        Roboto,
+        Arial,
         sans-serif;
-
-      background:var(--bg);
-      color:var(--text);
     }
-
 
     button,
     input,
     textarea,
-    select{
-      font:inherit;
+    select {
+      font: inherit;
     }
 
-
-    button{
-      cursor:pointer;
+    button {
+      cursor: pointer;
     }
 
-
-    .app{
-      max-width:720px;
-      margin:auto;
-      min-height:100vh;
-      padding-bottom:32px;
+    .app {
+      max-width: 760px;
+      min-height: 100vh;
+      margin: auto;
+      padding-bottom: 90px;
     }
-
 
     /* =========================================
-       CABEÇALHO
+       HEADER
     ========================================= */
 
-    header{
-
-      background:
-        linear-gradient(
-          135deg,
-          #111827,
-          #1f2937
-        );
-
-      color:#fff;
-
-      padding:
-        24px
-        18px
-        22px;
-
-      border-radius:
-        0
-        0
-        28px
-        28px;
+    header {
+      background: var(--surface);
+      border-bottom: 1px solid var(--border);
+      padding: 20px 18px 18px;
+      position: sticky;
+      top: 0;
+      z-index: 20;
     }
 
-
-    .top{
-
-      display:flex;
-
-      align-items:center;
-
-      justify-content:space-between;
-
-      gap:12px;
+    .header-row {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 15px;
     }
 
-
-    .brand{
-
-      display:flex;
-
-      align-items:center;
-
-      gap:12px;
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 12px;
     }
 
-
-    .logo{
-
-      width:48px;
-      height:48px;
-
-      border-radius:15px;
-
-      background:#ffffff12;
-
-      display:grid;
-
-      place-items:center;
-
-      font-size:25px;
-
-      border:
-        1px solid
-        #ffffff22;
+    .brand-icon {
+      width: 42px;
+      height: 42px;
+      border-radius: 13px;
+      background: #eef4ff;
+      color: var(--primary);
+      display: grid;
+      place-items: center;
+      font-size: 14px;
+      font-weight: 800;
     }
 
-
-    h1{
-
-      font-size:21px;
-
-      margin:
-        0
-        0
-        3px;
+    .brand-title {
+      margin: 0;
+      font-size: 18px;
+      font-weight: 750;
+      letter-spacing: -.2px;
     }
 
-
-    .subtitle{
-
-      font-size:13px;
-
-      color:#d0d5dd;
+    .brand-subtitle {
+      margin-top: 2px;
+      font-size: 12px;
+      color: var(--muted);
     }
 
-
-    .refresh{
-
-      border:
-        1px solid
-        #ffffff2b;
-
-      background:#ffffff12;
-
-      color:#fff;
-
-      width:42px;
-      height:42px;
-
-      border-radius:13px;
-
-      font-size:20px;
+    .refresh {
+      width: 40px;
+      height: 40px;
+      border: 1px solid var(--border);
+      background: var(--surface);
+      border-radius: 12px;
+      font-size: 19px;
     }
 
-
-    .hero{
-
-      margin-top:22px;
+    .refresh:active {
+      transform: scale(.96);
     }
-
-
-    .hero-title{
-
-      font-size:28px;
-
-      font-weight:750;
-
-      margin:
-        0
-        0
-        6px;
-    }
-
-
-    .hero-text{
-
-      margin:0;
-
-      color:#d0d5dd;
-
-      font-size:14px;
-
-      line-height:1.5;
-    }
-
-
-    /* =========================================
-       ABAS
-    ========================================= */
-
-    .tabs{
-
-      display:grid;
-
-      grid-template-columns:
-        1fr
-        1fr
-        1fr;
-
-      gap:7px;
-
-      margin-top:20px;
-    }
-
-
-    .tab{
-
-      border:
-        1px solid
-        #ffffff22;
-
-      background:#ffffff0d;
-
-      color:#d0d5dd;
-
-      border-radius:12px;
-
-      padding:
-        10px
-        5px;
-
-      font-size:12px;
-
-      font-weight:700;
-    }
-
-
-    .tab.active{
-
-      background:#fff;
-
-      color:#111827;
-    }
-
 
     /* =========================================
        MAIN
     ========================================= */
 
-    main{
-      padding:18px;
+    main {
+      padding: 18px;
     }
 
-
-    .view{
-      display:none;
+    .page-title {
+      margin: 4px 0 5px;
+      font-size: 25px;
+      letter-spacing: -.5px;
     }
 
-
-    .view.active{
-      display:block;
+    .page-subtitle {
+      margin: 0 0 20px;
+      color: var(--muted);
+      font-size: 13px;
     }
-
 
     /* =========================================
-       RESUMO
+       ABAS
     ========================================= */
 
-    .summary{
-
-      display:grid;
-
-      grid-template-columns:
-        1fr
-        1fr;
-
-      gap:12px;
-
-      margin-bottom:18px;
+    .tab-content {
+      display: none;
     }
 
-
-    .stat{
-
-      background:var(--card);
-
-      border:
-        1px solid
-        var(--border);
-
-      border-radius:18px;
-
-      padding:16px;
-
-      box-shadow:var(--shadow);
+    .tab-content.active {
+      display: block;
     }
-
-
-    .stat strong{
-
-      display:block;
-
-      font-size:24px;
-
-      margin-bottom:3px;
-    }
-
-
-    .stat span{
-
-      font-size:12px;
-
-      color:var(--muted);
-    }
-
 
     /* =========================================
-       TÍTULOS
+       PRÓXIMO LEMBRETE
     ========================================= */
 
-    .section-head{
-
-      display:flex;
-
-      align-items:center;
-
-      justify-content:space-between;
-
-      margin:
-        8px
-        2px
-        12px;
+    .next-label {
+      font-size: 12px;
+      font-weight: 750;
+      color: var(--primary);
+      text-transform: uppercase;
+      letter-spacing: .6px;
+      margin-bottom: 8px;
     }
 
-
-    .section-head h2{
-
-      font-size:17px;
-
-      margin:0;
+    .next-card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 22px;
+      padding: 20px;
+      box-shadow: var(--shadow);
+      margin-bottom: 22px;
     }
 
-
-    .count{
-
-      font-size:12px;
-
-      color:var(--muted);
+    .next-date {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      color: var(--muted);
+      font-size: 13px;
+      margin-bottom: 13px;
     }
 
-
-    .list{
-
-      display:grid;
-
-      gap:12px;
+    .next-names {
+      font-size: 24px;
+      font-weight: 800;
+      letter-spacing: -.5px;
+      margin-bottom: 8px;
     }
 
+    .next-info {
+      display: flex;
+      gap: 8px;
+      flex-wrap: wrap;
+      margin-bottom: 18px;
+    }
+
+    .info-pill {
+      background: var(--surface-2);
+      border-radius: 10px;
+      padding: 7px 10px;
+      color: #344054;
+      font-size: 12px;
+      font-weight: 650;
+    }
+
+    .people-buttons {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 9px;
+    }
+
+    .whatsapp-btn {
+      border: 0;
+      border-radius: 13px;
+      padding: 12px 10px;
+      background: var(--green);
+      color: white;
+      font-weight: 750;
+    }
+
+    .whatsapp-btn:active {
+      transform: scale(.98);
+    }
 
     /* =========================================
-       CARD
+       PRÓXIMOS
     ========================================= */
 
-    .card{
-
-      background:var(--card);
-
-      border:
-        1px solid
-        var(--border);
-
-      border-radius:var(--radius);
-
-      padding:17px;
-
-      box-shadow:var(--shadow);
+    .section-title {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin: 22px 2px 11px;
     }
 
-
-    .card-top{
-
-      display:flex;
-
-      justify-content:space-between;
-
-      align-items:flex-start;
-
-      gap:12px;
+    .section-title h2 {
+      margin: 0;
+      font-size: 17px;
     }
 
-
-    .person{
-
-      font-size:18px;
-
-      font-weight:750;
-
-      margin:
-        0
-        0
-        4px;
+    .section-count {
+      color: var(--muted);
+      font-size: 12px;
     }
 
-
-    .date{
-
-      font-size:13px;
-
-      color:var(--muted);
+    .upcoming-list {
+      display: grid;
+      gap: 9px;
     }
 
-
-    .badge{
-
-      align-self:flex-start;
-
-      border-radius:999px;
-
-      padding:
-        6px
-        10px;
-
-      font-size:11px;
-
-      font-weight:700;
-
-      background:#fff4e5;
-
-      color:#b54708;
-
-      white-space:nowrap;
+    .upcoming-card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      padding: 14px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
     }
 
-
-    .details{
-
-      display:grid;
-
-      grid-template-columns:
-        1fr
-        1fr;
-
-      gap:9px;
-
-      margin:
-        15px
-        0;
+    .upcoming-main {
+      min-width: 0;
     }
 
-
-    .detail{
-
-      background:#f8fafc;
-
-      border-radius:13px;
-
-      padding:10px;
+    .upcoming-date {
+      font-size: 11px;
+      color: var(--primary);
+      font-weight: 750;
+      margin-bottom: 4px;
     }
 
-
-    .detail small{
-
-      display:block;
-
-      color:var(--muted);
-
-      font-size:10px;
-
-      margin-bottom:3px;
+    .upcoming-name {
+      font-weight: 700;
+      font-size: 14px;
     }
 
-
-    .detail b{
-
-      font-size:13px;
+    .upcoming-time {
+      color: var(--muted);
+      font-size: 12px;
+      margin-top: 3px;
     }
 
+    .mini-btn {
+      flex-shrink: 0;
+      border: 0;
+      border-radius: 10px;
+      background: #eef4ff;
+      color: var(--primary);
+      padding: 9px 11px;
+      font-size: 12px;
+      font-weight: 700;
+    }
 
     /* =========================================
-       PESSOAS DA DUPLA
+       LISTA
     ========================================= */
 
-    .people{
-
-      display:grid;
-
-      gap:8px;
-
-      margin-top:3px;
+    .filters {
+      margin-bottom: 15px;
     }
 
-
-    .person-row{
-
-      display:flex;
-
-      align-items:center;
-
-      justify-content:space-between;
-
-      gap:10px;
-
-      background:#f8fafc;
-
-      border-radius:13px;
-
-      padding:
-        10px
-        11px;
+    .search {
+      width: 100%;
+      border: 1px solid var(--border);
+      background: var(--surface);
+      border-radius: 13px;
+      padding: 12px 13px;
+      outline: none;
+      font-size: 14px;
     }
 
-
-    .person-name{
-
-      font-size:13px;
-
-      font-weight:700;
-
-      overflow:hidden;
-
-      text-overflow:ellipsis;
-
-      white-space:nowrap;
+    .search:focus {
+      border-color: var(--primary);
     }
 
-
-    .btn-whatsapp{
-
-      border:0;
-
-      background:#12b76a;
-
-      color:#fff;
-
-      border-radius:10px;
-
-      padding:
-        9px
-        11px;
-
-      font-size:11px;
-
-      font-weight:700;
-
-      white-space:nowrap;
+    .all-list {
+      display: grid;
+      gap: 10px;
     }
 
+    .list-card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 17px;
+      padding: 15px;
+    }
+
+    .list-top {
+      display: flex;
+      justify-content: space-between;
+      gap: 10px;
+    }
+
+    .list-name {
+      font-weight: 750;
+      font-size: 15px;
+    }
+
+    .list-date {
+      margin-top: 4px;
+      color: var(--muted);
+      font-size: 12px;
+    }
+
+    .status {
+      align-self: flex-start;
+      border-radius: 999px;
+      padding: 5px 8px;
+      font-size: 10px;
+      font-weight: 750;
+      background: #fff4e5;
+      color: #b54708;
+    }
+
+    .list-details {
+      display: flex;
+      gap: 8px;
+      flex-wrap: wrap;
+      margin-top: 12px;
+    }
+
+    .list-pill {
+      background: var(--surface-2);
+      border-radius: 9px;
+      padding: 6px 9px;
+      font-size: 11px;
+      color: #475467;
+    }
+
+    .list-actions {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 8px;
+      margin-top: 12px;
+    }
 
     /* =========================================
-       BOTÕES
+       NOTIFICAÇÕES
     ========================================= */
 
-    .actions{
-
-      display:grid;
-
-      grid-template-columns:
-        1fr
-        1fr;
-
-      gap:9px;
-
-      margin-top:13px;
+    .settings-card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 20px;
+      padding: 18px;
+      box-shadow: var(--shadow);
+      margin-bottom: 14px;
     }
 
-
-    .btn{
-
-      border:0;
-
-      border-radius:13px;
-
-      padding:
-        12px
-        10px;
-
-      font-weight:700;
+    .settings-title {
+      font-size: 16px;
+      font-weight: 750;
+      margin-bottom: 5px;
     }
 
-
-    .btn-primary{
-
-      background:var(--primary);
-
-      color:#fff;
+    .settings-description {
+      color: var(--muted);
+      font-size: 12px;
+      line-height: 1.5;
+      margin-bottom: 18px;
     }
 
-
-    .btn-primary:active{
-
-      background:var(--primary2);
+    .field {
+      margin-bottom: 15px;
     }
 
-
-    .btn-secondary{
-
-      background:#eef4ff;
-
-      color:#155eef;
+    .field:last-child {
+      margin-bottom: 0;
     }
 
+    .field label {
+      display: block;
+      font-size: 12px;
+      font-weight: 700;
+      margin-bottom: 7px;
+    }
+
+    .field select,
+    .field input,
+    .field textarea {
+      width: 100%;
+      border: 1px solid var(--border);
+      background: #fff;
+      border-radius: 12px;
+      padding: 11px;
+      outline: none;
+    }
+
+    .field textarea {
+      min-height: 150px;
+      resize: vertical;
+      line-height: 1.5;
+      font-size: 13px;
+    }
+
+    .field select:focus,
+    .field input:focus,
+    .field textarea:focus {
+      border-color: var(--primary);
+    }
+
+    .settings-actions {
+      display: grid;
+      gap: 9px;
+      margin-top: 16px;
+    }
+
+    .primary-button {
+      border: 0;
+      border-radius: 13px;
+      padding: 12px;
+      background: var(--primary);
+      color: white;
+      font-weight: 750;
+    }
+
+    .secondary-button {
+      border: 0;
+      border-radius: 13px;
+      padding: 12px;
+      background: #eef4ff;
+      color: var(--primary);
+      font-weight: 750;
+    }
+
+    .notification-status {
+      padding: 12px;
+      border-radius: 12px;
+      background: #f8fafc;
+      font-size: 12px;
+      color: var(--muted);
+      margin-bottom: 14px;
+    }
 
     /* =========================================
-       ESTADOS
+       EMPTY / LOADING / ERROR
     ========================================= */
 
     .empty,
     .loading,
-    .error{
-
-      background:var(--card);
-
-      border:
-        1px solid
-        var(--border);
-
-      border-radius:18px;
-
-      padding:26px;
-
-      text-align:center;
-
-      color:var(--muted);
+    .error {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 18px;
+      padding: 30px 20px;
+      text-align: center;
+      color: var(--muted);
     }
 
-
-    .empty-icon{
-
-      font-size:34px;
-
-      margin-bottom:8px;
+    .empty strong,
+    .error strong {
+      display: block;
+      color: var(--text);
+      margin-bottom: 5px;
     }
-
 
     /* =========================================
-       CONFIGURAÇÕES
+       NAVEGAÇÃO
     ========================================= */
 
-    .settings-card{
-
-      background:#fff;
-
-      border:
-        1px solid
-        var(--border);
-
-      border-radius:var(--radius);
-
-      padding:18px;
-
-      margin-bottom:14px;
-
-      box-shadow:var(--shadow);
+    .bottom-nav {
+      position: fixed;
+      left: 50%;
+      bottom: 0;
+      transform: translateX(-50%);
+      width: min(760px, 100%);
+      height: 70px;
+      background: rgba(255,255,255,.97);
+      backdrop-filter: blur(12px);
+      border-top: 1px solid var(--border);
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      z-index: 50;
     }
 
-
-    .settings-card h2{
-
-      font-size:18px;
-
-      margin:
-        0
-        0
-        5px;
+    .nav-btn {
+      border: 0;
+      background: transparent;
+      color: #98a2b3;
+      font-size: 11px;
+      font-weight: 650;
     }
 
-
-    .settings-card > p{
-
-      font-size:12px;
-
-      color:var(--muted);
-
-      line-height:1.5;
-
-      margin:
-        0
-        0
-        17px;
+    .nav-btn span {
+      display: block;
+      font-size: 20px;
+      margin-bottom: 3px;
     }
 
-
-    .field{
-
-      margin-bottom:16px;
+    .nav-btn.active {
+      color: var(--primary);
     }
-
-
-    .field label{
-
-      display:block;
-
-      font-size:12px;
-
-      font-weight:700;
-
-      margin-bottom:7px;
-    }
-
-
-    .field textarea,
-    .field select,
-    .field input{
-
-      width:100%;
-
-      border:
-        1px solid
-        #d0d5dd;
-
-      border-radius:11px;
-
-      padding:
-        11px
-        12px;
-
-      background:#fff;
-
-      color:var(--text);
-
-      outline:none;
-    }
-
-
-    .field textarea{
-
-      min-height:180px;
-
-      resize:vertical;
-
-      line-height:1.5;
-    }
-
-
-    .field textarea:focus,
-    .field select:focus,
-    .field input:focus{
-
-      border-color:
-        var(--primary);
-
-      box-shadow:
-        0 0 0 3px
-        rgba(22,119,255,.1);
-    }
-
-
-    .variables{
-
-      display:flex;
-
-      flex-wrap:wrap;
-
-      gap:6px;
-
-      margin-top:8px;
-    }
-
-
-    .variable{
-
-      background:#eef4ff;
-
-      color:#155eef;
-
-      padding:
-        5px
-        8px;
-
-      border-radius:7px;
-
-      font-size:10px;
-
-      font-weight:700;
-    }
-
-
-    .save{
-
-      width:100%;
-
-      border:0;
-
-      border-radius:13px;
-
-      padding:13px;
-
-      background:var(--primary);
-
-      color:#fff;
-
-      font-weight:700;
-    }
-
-
-    .saved{
-
-      display:none;
-
-      text-align:center;
-
-      color:var(--green);
-
-      font-size:12px;
-
-      margin-top:10px;
-    }
-
 
     /* =========================================
-       NOTIFICAÇÃO
+       INSTALAÇÃO
     ========================================= */
 
-    .notification-info{
-
-      background:#eef4ff;
-
-      border:
-        1px solid
-        #c7d7fe;
-
-      border-radius:13px;
-
-      padding:12px;
-
-      color:#344054;
-
-      font-size:12px;
-
-      line-height:1.5;
-
-      margin-top:10px;
+    .install {
+      display: none;
+      width: 100%;
+      margin-bottom: 15px;
+      border: 0;
+      border-radius: 13px;
+      padding: 12px;
+      background: #111827;
+      color: #fff;
+      font-weight: 700;
     }
 
+    @media(min-width: 700px) {
 
-    .notification-status{
+      .app {
+        border-left: 1px solid var(--border);
+        border-right: 1px solid var(--border);
+      }
 
-      display:flex;
+      .bottom-nav {
+        border-left: 1px solid var(--border);
+        border-right: 1px solid var(--border);
+      }
 
-      align-items:center;
-
-      gap:8px;
-
-      font-weight:700;
-
-      margin-bottom:5px;
     }
 
+    @media(max-width: 430px) {
 
-    .dot{
-
-      width:9px;
-      height:9px;
-
-      border-radius:50%;
-
-      background:#f79009;
-    }
-
-
-    /* =========================================
-       FOOTER
-    ========================================= */
-
-    .footer{
-
-      text-align:center;
-
-      color:#98a2b3;
-
-      font-size:11px;
-
-      padding:18px;
-    }
-
-
-    @media(max-width:430px){
-
-      main{
-        padding:14px;
+      main {
+        padding: 15px;
       }
 
-
-      .summary{
-        gap:8px;
+      .next-names {
+        font-size: 21px;
       }
 
-
-      .card{
-        padding:14px;
-      }
-
-
-      .hero-title{
-        font-size:24px;
-      }
-
-
-      .person-row{
-        padding:9px;
-      }
-
-
-      .btn-whatsapp{
-        padding:
-          8px
-          9px;
+      .people-buttons {
+        grid-template-columns: 1fr;
       }
 
     }
@@ -949,34 +607,31 @@
 
 </head>
 
-
 <body>
-
 
 <div class="app">
 
-
-  <!-- =====================================================
+  <!-- =====================================
        CABEÇALHO
-  ====================================================== -->
+  ====================================== -->
 
   <header>
 
-    <div class="top">
+    <div class="header-row">
 
       <div class="brand">
 
-        <div class="logo">
-          🚗
+        <div class="brand-icon">
+          CV
         </div>
 
         <div>
 
-          <h1>
+          <h1 class="brand-title">
             Carrinho Village
           </h1>
 
-          <div class="subtitle">
+          <div class="brand-subtitle">
             Lembretes de testemunho público
           </div>
 
@@ -984,58 +639,13 @@
 
       </div>
 
-
       <button
         class="refresh"
         onclick="carregar()"
-        aria-label="Atualizar"
-      >
+        aria-label="Atualizar">
+
         ↻
-      </button>
 
-    </div>
-
-
-    <div class="hero">
-
-      <p class="hero-title">
-        Seus próximos lembretes
-      </p>
-
-      <p class="hero-text">
-        Toque em “WhatsApp” para enviar o lembrete diretamente.
-      </p>
-
-    </div>
-
-
-    <!-- =================================================
-         ABAS
-    ================================================== -->
-
-    <div class="tabs">
-
-      <button
-        class="tab active"
-        onclick="abrirAba('inicio',this)"
-      >
-        🏠 Início
-      </button>
-
-
-      <button
-        class="tab"
-        onclick="abrirAba('designacoes',this)"
-      >
-        📋 Designações
-      </button>
-
-
-      <button
-        class="tab"
-        onclick="abrirAba('configuracoes',this)"
-      >
-        ⚙️ Config.
       </button>
 
     </div>
@@ -1043,119 +653,35 @@
   </header>
 
 
-
   <main>
 
+    <button
+      id="installBtn"
+      class="install">
 
-    <!-- =================================================
+      📲 Instalar Carrinho Village
+
+    </button>
+
+
+    <!-- =====================================
          INÍCIO
-    ================================================== -->
+    ====================================== -->
 
     <section
       id="inicio"
-      class="view active"
-    >
+      class="tab-content active">
+
+      <h2 class="page-title">
+        Próximos lembretes
+      </h2>
+
+      <p class="page-subtitle">
+        Veja rapidamente quem você precisa lembrar.
+      </p>
 
 
-      <div class="summary">
-
-
-        <div class="stat">
-
-          <strong id="pendentes">
-            —
-          </strong>
-
-          <span>
-            Próximos lembretes
-          </span>
-
-        </div>
-
-
-        <div class="stat">
-
-          <strong id="total">
-            —
-          </strong>
-
-          <span>
-            Designações carregadas
-          </span>
-
-        </div>
-
-
-      </div>
-
-
-
-      <div class="section-head">
-
-        <h2>
-          Próximas designações
-        </h2>
-
-
-        <span
-          class="count"
-          id="atualizado"
-        >
-          Atualizando…
-        </span>
-
-      </div>
-
-
-
-      <div
-        id="listaProximos"
-        class="list"
-      >
-
-        <div class="loading">
-          Carregando seus lembretes…
-        </div>
-
-      </div>
-
-
-    </section>
-
-
-
-    <!-- =================================================
-         TODAS AS DESIGNAÇÕES
-    ================================================== -->
-
-    <section
-      id="designacoes"
-      class="view"
-    >
-
-
-      <div class="section-head">
-
-        <h2>
-          Todas as designações
-        </h2>
-
-
-        <span
-          class="count"
-          id="totalDesignacoes"
-        >
-          —
-        </span>
-
-      </div>
-
-
-
-      <div
-        id="listaTodos"
-        class="list"
-      >
+      <div id="proximo">
 
         <div class="loading">
           Carregando…
@@ -1164,99 +690,149 @@
       </div>
 
 
-    </section>
-
-
-
-    <!-- =================================================
-         CONFIGURAÇÕES
-    ================================================== -->
-
-    <section
-      id="configuracoes"
-      class="view"
-    >
-
-
-      <!-- MENSAGEM -->
-
-      <div class="settings-card">
+      <div class="section-title">
 
         <h2>
-          💬 Mensagem do WhatsApp
+          Próximos
         </h2>
 
+        <span
+          class="section-count"
+          id="proximosCount">
 
-        <p>
-          Personalize a mensagem que será aberta quando você tocar no botão WhatsApp.
-        </p>
+          —
 
-
-        <div class="field">
-
-          <label>
-            Modelo da mensagem
-          </label>
-
-
-          <textarea
-            id="modeloMensagem"
-          ></textarea>
-
-
-          <div class="variables">
-
-            <span class="variable">
-              {nome}
-            </span>
-
-            <span class="variable">
-              {data}
-            </span>
-
-            <span class="variable">
-              {horario}
-            </span>
-
-            <span class="variable">
-              {dupla}
-            </span>
-
-          </div>
-
-        </div>
+        </span>
 
       </div>
 
 
+      <div
+        id="proximos"
+        class="upcoming-list">
 
-      <!-- NOTIFICAÇÕES -->
+      </div>
+
+    </section>
+
+
+    <!-- =====================================
+         LISTA COMPLETA
+    ====================================== -->
+
+    <section
+      id="listaTab"
+      class="tab-content">
+
+      <h2 class="page-title">
+        Todas as designações
+      </h2>
+
+      <p class="page-subtitle">
+        Consulte todas as pessoas e horários.
+      </p>
+
+
+      <div class="filters">
+
+        <input
+          id="busca"
+          class="search"
+          type="search"
+          placeholder="Pesquisar nome ou dupla…"
+          oninput="filtrarLista()">
+
+      </div>
+
+
+      <div
+        id="listaCompleta"
+        class="all-list">
+
+        <div class="loading">
+          Carregando…
+        </div>
+
+      </div>
+
+    </section>
+
+
+    <!-- =====================================
+         NOTIFICAÇÕES
+    ====================================== -->
+
+    <section
+      id="notificacoes"
+      class="tab-content">
+
+      <h2 class="page-title">
+        Notificações
+      </h2>
+
+      <p class="page-subtitle">
+        Escolha quando e como deseja ser lembrado.
+      </p>
+
+
+      <!-- STATUS -->
 
       <div class="settings-card">
 
-        <h2>
-          🔔 Notificações
-        </h2>
+        <div class="settings-title">
+          Notificações
+        </div>
+
+        <div class="settings-description">
+          Configure o aviso do aplicativo para receber
+          um lembrete antes da designação.
+        </div>
 
 
-        <p>
-          Escolha quando o aplicativo deve lembrar você das próximas designações.
-        </p>
+        <div
+          id="notificationStatus"
+          class="notification-status">
+
+          Verificando permissão…
+
+        </div>
+
+
+        <button
+          class="primary-button"
+          onclick="ativarNotificacoes()">
+
+          🔔 Ativar notificações
+
+        </button>
+
+      </div>
+
+
+      <!-- ANTECEDÊNCIA -->
+
+      <div class="settings-card">
+
+        <div class="settings-title">
+          Antecedência
+        </div>
+
+        <div class="settings-description">
+          Defina quantos dias antes da designação
+          você deseja ser lembrado.
+        </div>
 
 
         <div class="field">
 
           <label>
-            Antecedência
+            Lembrar com antecedência
           </label>
 
-
-          <select
-            id="antecedencia"
-          >
+          <select id="antecedencia">
 
             <option value="0">
-              No mesmo dia
+              No dia
             </option>
 
             <option value="1">
@@ -1284,322 +860,429 @@
         </div>
 
 
-
         <div class="field">
 
           <label>
             Horário da notificação
           </label>
 
-
           <input
-            type="time"
             id="horaNotificacao"
-            value="18:00"
-          >
+            type="time"
+            value="09:00">
 
-        </div>
-
-
-
-        <div class="notification-info">
-
-          <div class="notification-status">
-
-            <span class="dot"></span>
-
-            Configuração salva neste dispositivo
-
-          </div>
-
-
-          As configurações definem quando você deseja ser lembrado.
-          Para notificações reais mesmo quando o aplicativo estiver fechado,
-          ainda precisamos configurar o sistema de notificações do aplicativo.
-
-        </div>
-
-
-        <br>
-
-
-        <button
-          class="save"
-          onclick="salvarConfiguracoes()"
-        >
-          💾 Salvar configurações
-        </button>
-
-
-        <div
-          id="salvo"
-          class="saved"
-        >
-          ✓ Configurações salvas
         </div>
 
       </div>
 
 
-    </section>
+      <!-- MENSAGEM -->
 
+      <div class="settings-card">
+
+        <div class="settings-title">
+          Mensagem do WhatsApp
+        </div>
+
+        <div class="settings-description">
+
+          Personalize a mensagem que será aberta
+          quando você tocar no botão do WhatsApp.
+
+          <br><br>
+
+          Você pode usar:
+
+          <br>
+          <b>{nome}</b> — nome da pessoa
+          <br>
+          <b>{data}</b> — data da designação
+          <br>
+          <b>{horario}</b> — horário
+          <br>
+          <b>{dupla}</b> — companheiro(a)
+
+        </div>
+
+
+        <div class="field">
+
+          <label>
+            Modelo da mensagem
+          </label>
+
+          <textarea
+            id="modeloMensagem"></textarea>
+
+        </div>
+
+
+        <div class="settings-actions">
+
+          <button
+            class="primary-button"
+            onclick="salvarConfiguracoes()">
+
+            ✓ Salvar configurações
+
+          </button>
+
+
+          <button
+            class="secondary-button"
+            onclick="restaurarMensagemPadrao()">
+
+            Restaurar mensagem padrão
+
+          </button>
+
+        </div>
+
+      </div>
+
+    </section>
 
   </main>
 
 
+  <!-- =====================================
+       NAVEGAÇÃO
+  ====================================== -->
 
-  <div class="footer">
-    Carrinho Village • versão 1.0
-  </div>
+  <nav class="bottom-nav">
 
+    <button
+      class="nav-btn active"
+      onclick="abrirAba('inicio', this)">
+
+      <span>⌂</span>
+      Início
+
+    </button>
+
+
+    <button
+      class="nav-btn"
+      onclick="abrirAba('listaTab', this)">
+
+      <span>☷</span>
+      Lista
+
+    </button>
+
+
+    <button
+      class="nav-btn"
+      onclick="abrirAba('notificacoes', this)">
+
+      <span>♧</span>
+      Notificações
+
+    </button>
+
+  </nav>
 
 </div>
 
 
-
 <script>
 
-
-/* =========================================================
+/* =========================================
    API
-========================================================= */
+========================================= */
 
 const API =
-"https://script.google.com/macros/s/AKfycbxigrLwmQlKyAAg_fxvQnFPy5NiXWbkYUOWJX0tQdD9ldQWrDcqx2hcLCrGNugRCukS/exec?api=lembretes";
+  "https://script.google.com/macros/s/AKfycbw2oS_My7_WG0XWVF36aRWYwbNhO3u_h7cyNj9xYml6TKGAgkMK5pIo0E1SboMtAvr1PQ/exec?api=lembretes";
 
 
-/* =========================================================
+/* =========================================
    VARIÁVEIS
-========================================================= */
+========================================= */
 
 let lembretes = [];
 
+let filtrados = [];
 
-/* =========================================================
-   CONFIGURAÇÃO PADRÃO
-========================================================= */
 
-const CONFIG_PADRAO = {
+/* =========================================
+   MENSAGEM PADRÃO
+========================================= */
 
-  mensagem:
+const MENSAGEM_PADRAO =
 `Olá, {nome}! 😊
 
 Passando para lembrar que você está designado(a) para o carrinho de testemunho público no dia {data}, às {horario}.
 
 Sua dupla será: {dupla}.
 
-Agradecemos pela sua disposição em apoiar essa atividade! 💚`,
-
-  antecedencia:"1",
-
-  hora:"18:00"
-
-};
+Agradecemos pela sua disposição em apoiar essa atividade! 💚`;
 
 
-/* =========================================================
-   CONFIGURAÇÕES
-========================================================= */
+/* =========================================
+   ESCAPE HTML
+========================================= */
 
-function carregarConfiguracoes(){
+function escapeHtml(valor) {
 
-  try{
-
-    const salvo =
-      localStorage.getItem(
-        "carrinhoConfig"
-      );
-
-
-    const config =
-      salvo
-        ? JSON.parse(salvo)
-        : CONFIG_PADRAO;
-
-
-    document.getElementById(
-      "modeloMensagem"
-    ).value =
-      config.mensagem ||
-      CONFIG_PADRAO.mensagem;
-
-
-    document.getElementById(
-      "antecedencia"
-    ).value =
-      config.antecedencia ??
-      "1";
-
-
-    document.getElementById(
-      "horaNotificacao"
-    ).value =
-      config.hora ||
-      "18:00";
-
-
-  }catch(e){
-
-    console.error(
-      "Erro nas configurações:",
-      e
-    );
-
-  }
+  return String(valor ?? "")
+    .replace(/[&<>"']/g, m => ({
+      "&":"&amp;",
+      "<":"&lt;",
+      ">":"&gt;",
+      '"':"&quot;",
+      "'":"&#039;"
+    }[m]));
 
 }
 
 
-
-function obterConfig(){
-
-  try{
-
-    const salvo =
-      localStorage.getItem(
-        "carrinhoConfig"
-      );
-
-
-    return salvo
-      ? JSON.parse(salvo)
-      : CONFIG_PADRAO;
-
-
-  }catch(e){
-
-    return CONFIG_PADRAO;
-
-  }
-
-}
-
-
-
-function salvarConfiguracoes(){
-
-  const config = {
-
-    mensagem:
-      document.getElementById(
-        "modeloMensagem"
-      ).value,
-
-    antecedencia:
-      document.getElementById(
-        "antecedencia"
-      ).value,
-
-    hora:
-      document.getElementById(
-        "horaNotificacao"
-      ).value
-
-  };
-
-
-  localStorage.setItem(
-    "carrinhoConfig",
-    JSON.stringify(config)
-  );
-
-
-  const salvo =
-    document.getElementById(
-      "salvo"
-    );
-
-
-  salvo.style.display =
-    "block";
-
-
-  setTimeout(
-    function(){
-
-      salvo.style.display =
-        "none";
-
-    },
-    2500
-  );
-
-}
-
-
-/* =========================================================
-   MENSAGEM
-========================================================= */
-
-function gerarMensagem(item){
-
-  const config =
-    obterConfig();
-
-
-  return (
-    config.mensagem ||
-    CONFIG_PADRAO.mensagem
-  )
-
-  .replaceAll(
-    "{nome}",
-    item.nome || ""
-  )
-
-  .replaceAll(
-    "{data}",
-    item.data || ""
-  )
-
-  .replaceAll(
-    "{horario}",
-    item.horario || ""
-  )
-
-  .replaceAll(
-    "{dupla}",
-    item.dupla || ""
-  );
-
-}
-
-
-/* =========================================================
+/* =========================================
    WHATSAPP
-========================================================= */
+========================================= */
 
-function abrirWhatsApp(index){
+function normalizarNumero(valor) {
 
-  const item =
-    lembretes[index];
+  let numero =
+    String(valor || "")
+      .replace(/\D/g, "");
 
+  if (
+    numero &&
+    !numero.startsWith("55")
+  ) {
 
-  if(!item){
-    return;
+    numero = "55" + numero;
+
   }
 
+  return numero;
+
+}
+
+
+/* =========================================
+   DATA
+========================================= */
+
+function formatarData(valor) {
+
+  if (!valor) {
+    return "Data não informada";
+  }
+
+  const texto = String(valor);
+
+  const brasileira =
+    texto.match(
+      /^(\d{1,2})\/(\d{1,2})\/(\d{4})/
+    );
+
+  if (brasileira) {
+
+    return `${brasileira[1].padStart(2,"0")}/${brasileira[2].padStart(2,"0")}/${brasileira[3]}`;
+
+  }
+
+  const data =
+    new Date(texto);
+
+  if (!isNaN(data)) {
+
+    return data.toLocaleDateString(
+      "pt-BR",
+      {
+        timeZone:
+          "America/Sao_Paulo"
+      }
+    );
+
+  }
+
+  return texto;
+
+}
+
+
+/* =========================================
+   HORÁRIO
+========================================= */
+
+function formatarHorario(valor) {
+
+  if (!valor) {
+    return "—";
+  }
+
+  const texto =
+    String(valor).trim();
+
+
+  /*
+   * Corrige:
+   *
+   * Sat Dec 30 1899 05:23:32 GMT...
+   */
+
+  const horarioCompleto =
+    texto.match(
+      /(\d{1,2}):(\d{2})(?::\d{2})?/
+    );
+
+  if (horarioCompleto) {
+
+    return (
+      horarioCompleto[1]
+        .padStart(2,"0") +
+      ":" +
+      horarioCompleto[2]
+    );
+
+  }
+
+
+  /*
+   * Caso já seja HH:MM
+   */
+
+  const simples =
+    texto.match(
+      /^(\d{1,2}):(\d{2})/
+    );
+
+  if (simples) {
+
+    return (
+      simples[1].padStart(2,"0") +
+      ":" +
+      simples[2]
+    );
+
+  }
+
+  return texto;
+
+}
+
+
+/* =========================================
+   DATA/HORA PARA ORDENAÇÃO
+========================================= */
+
+function dataHora(item) {
+
+  const partes =
+    String(item.data || "")
+      .split("/");
+
+  if (partes.length !== 3) {
+    return Infinity;
+  }
+
+  const dia =
+    Number(partes[0]);
+
+  const mes =
+    Number(partes[1]) - 1;
+
+  const ano =
+    Number(partes[2]);
+
+
+  const horario =
+    formatarHorario(item.horario);
+
+
+  const partesHora =
+    horario.match(
+      /^(\d{2}):(\d{2})/
+    );
+
+
+  const hora =
+    partesHora
+      ? Number(partesHora[1])
+      : 0;
+
+
+  const minuto =
+    partesHora
+      ? Number(partesHora[2])
+      : 0;
+
+
+  return new Date(
+    ano,
+    mes,
+    dia,
+    hora,
+    minuto
+  ).getTime();
+
+}
+
+
+/* =========================================
+   MENSAGEM
+========================================= */
+
+function gerarMensagem(item) {
+
+  let modelo =
+    localStorage.getItem(
+      "carrinho_modelo_mensagem"
+    );
+
+
+  if (!modelo) {
+    modelo = MENSAGEM_PADRAO;
+  }
+
+
+  return modelo
+    .replaceAll(
+      "{nome}",
+      item.nome || ""
+    )
+    .replaceAll(
+      "{data}",
+      formatarData(item.data)
+    )
+    .replaceAll(
+      "{horario}",
+      formatarHorario(item.horario)
+    )
+    .replaceAll(
+      "{dupla}",
+      item.dupla || ""
+    );
+
+}
+
+
+/* =========================================
+   WHATSAPP
+========================================= */
+
+function abrirWhatsApp(item) {
 
   const numero =
-    String(
-      item.whatsapp || ""
-    ).replace(
-      /\D/g,
-      ""
+    normalizarNumero(
+      item.whatsapp
     );
 
 
-  if(!numero){
+  if (!numero) {
 
     alert(
       "Este cadastro não possui número de WhatsApp."
     );
 
     return;
+
   }
 
 
-  const mensagem =
+  const texto =
     gerarMensagem(item);
 
 
@@ -1607,9 +1290,7 @@ function abrirWhatsApp(index){
     "https://wa.me/" +
     numero +
     "?text=" +
-    encodeURIComponent(
-      mensagem
-    );
+    encodeURIComponent(texto);
 
 
   window.open(
@@ -1620,554 +1301,643 @@ function abrirWhatsApp(index){
 }
 
 
-/* =========================================================
-   COPIAR MENSAGEM
-========================================================= */
+/* =========================================
+   AGRUPAR DUPLAS
+========================================= */
 
-function copiarMensagem(index){
+function agruparDuplas(lista) {
 
-  const item =
-    lembretes[index];
+  const grupos = [];
 
-
-  if(!item){
-    return;
-  }
+  const usados =
+    new Set();
 
 
-  const mensagem =
-    gerarMensagem(item);
+  lista.forEach(
+    (item, index) => {
+
+      if (
+        usados.has(index)
+      ) {
+        return;
+      }
 
 
-  navigator
-    .clipboard
-    .writeText(
-      mensagem
-    )
+      const nomeItem =
+        String(item.nome || "")
+          .trim()
+          .toLowerCase();
 
-    .then(
-      function(){
 
-        alert(
-          "Mensagem copiada!"
+      const nomeDupla =
+        String(item.dupla || "")
+          .trim()
+          .toLowerCase();
+
+
+      if (!nomeDupla) {
+
+        grupos.push({
+          dataHora:
+            dataHora(item),
+
+          pessoas: [item]
+        });
+
+        usados.add(index);
+
+        return;
+
+      }
+
+
+      const parceiroIndex =
+        lista.findIndex(
+          (outro, i) => {
+
+            if (
+              i === index ||
+              usados.has(i)
+            ) {
+              return false;
+            }
+
+
+            const outroNome =
+              String(
+                outro.nome || ""
+              )
+                .trim()
+                .toLowerCase();
+
+
+            const outraDupla =
+              String(
+                outro.dupla || ""
+              )
+                .trim()
+                .toLowerCase();
+
+
+            return (
+
+              outroNome === nomeDupla &&
+
+              outraDupla === nomeItem &&
+
+              formatarData(
+                outro.data
+              ) === formatarData(
+                item.data
+              ) &&
+
+              formatarHorario(
+                outro.horario
+              ) === formatarHorario(
+                item.horario
+              )
+
+            );
+
+          }
+        );
+
+
+      if (parceiroIndex >= 0) {
+
+        grupos.push({
+
+          dataHora:
+            Math.min(
+              dataHora(item),
+              dataHora(
+                lista[parceiroIndex]
+              )
+            ),
+
+          pessoas: [
+            item,
+            lista[parceiroIndex]
+          ]
+
+        });
+
+
+        usados.add(index);
+
+        usados.add(
+          parceiroIndex
         );
 
       }
-    )
 
-    .catch(
-      function(){
+      else {
 
-        alert(
-          "Não foi possível copiar a mensagem."
-        );
+        grupos.push({
+
+          dataHora:
+            dataHora(item),
+
+          pessoas: [item]
+
+        });
+
+
+        usados.add(index);
 
       }
+
+    }
+  );
+
+
+  return grupos.sort(
+    (a,b) =>
+      a.dataHora -
+      b.dataHora
+  );
+
+}
+
+
+/* =========================================
+   INÍCIO
+========================================= */
+
+function renderInicio() {
+
+  const proximo =
+    document.getElementById(
+      "proximo"
     );
 
-}
 
-
-/* =========================================================
-   DUPLAS
-========================================================= */
-
-function chaveDupla(item){
-
-  const nomes = [
-
-    item.nome || "",
-
-    item.dupla || ""
-
-  ]
-
-  .filter(
-    Boolean
-  )
-
-  .sort();
-
-
-  return nomes.join("|");
-
-}
-
-
-
-function agruparDesignacoes(items){
-
-  const grupos = {};
-
-
-  items.forEach(
-    function(item){
-
-      const chave =
-        chaveDupla(item);
-
-
-      if(!grupos[chave]){
-
-        grupos[chave] = [];
-
-      }
-
-
-      grupos[chave].push(
-        item
-      );
-
-    }
-  );
-
-
-  return Object.values(
-    grupos
-  );
-
-}
-
-
-/* =========================================================
-   DATA/HORA PARA ORDENAÇÃO
-========================================================= */
-
-function dataObjeto(
-  data,
-  horario
-){
-
-  if(!data){
-
-    return new Date(0);
-
-  }
-
-
-  const partes =
-    String(data)
-      .split("/");
-
-
-  if(partes.length !== 3){
-
-    return new Date(data);
-
-  }
-
-
-  let hora =
-    "00:00";
-
-
-  if(
-    horario &&
-    /^\d{1,2}:\d{2}$/.test(
-      String(horario)
-    )
-  ){
-
-    hora =
-      String(horario);
-
-  }
-
-
-  return new Date(
-
-    `${partes[2]}-${partes[1].padStart(2,"0")}-${partes[0].padStart(2,"0")}T${hora}:00`
-
-  );
-
-}
-
-
-/* =========================================================
-   CARD
-========================================================= */
-
-function criarCard(
-  grupo
-){
-
-  if(
-    !grupo ||
-    !grupo.length
-  ){
-
-    return "";
-
-  }
-
-
-  const primeiro =
-    grupo[0];
-
-
-  const nomes =
-    grupo
-      .map(
-        function(item){
-
-          return item.nome;
-
-        }
-      )
-      .filter(Boolean)
-      .join(" + ");
-
-
-  const data =
-    primeiro.data ||
-    "Data não informada";
-
-
-  const horario =
-    primeiro.horario ||
-    "—";
-
-
-  let pessoas = "";
-
-
-  grupo.forEach(
-    function(item){
-
-      const index =
-        lembretes.indexOf(
-          item
-        );
-
-
-      pessoas += `
-
-        <div class="person-row">
-
-          <span class="person-name">
-
-            ${escapeHtml(
-              item.nome
-            )}
-
-          </span>
-
-
-          <button
-            class="btn-whatsapp"
-            onclick="abrirWhatsApp(${index})"
-          >
-
-            💬 WhatsApp
-
-          </button>
-
-        </div>
-
-      `;
-
-    }
-  );
-
-
-  return `
-
-    <article class="card">
-
-
-      <div class="card-top">
-
-
-        <div>
-
-          <p class="person">
-
-            ${escapeHtml(
-              nomes
-            )}
-
-          </p>
-
-
-          <div class="date">
-
-            📅 ${escapeHtml(
-              data
-            )}
-
-          </div>
-
-        </div>
-
-
-        <span class="badge">
-
-          Pendente
-
-        </span>
-
-
-      </div>
-
-
-
-      <div class="details">
-
-
-        <div class="detail">
-
-          <small>
-            Horário
-          </small>
-
-
-          <b>
-
-            🕐 ${escapeHtml(
-              horario
-            )}
-
-          </b>
-
-        </div>
-
-
-
-        <div class="detail">
-
-          <small>
-            Pessoas
-          </small>
-
-
-          <b>
-
-            👥 ${grupo.length}
-
-          </b>
-
-        </div>
-
-
-      </div>
-
-
-
-      <div class="people">
-
-        ${pessoas}
-
-      </div>
-
-
-    </article>
-
-  `;
-
-}
-
-
-/* =========================================================
-   RENDERIZAR
-========================================================= */
-
-function render(
-  items
-){
-
-  lembretes =
-    Array.isArray(items)
-      ? items
-      : [];
-
-
-  console.log(
-    "ITENS PARA RENDERIZAR:",
-    lembretes
-  );
-
-
-  document.getElementById(
-    "total"
-  ).textContent =
-    lembretes.length;
+  const proximos =
+    document.getElementById(
+      "proximos"
+    );
 
 
   const grupos =
-    agruparDesignacoes(
+    agruparDuplas(
       lembretes
     );
 
 
-  /* Ordenar pela data e horário */
+  if (!grupos.length) {
 
-  grupos.sort(
-    function(a,b){
-
-      return (
-
-        dataObjeto(
-          a[0].data,
-          a[0].horario
-        )
-
-        -
-
-        dataObjeto(
-          b[0].data,
-          b[0].horario
-        )
-
-      );
-
-    }
-  );
-
-
-  /* =====================================================
-     INÍCIO — SOMENTE OS PRÓXIMOS
-  ===================================================== */
-
-  const proximos =
-    grupos.slice(
-      0,
-      3
-    );
-
-
-  document.getElementById(
-    "pendentes"
-  ).textContent =
-    proximos.length;
-
-
-  const listaProximos =
-    document.getElementById(
-      "listaProximos"
-    );
-
-
-  if(!proximos.length){
-
-    listaProximos.innerHTML = `
+    proximo.innerHTML = `
 
       <div class="empty">
 
-        <div class="empty-icon">
-          🎉
-        </div>
+        <strong>
+          Nenhum lembrete encontrado
+        </strong>
 
-
-        <b>
-          Nenhum lembrete pendente
-        </b>
-
-
-        <p>
-          Quando houver uma nova designação,
-          ela aparecerá aqui.
-        </p>
+        Não há designações disponíveis.
 
       </div>
 
     `;
 
-  }else{
+    proximos.innerHTML = "";
 
-    listaProximos.innerHTML =
-      proximos
-        .map(
-          criarCard
-        )
-        .join("");
+    return;
 
   }
 
 
-  /* =====================================================
-     TODAS
-  ===================================================== */
+  /* PRIMEIRO */
 
-  document.getElementById(
-    "totalDesignacoes"
-  ).textContent =
-    grupos.length;
+  const grupo =
+    grupos[0];
 
 
-  const listaTodos =
-    document.getElementById(
-      "listaTodos"
+  const pessoas =
+    grupo.pessoas;
+
+
+  const nomes =
+    pessoas
+      .map(
+        p =>
+          escapeHtml(
+            p.nome
+          )
+      )
+      .join(" + ");
+
+
+  const data =
+    formatarData(
+      pessoas[0].data
     );
 
 
-  if(!grupos.length){
+  const horario =
+    formatarHorario(
+      pessoas[0].horario
+    );
 
-    listaTodos.innerHTML = `
+
+  proximo.innerHTML = `
+
+    <div class="next-label">
+      PRÓXIMO LEMBRETE
+    </div>
+
+
+    <div class="next-card">
+
+      <div class="next-date">
+        📅 ${escapeHtml(data)}
+      </div>
+
+
+      <div class="next-names">
+        ${nomes}
+      </div>
+
+
+      <div class="next-info">
+
+        <div class="info-pill">
+          🕐 ${escapeHtml(horario)}
+        </div>
+
+        <div class="info-pill">
+          👥 ${pessoas.length}
+          pessoa${pessoas.length > 1 ? "s" : ""}
+        </div>
+
+      </div>
+
+
+      <div class="people-buttons">
+
+        ${pessoas.map(
+          p => `
+
+            <button
+              class="whatsapp-btn"
+              onclick="abrirWhatsAppPorIndex(${lembretes.indexOf(p)})">
+
+              💬 ${escapeHtml(p.nome)}
+
+            </button>
+
+          `
+        ).join("")}
+
+      </div>
+
+    </div>
+
+  `;
+
+
+  /* OUTROS */
+
+  const outros =
+    grupos.slice(1,6);
+
+
+  document.getElementById(
+    "proximosCount"
+  ).textContent =
+    outros.length +
+    " próximos";
+
+
+  if (!outros.length) {
+
+    proximos.innerHTML = `
 
       <div class="empty">
 
-        <div class="empty-icon">
-          🎉
-        </div>
-
-
-        <b>
-          Nenhuma designação
-        </b>
+        <strong>
+          Não há outros lembretes.
+        </strong>
 
       </div>
 
     `;
 
-  }else{
-
-    listaTodos.innerHTML =
-      grupos
-        .map(
-          criarCard
-        )
-        .join("");
+    return;
 
   }
 
 
-  document.getElementById(
-    "atualizado"
-  ).textContent =
-    "Atualizado agora";
+  proximos.innerHTML =
+    outros.map(
+      grupo => {
+
+        const pessoas =
+          grupo.pessoas;
+
+
+        const primeiro =
+          pessoas[0];
+
+
+        const nomes =
+          pessoas
+            .map(
+              p =>
+                escapeHtml(
+                  p.nome
+                )
+            )
+            .join(" + ");
+
+
+        return `
+
+          <div class="upcoming-card">
+
+            <div class="upcoming-main">
+
+              <div class="upcoming-date">
+                ${escapeHtml(
+                  formatarData(
+                    primeiro.data
+                  )
+                )}
+              </div>
+
+
+              <div class="upcoming-name">
+                ${nomes}
+              </div>
+
+
+              <div class="upcoming-time">
+                ${escapeHtml(
+                  formatarHorario(
+                    primeiro.horario
+                  )
+                )}
+              </div>
+
+            </div>
+
+
+            <button
+              class="mini-btn"
+              onclick="abrirAba(
+                'listaTab',
+                document.querySelectorAll('.nav-btn')[1]
+              )">
+
+              Ver
+
+            </button>
+
+          </div>
+
+        `;
+
+      }
+    ).join("");
 
 }
 
 
-/* =========================================================
-   CARREGAR API
-========================================================= */
+/* =========================================
+   ABRIR WHATSAPP POR ÍNDICE
+========================================= */
 
-async function carregar(){
+function abrirWhatsAppPorIndex(index) {
 
-  const lista =
+  const item =
+    lembretes[index];
+
+  if (!item) {
+    return;
+  }
+
+  abrirWhatsApp(item);
+
+}
+
+
+/* =========================================
+   LISTA COMPLETA
+========================================= */
+
+function renderLista(lista) {
+
+  const container =
     document.getElementById(
-      "listaProximos"
+      "listaCompleta"
     );
 
 
-  lista.innerHTML =
-    '<div class="loading">Atualizando lembretes…</div>';
+  const grupos =
+    agruparDuplas(
+      lista
+    );
 
 
-  try{
+  if (!grupos.length) {
 
+    container.innerHTML = `
+
+      <div class="empty">
+
+        <strong>
+          Nenhum resultado.
+        </strong>
+
+        Não encontramos nenhuma designação.
+
+      </div>
+
+    `;
+
+    return;
+
+  }
+
+
+  container.innerHTML =
+    grupos.map(
+      grupo => {
+
+        const pessoas =
+          grupo.pessoas;
+
+
+        const primeiro =
+          pessoas[0];
+
+
+        const nomes =
+          pessoas
+            .map(
+              p =>
+                escapeHtml(
+                  p.nome
+                )
+            )
+            .join(" + ");
+
+
+        return `
+
+          <article class="list-card">
+
+            <div class="list-top">
+
+              <div>
+
+                <div class="list-name">
+                  ${nomes}
+                </div>
+
+
+                <div class="list-date">
+                  📅 ${escapeHtml(
+                    formatarData(
+                      primeiro.data
+                    )
+                  )}
+                </div>
+
+              </div>
+
+
+              <span class="status">
+                ${escapeHtml(
+                  primeiro.status ||
+                  "Pendente"
+                )}
+              </span>
+
+            </div>
+
+
+            <div class="list-details">
+
+              <span class="list-pill">
+                🕐 ${escapeHtml(
+                  formatarHorario(
+                    primeiro.horario
+                  )
+                )}
+              </span>
+
+
+              <span class="list-pill">
+                👥 ${pessoas.length}
+                pessoa${pessoas.length > 1 ? "s" : ""}
+              </span>
+
+            </div>
+
+
+            <div class="list-actions">
+
+              ${pessoas.map(
+                p => `
+
+                  <button
+                    class="whatsapp-btn"
+                    onclick="abrirWhatsAppPorIndex(
+                      ${lembretes.indexOf(p)}
+                    )">
+
+                    💬 ${escapeHtml(
+                      p.nome
+                    )}
+
+                  </button>
+
+                `
+              ).join("")}
+
+            </div>
+
+          </article>
+
+        `;
+
+      }
+    ).join("");
+
+}
+
+
+/* =========================================
+   PESQUISA
+========================================= */
+
+function filtrarLista() {
+
+  const termo =
+    document
+      .getElementById(
+        "busca"
+      )
+      .value
+      .toLowerCase()
+      .trim();
+
+
+  filtrados =
+    lembretes.filter(
+      item =>
+
+        String(
+          item.nome || ""
+        )
+          .toLowerCase()
+          .includes(termo)
+
+        ||
+
+        String(
+          item.dupla || ""
+        )
+          .toLowerCase()
+          .includes(termo)
+
+    );
+
+
+  renderLista(
+    filtrados
+  );
+
+}
+
+
+/* =========================================
+   API
+========================================= */
+
+async function carregar() {
+
+  const proximo =
+    document.getElementById(
+      "proximo"
+    );
+
+
+  try {
 
     const resposta =
       await fetch(
-        API,
+        API +
+        "&_=" +
+        Date.now(),
         {
-          cache:"no-store"
+          cache: "no-store"
         }
       );
 
 
-    if(!resposta.ok){
+    if (!resposta.ok) {
 
       throw new Error(
         "HTTP " +
@@ -2177,37 +1947,57 @@ async function carregar(){
     }
 
 
-    const data =
+    const dados =
       await resposta.json();
 
 
     console.log(
       "DADOS RECEBIDOS DA API:",
-      data
+      dados
     );
 
 
-    render(
-      data.itens || []
+    lembretes =
+      Array.isArray(
+        dados.itens
+      )
+        ? dados.itens
+        : [];
+
+
+    lembretes.sort(
+      (a,b) =>
+        dataHora(a) -
+        dataHora(b)
     );
 
 
-  }catch(erro){
+    filtrados =
+      [...lembretes];
+
+
+    renderInicio();
+
+    renderLista(
+      filtrados
+    );
+
+  }
+
+  catch (erro) {
 
     console.error(
-      "Erro ao carregar:",
       erro
     );
 
 
-    lista.innerHTML = `
+    proximo.innerHTML = `
 
       <div class="error">
 
-        <b>
+        <strong>
           Não foi possível atualizar.
-        </b>
-
+        </strong>
 
         <p>
           ${escapeHtml(
@@ -2217,9 +2007,8 @@ async function carregar(){
 
 
         <button
-          class="btn btn-secondary"
-          onclick="carregar()"
-        >
+          class="mini-btn"
+          onclick="carregar()">
 
           Tentar novamente
 
@@ -2229,140 +2018,364 @@ async function carregar(){
 
     `;
 
+  }
+
+}
+
+
+/* =========================================
+   ABAS
+========================================= */
+
+function abrirAba(
+  id,
+  botao
+) {
+
+  document
+    .querySelectorAll(
+      ".tab-content"
+    )
+    .forEach(
+      secao =>
+        secao.classList.remove(
+          "active"
+        )
+    );
+
+
+  document
+    .getElementById(id)
+    .classList.add(
+      "active"
+    );
+
+
+  document
+    .querySelectorAll(
+      ".nav-btn"
+    )
+    .forEach(
+      btn =>
+        btn.classList.remove(
+          "active"
+        )
+    );
+
+
+  if (botao) {
+
+    botao.classList.add(
+      "active"
+    );
+
+  }
+
+
+  window.scrollTo({
+    top: 0,
+    behavior: "smooth"
+  });
+
+}
+
+
+/* =========================================
+   CONFIGURAÇÕES
+========================================= */
+
+function carregarConfiguracoes() {
+
+  const antecedencia =
+    localStorage.getItem(
+      "carrinho_antecedencia"
+    );
+
+
+  const hora =
+    localStorage.getItem(
+      "carrinho_hora_notificacao"
+    );
+
+
+  const modelo =
+    localStorage.getItem(
+      "carrinho_modelo_mensagem"
+    );
+
+
+  if (antecedencia !== null) {
 
     document.getElementById(
-      "atualizado"
-    ).textContent =
-      "Falha na atualização";
+      "antecedencia"
+    ).value =
+      antecedencia;
+
+  }
+
+
+  if (hora) {
+
+    document.getElementById(
+      "horaNotificacao"
+    ).value =
+      hora;
+
+  }
+
+
+  document.getElementById(
+    "modeloMensagem"
+  ).value =
+    modelo ||
+    MENSAGEM_PADRAO;
+
+}
+
+
+/* =========================================
+   SALVAR CONFIGURAÇÕES
+========================================= */
+
+function salvarConfiguracoes() {
+
+  const antecedencia =
+    document.getElementById(
+      "antecedencia"
+    ).value;
+
+
+  const hora =
+    document.getElementById(
+      "horaNotificacao"
+    ).value;
+
+
+  const modelo =
+    document.getElementById(
+      "modeloMensagem"
+    ).value;
+
+
+  localStorage.setItem(
+    "carrinho_antecedencia",
+    antecedencia
+  );
+
+
+  localStorage.setItem(
+    "carrinho_hora_notificacao",
+    hora
+  );
+
+
+  localStorage.setItem(
+    "carrinho_modelo_mensagem",
+    modelo
+  );
+
+
+  alert(
+    "Configurações salvas!"
+  );
+
+}
+
+
+/* =========================================
+   RESTAURAR MENSAGEM
+========================================= */
+
+function restaurarMensagemPadrao() {
+
+  document.getElementById(
+    "modeloMensagem"
+  ).value =
+    MENSAGEM_PADRAO;
+
+}
+
+
+/* =========================================
+   NOTIFICAÇÕES
+========================================= */
+
+function atualizarStatusNotificacao() {
+
+  const elemento =
+    document.getElementById(
+      "notificationStatus"
+    );
+
+
+  if (
+    !("Notification" in window)
+  ) {
+
+    elemento.textContent =
+      "Este navegador não oferece suporte a notificações.";
+
+    return;
+
+  }
+
+
+  if (
+    Notification.permission ===
+    "granted"
+  ) {
+
+    elemento.textContent =
+      "✓ Notificações autorizadas neste dispositivo.";
+
+  }
+
+  else if (
+    Notification.permission ===
+    "denied"
+  ) {
+
+    elemento.textContent =
+      "⚠ As notificações estão bloqueadas no navegador.";
+
+  }
+
+  else {
+
+    elemento.textContent =
+      "As notificações ainda não foram autorizadas.";
 
   }
 
 }
 
 
-/* =========================================================
-   ABAS
-========================================================= */
+/* =========================================
+   PEDIR PERMISSÃO
+========================================= */
 
-function abrirAba(
-  id,
-  botao
-){
+async function ativarNotificacoes() {
 
-  document
-    .querySelectorAll(
-      ".view"
-    )
-    .forEach(
-      function(view){
+  if (
+    !("Notification" in window)
+  ) {
 
-        view.classList.remove(
-          "active"
-        );
+    alert(
+      "Seu navegador não oferece suporte a notificações."
+    );
 
+    return;
+
+  }
+
+
+  const permissao =
+    await Notification.requestPermission();
+
+
+  atualizarStatusNotificacao();
+
+
+  if (
+    permissao ===
+    "granted"
+  ) {
+
+    new Notification(
+      "Carrinho Village",
+      {
+        body:
+          "As notificações foram ativadas com sucesso."
       }
     );
 
-
-  document
-    .querySelectorAll(
-      ".tab"
-    )
-    .forEach(
-      function(tab){
-
-        tab.classList.remove(
-          "active"
-        );
-
-      }
-    );
-
-
-  document
-    .getElementById(
-      id
-    )
-    .classList.add(
-      "active"
-    );
-
-
-  botao.classList.add(
-    "active"
-  );
+  }
 
 }
 
 
-/* =========================================================
-   SEGURANÇA HTML
-========================================================= */
+/* =========================================
+   PWA
+========================================= */
 
-function escapeHtml(v){
+let deferredPrompt;
 
-  return String(
-    v ?? ""
-  ).replace(
-    /[&<>"']/g,
 
-    function(m){
+window.addEventListener(
+  "beforeinstallprompt",
+  event => {
 
-      return {
+    event.preventDefault();
 
-        "&":"&amp;",
-        "<":"&lt;",
-        ">":"&gt;",
-        '"':"&quot;",
-        "'":"&#039;"
+    deferredPrompt =
+      event;
 
-      }[m];
 
+    document
+      .getElementById(
+        "installBtn"
+      )
+      .style.display =
+      "block";
+
+  }
+);
+
+
+document
+  .getElementById(
+    "installBtn"
+  )
+  .onclick =
+  async () => {
+
+    if (!deferredPrompt) {
+      return;
     }
-  );
-
-}
 
 
-/* =========================================================
+    deferredPrompt.prompt();
+
+
+    await deferredPrompt.userChoice;
+
+
+    deferredPrompt = null;
+
+
+    document
+      .getElementById(
+        "installBtn"
+      )
+      .style.display =
+      "none";
+
+  };
+
+
+/* =========================================
    SERVICE WORKER
-========================================================= */
+========================================= */
 
-if(
-  "serviceWorker"
-  in navigator
-){
+if (
+  "serviceWorker" in navigator
+) {
 
   window.addEventListener(
     "load",
-
-    function(){
+    () => {
 
       navigator
         .serviceWorker
         .register(
           "sw.js"
         )
-
-        .then(
-          function(){
-
-            console.log(
-              "Service Worker ativado."
-            );
-
-          }
-        )
-
         .catch(
-          function(erro){
-
+          erro =>
             console.error(
-              "Erro no Service Worker:",
+              "Service Worker:",
               erro
-            );
-
-          }
+            )
         );
 
     }
@@ -2371,28 +2384,27 @@ if(
 }
 
 
-/* =========================================================
-   INICIAR
-========================================================= */
+/* =========================================
+   INICIALIZAÇÃO
+========================================= */
 
 carregarConfiguracoes();
+
+atualizarStatusNotificacao();
 
 carregar();
 
 
 /*
-   Atualiza os dados automaticamente
-   a cada 5 minutos.
-*/
+ * Atualiza os dados a cada 5 minutos.
+ */
 
 setInterval(
   carregar,
   5 * 60 * 1000
 );
 
-
 </script>
-
 
 </body>
 </html>
