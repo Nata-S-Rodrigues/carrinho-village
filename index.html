@@ -1718,7 +1718,7 @@ async function ativarNotificacoesPush() {
 // CADASTRAR TOKEN NO APPS SCRIPT
 // ============================================================
 
-const dispositivo =
+const tipoDispositivo =
   /Android|iPhone|iPad|iPod/i.test(
     navigator.userAgent
   )
@@ -1732,7 +1732,7 @@ const urlRegistro =
   "&token=" +
   encodeURIComponent(currentToken) +
   "&dispositivo=" +
-  encodeURIComponent(dispositivo);
+encodeURIComponent(tipoDispositivo);
 
 
 console.log(
