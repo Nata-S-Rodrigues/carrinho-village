@@ -1692,166 +1692,165 @@ function abrirWhatsAppPorIndex(index) {
    AGRUPAR DUPLAS
 ===================================================== */
 
+function normalizarNome(nome) {
+  return String(nome || "")
+    .normalize("NFD")
+    .replace(/[\u0300-\u036f]/g, "")
+    .trim()
+    .toLowerCase()
+    .replace(/\s+/g, " ");
+}
+
+
+function mesmaData(a, b) {
+
+  return formatarData(a) === formatarData(b);
+
+}
+
+
+function mesmoHorario(a, b) {
+
+  const horaA = formatarHorario(a);
+  const horaB = formatarHorario(b);
+
+  return horaA === horaB;
+
+}
+
+
 function agruparDuplas(lista) {
 
   const grupos = [];
+  const usados = new Set();
 
-  const usados =
-    new Set();
+  for (let i = 0; i < lista.length; i++) {
 
+    if (usados.has(i)) {
+      continue;
+    }
 
-  lista.forEach(
-    (item, index) => {
+    const pessoa = lista[i];
 
+    const nomePessoa =
+      normalizarNome(pessoa.nome);
 
-      if (
-        usados.has(index)
-      ) {
-
-        return;
-
-      }
-
-
-      const nomeItem =
-
-        String(
-          item.nome || ""
-        )
-        .trim()
-        .toLowerCase();
+    const nomeDupla =
+      normalizarNome(pessoa.dupla);
 
 
-      const duplaNome =
+    /*
+     * Procura a pessoa que corresponde
+     * à dupla informada.
+     */
 
-        String(
-          item.dupla || ""
-        )
-        .trim()
-        .toLowerCase();
-
-
-      /*
-        Procura a outra pessoa da dupla.
-      */
-
-      const parceiroIndex =
-
-        lista.findIndex(
-          (outro, i) => {
+    let indiceDupla = -1;
 
 
-            if (
-              i === index ||
-              usados.has(i)
-            ) {
+    if (nomeDupla) {
 
-              return false;
+      for (let j = 0; j < lista.length; j++) {
 
-            }
+        if (j === i || usados.has(j)) {
+          continue;
+        }
 
+        const outraPessoa =
+          lista[j];
 
-            const nomeOutro =
-
-              String(
-                outro.nome || ""
-              )
-              .trim()
-              .toLowerCase();
+        const nomeOutraPessoa =
+          normalizarNome(
+            outraPessoa.nome
+          );
 
 
-            const duplaOutro =
+        /*
+         * A outra pessoa precisa:
+         *
+         * 1. Ter o nome indicado como dupla
+         * 2. Ter a mesma data
+         * 3. Ter o mesmo horário
+         */
 
-              String(
-                outro.dupla || ""
-              )
-              .trim()
-              .toLowerCase();
+        if (
+          nomeOutraPessoa === nomeDupla &&
+          mesmaData(
+            pessoa.data,
+            outraPessoa.data
+          ) &&
+          mesmoHorario(
+            pessoa.horario,
+            outraPessoa.horario
+          )
+        ) {
 
+          indiceDupla = j;
 
-            return (
+          break;
 
-              nomeOutro === duplaNome &&
-
-              duplaOutro === nomeItem &&
-
-              String(outro.data || "") ===
-              String(item.data || "") &&
-
-              formatarHorario(
-                outro.horario
-              ) ===
-              formatarHorario(
-                item.horario
-              )
-
-            );
-
-          }
-
-        );
-
-
-      if (
-        parceiroIndex >= 0
-      ) {
-
-
-        grupos.push({
-
-          dataHora:
-            dataHora(item),
-
-          pessoas: [
-
-            item,
-
-            lista[parceiroIndex]
-
-          ]
-
-        });
-
-
-        usados.add(index);
-
-        usados.add(
-          parceiroIndex
-        );
-
-
-      }
-      else {
-
-
-        grupos.push({
-
-          dataHora:
-            dataHora(item),
-
-          pessoas: [
-            item
-          ]
-
-        });
-
-
-        usados.add(index);
+        }
 
       }
 
     }
-  );
+
+
+    /*
+     * Encontrou a dupla
+     */
+
+    if (indiceDupla !== -1) {
+
+      grupos.push({
+
+        dataHora:
+          dataHora(pessoa),
+
+        pessoas: [
+          pessoa,
+          lista[indiceDupla]
+        ]
+
+      });
+
+
+      usados.add(i);
+      usados.add(indiceDupla);
+
+    }
+
+    /*
+     * Não encontrou dupla.
+     * Mantém a pessoa sozinha.
+     */
+
+    else {
+
+      grupos.push({
+
+        dataHora:
+          dataHora(pessoa),
+
+        pessoas: [
+          pessoa
+        ]
+
+      });
+
+
+      usados.add(i);
+
+    }
+
+  }
 
 
   return grupos.sort(
-    (a,b) =>
-      a.dataHora -
-      b.dataHora
+    (a, b) =>
+      a.dataHora - b.dataHora
   );
 
 }
-
 
 /* =====================================================
    RENDER INÍCIO
