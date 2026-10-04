@@ -1788,61 +1788,6 @@ try {
   );
 
 }
-    // ============================================================
-// ENVIA O TOKEN PARA O APPS SCRIPT
-// ============================================================
-
-const dispositivo =
-  /Android|iPhone|iPad|iPod/i.test(
-    navigator.userAgent
-  )
-    ? "Celular"
-    : "Computador";
-
-
-const urlRegistro =
-  API_URL +
-  "?api=registrarToken" +
-  "&token=" +
-  encodeURIComponent(currentToken) +
-  "&dispositivo=" +
-  encodeURIComponent(dispositivo);
-
-
-try {
-
-  const resposta =
-    await fetch(urlRegistro);
-
-
-  const resultado =
-    await resposta.json();
-
-
-  console.log(
-    "Resposta do cadastro do dispositivo:",
-    resultado
-  );
-
-
-  if (!resultado.sucesso) {
-
-    console.error(
-      "Não foi possível cadastrar o dispositivo:",
-      resultado.erro
-    );
-
-  }
-
-} catch (erro) {
-
-  console.error(
-    "Erro ao enviar token para o Apps Script:",
-    erro
-  );
-
-}
-
     /*
      * Por enquanto NÃO enviamos o token para a API.
      *
