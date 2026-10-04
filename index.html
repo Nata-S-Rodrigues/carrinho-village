@@ -12,975 +12,642 @@
 
   <meta
     name="theme-color"
-    content="#ffffff"
+    content="#111827"
   >
 
   <meta
     name="description"
-    content="Controle de Carrinhos - lembretes de testemunho público"
+    content="Lembretes do Carrinho Village"
   >
 
-  <link rel="manifest" href="manifest.json">
+  <link
+    rel="manifest"
+    href="manifest.json"
+  >
 
-  <title>Controle de Carrinhos</title>
+  <title>Carrinho Village</title>
+
 
   <style>
 
-    :root {
+    :root{
 
-      --bg: #f6f7f9;
-      --surface: #ffffff;
-      --surface-2: #f1f3f5;
+      --bg:#f4f7fb;
+      --card:#fff;
+      --text:#101828;
+      --muted:#667085;
 
-      --text: #111827;
-      --muted: #667085;
+      --primary:#1677ff;
+      --primary2:#0b5bd3;
 
-      --border: #e5e7eb;
+      --green:#12b76a;
+      --yellow:#f79009;
+      --red:#f04438;
 
-      --primary: #1677ff;
-      --primary-dark: #0b5bd3;
-
-      --green: #12b76a;
+      --border:#e4e7ec;
 
       --shadow:
-        0 4px 18px rgba(16, 24, 40, .07);
+        0 8px 30px rgba(16,24,40,.08);
 
-      --radius: 18px;
+      --radius:22px;
 
     }
 
 
-    * {
-      box-sizing: border-box;
+    *{
+      box-sizing:border-box;
     }
 
 
-    html {
-      scroll-behavior: smooth;
-    }
+    body{
 
-
-    body {
-
-      margin: 0;
-
-      background: var(--bg);
-
-      color: var(--text);
+      margin:0;
 
       font-family:
         Inter,
+        system-ui,
         -apple-system,
         BlinkMacSystemFont,
         "Segoe UI",
-        Roboto,
-        Arial,
         sans-serif;
 
-    }
-
-
-    button,
-    input {
-      font: inherit;
-    }
-
-
-    button {
-      cursor: pointer;
-    }
-
-
-    .app {
-
-      max-width: 760px;
-
-      min-height: 100vh;
-
-      margin: auto;
-
-      padding-bottom: 90px;
+      background:var(--bg);
+      color:var(--text);
 
     }
 
 
-    /* ================================
-       HEADER
-    ================================= */
+    button{
+      font:inherit;
+    }
 
-    header {
 
-      background: var(--surface);
+    .app{
 
-      border-bottom:
-        1px solid var(--border);
+      max-width:720px;
+      margin:auto;
+
+      min-height:100vh;
+
+      padding-bottom:32px;
+
+    }
+
+
+    header{
+
+      background:
+        linear-gradient(
+          135deg,
+          #111827,
+          #1f2937
+        );
+
+      color:#fff;
 
       padding:
-        17px 18px;
+        24px
+        18px
+        26px;
 
-      position: sticky;
-
-      top: 0;
-
-      z-index: 20;
-
-    }
-
-
-    .header-row {
-
-      display: flex;
-
-      align-items: center;
-
-      justify-content: space-between;
-
-      gap: 15px;
+      border-radius:
+        0
+        0
+        28px
+        28px;
 
     }
 
 
-    .brand {
+    .top{
 
-      display: flex;
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
 
-      align-items: center;
-
-      gap: 11px;
-
-    }
-
-
-    .brand-logo {
-
-      width: 44px;
-
-      height: 44px;
-
-      border-radius: 12px;
-
-      object-fit: contain;
-
-      background: #ffffff;
+      gap:12px;
 
     }
 
 
-    .brand-fallback {
+    .brand{
 
-      width: 44px;
+      display:flex;
+      align-items:center;
 
-      height: 44px;
-
-      border-radius: 12px;
-
-      background: #eef4ff;
-
-      color: var(--primary);
-
-      display: none;
-
-      align-items: center;
-
-      justify-content: center;
-
-      font-weight: 800;
-
-      font-size: 13px;
+      gap:12px;
 
     }
 
 
-    .brand-title {
+    .logo{
 
-      margin: 0;
+      width:48px;
+      height:48px;
 
-      font-size: 17px;
+      border-radius:15px;
 
-      font-weight: 750;
+      background:#ffffff12;
 
-      letter-spacing: -.2px;
+      display:grid;
+      place-items:center;
 
-    }
-
-
-    .brand-subtitle {
-
-      margin-top: 2px;
-
-      font-size: 11px;
-
-      color: var(--muted);
-
-    }
-
-
-    .refresh {
-
-      width: 40px;
-
-      height: 40px;
+      font-size:25px;
 
       border:
-        1px solid var(--border);
+        1px solid
+        #ffffff22;
 
-      background:
-        var(--surface);
-
-      border-radius: 12px;
-
-      font-size: 19px;
-
-      color: #475467;
+      overflow:hidden;
 
     }
 
 
-    .refresh:active {
+    .logo img{
 
-      transform: scale(.96);
+      width:100%;
+      height:100%;
 
-    }
-
-
-    /* ================================
-       MAIN
-    ================================= */
-
-    main {
-
-      padding: 18px;
+      object-fit:contain;
 
     }
 
 
-    .page-title {
+    h1{
+
+      font-size:21px;
 
       margin:
-        4px 0 5px;
-
-      font-size: 25px;
-
-      letter-spacing: -.5px;
+        0
+        0
+        3px;
 
     }
 
 
-    .page-subtitle {
+    .subtitle{
 
-      margin:
-        0 0 20px;
+      font-size:13px;
 
-      color: var(--muted);
-
-      font-size: 13px;
+      color:#d0d5dd;
 
     }
 
 
-    /* ================================
-       ABAS
-    ================================= */
-
-    .tab-content {
-      display: none;
-    }
-
-
-    .tab-content.active {
-      display: block;
-    }
-
-
-    /* ================================
-       PRÓXIMO
-    ================================= */
-
-    .next-label {
-
-      font-size: 11px;
-
-      font-weight: 750;
-
-      color: var(--primary);
-
-      text-transform: uppercase;
-
-      letter-spacing: .7px;
-
-      margin-bottom: 8px;
-
-    }
-
-
-    .next-card {
-
-      background:
-        var(--surface);
+    .refresh{
 
       border:
-        1px solid var(--border);
+        1px solid
+        #ffffff2b;
 
-      border-radius: 22px;
+      background:#ffffff12;
 
-      padding: 20px;
+      color:#fff;
 
-      box-shadow:
-        var(--shadow);
+      width:42px;
+      height:42px;
 
-      margin-bottom: 22px;
+      border-radius:13px;
 
-    }
-
-
-    .next-date {
-
-      display: flex;
-
-      align-items: center;
-
-      gap: 8px;
-
-      color: var(--muted);
-
-      font-size: 13px;
-
-      margin-bottom: 13px;
+      cursor:pointer;
 
     }
 
 
-    .next-names {
+    .hero{
 
-      font-size: 24px;
-
-      font-weight: 800;
-
-      letter-spacing: -.5px;
-
-      margin-bottom: 8px;
+      margin-top:22px;
 
     }
 
 
-    .next-info {
+    .hero-title{
 
-      display: flex;
+      font-size:28px;
 
-      gap: 8px;
+      font-weight:750;
 
-      flex-wrap: wrap;
-
-      margin-bottom: 18px;
-
-    }
-
-
-    .info-pill {
-
-      background:
-        var(--surface-2);
-
-      border-radius: 10px;
-
-      padding:
-        7px 10px;
-
-      color: #344054;
-
-      font-size: 12px;
-
-      font-weight: 650;
+      margin:
+        0
+        0
+        6px;
 
     }
 
 
-    .people-buttons {
+    .hero-text{
 
-      display: grid;
+      margin:0;
+
+      color:#d0d5dd;
+
+      font-size:14px;
+
+    }
+
+
+    main{
+
+      padding:18px;
+
+    }
+
+
+    .summary{
+
+      display:grid;
 
       grid-template-columns:
-        repeat(2, 1fr);
+        1fr
+        1fr;
 
-      gap: 9px;
+      gap:12px;
 
-    }
-
-
-    .whatsapp-btn {
-
-      border: 0;
-
-      border-radius: 13px;
-
-      padding:
-        12px 10px;
-
-      background:
-        var(--green);
-
-      color: white;
-
-      font-weight: 750;
-
-      transition:
-        transform .12s ease,
-        opacity .12s ease;
+      margin-bottom:18px;
 
     }
 
 
-    .whatsapp-btn:active {
+    .stat{
 
-      transform: scale(.98);
+      background:var(--card);
+
+      border:
+        1px solid
+        var(--border);
+
+      border-radius:18px;
+
+      padding:16px;
+
+      box-shadow:var(--shadow);
 
     }
 
 
-    .whatsapp-btn:hover {
+    .stat strong{
 
-      opacity: .92;
+      display:block;
+
+      font-size:24px;
+
+      margin-bottom:3px;
 
     }
 
 
-    /* ================================
-       PRÓXIMOS
-    ================================= */
+    .stat span{
 
-    .section-title {
+      font-size:12px;
 
-      display: flex;
+      color:var(--muted);
 
-      align-items: center;
+    }
 
-      justify-content: space-between;
+
+    .section-head{
+
+      display:flex;
+
+      align-items:center;
+
+      justify-content:space-between;
 
       margin:
-        22px 2px 11px;
+        8px
+        2px
+        12px;
 
     }
 
 
-    .section-title h2 {
+    .section-head h2{
 
-      margin: 0;
+      font-size:17px;
 
-      font-size: 17px;
-
-    }
-
-
-    .section-count {
-
-      color: var(--muted);
-
-      font-size: 12px;
+      margin:0;
 
     }
 
 
-    .upcoming-list {
+    .count{
 
-      display: grid;
+      font-size:12px;
 
-      gap: 9px;
+      color:var(--muted);
 
     }
 
 
-    .upcoming-card {
+    .list{
 
-      background:
-        var(--surface);
+      display:grid;
+
+      gap:12px;
+
+    }
+
+
+    .card{
+
+      background:var(--card);
 
       border:
-        1px solid var(--border);
+        1px solid
+        var(--border);
 
-      border-radius: 16px;
+      border-radius:var(--radius);
 
-      padding: 14px;
+      padding:17px;
 
-      display: flex;
-
-      align-items: center;
-
-      justify-content: space-between;
-
-      gap: 12px;
+      box-shadow:var(--shadow);
 
     }
 
 
-    .upcoming-main {
+    .card-top{
 
-      min-width: 0;
+      display:flex;
 
-    }
+      justify-content:space-between;
 
-
-    .upcoming-date {
-
-      font-size: 11px;
-
-      color: var(--primary);
-
-      font-weight: 750;
-
-      margin-bottom: 4px;
+      gap:12px;
 
     }
 
 
-    .upcoming-name {
+    .person{
 
-      font-weight: 700;
+      font-size:18px;
 
-      font-size: 14px;
+      font-weight:750;
 
-    }
-
-
-    .upcoming-time {
-
-      color: var(--muted);
-
-      font-size: 12px;
-
-      margin-top: 3px;
+      margin:
+        0
+        0
+        4px;
 
     }
 
 
-    .mini-btn {
+    .date{
 
-      flex-shrink: 0;
+      font-size:13px;
 
-      border: 0;
+      color:var(--muted);
 
-      border-radius: 10px;
+    }
 
-      background:
-        #eef4ff;
 
-      color:
-        var(--primary);
+    .badge{
+
+      align-self:flex-start;
+
+      border-radius:999px;
 
       padding:
-        9px 11px;
+        6px
+        10px;
 
-      font-size: 12px;
+      font-size:11px;
 
-      font-weight: 700;
+      font-weight:700;
 
-    }
+      background:#fff4e5;
 
+      color:#b54708;
 
-    /* ================================
-       LISTA
-    ================================= */
-
-    .filters {
-
-      margin-bottom: 15px;
+      white-space:nowrap;
 
     }
 
 
-    .search {
+    .badge.enviado{
 
-      width: 100%;
-
-      border:
-        1px solid var(--border);
-
-      background:
-        var(--surface);
-
-      border-radius: 13px;
-
-      padding:
-        12px 13px;
-
-      outline: none;
-
-      font-size: 14px;
+      background:#ecfdf3;
+      color:#027a48;
 
     }
 
 
-    .search:focus {
+    .badge.erro{
 
-      border-color:
-        var(--primary);
-
-    }
-
-
-    .all-list {
-
-      display: grid;
-
-      gap: 10px;
+      background:#fef3f2;
+      color:#b42318;
 
     }
 
 
-    .list-card {
+    .details{
 
-      background:
-        var(--surface);
-
-      border:
-        1px solid var(--border);
-
-      border-radius: 17px;
-
-      padding: 15px;
-
-    }
-
-
-    .list-top {
-
-      display: flex;
-
-      justify-content: space-between;
-
-      gap: 10px;
-
-    }
-
-
-    .list-name {
-
-      font-weight: 750;
-
-      font-size: 15px;
-
-    }
-
-
-    .list-date {
-
-      margin-top: 4px;
-
-      color: var(--muted);
-
-      font-size: 12px;
-
-    }
-
-
-    .status {
-
-      align-self: flex-start;
-
-      border-radius: 999px;
-
-      padding:
-        5px 8px;
-
-      font-size: 10px;
-
-      font-weight: 750;
-
-      background:
-        #fff4e5;
-
-      color:
-        #b54708;
-
-    }
-
-
-    .list-details {
-
-      display: flex;
-
-      gap: 8px;
-
-      flex-wrap: wrap;
-
-      margin-top: 12px;
-
-    }
-
-
-    .list-pill {
-
-      background:
-        var(--surface-2);
-
-      border-radius: 9px;
-
-      padding:
-        6px 9px;
-
-      font-size: 11px;
-
-      color: #475467;
-
-    }
-
-
-    .list-actions {
-
-      display: grid;
+      display:grid;
 
       grid-template-columns:
-        repeat(2, 1fr);
+        1fr
+        1fr;
 
-      gap: 8px;
-
-      margin-top: 12px;
-
-    }
-
-
-    /* ================================
-       NOTIFICAÇÕES
-    ================================= */
-
-    .notification-card {
-
-      background:
-        var(--surface);
-
-      border:
-        1px solid var(--border);
-
-      border-radius: 20px;
-
-      padding: 20px;
-
-      box-shadow:
-        var(--shadow);
-
-    }
-
-
-    .notification-status {
-
-      font-size: 18px;
-
-      font-weight: 750;
-
-      margin-bottom: 8px;
-
-    }
-
-
-    .notification-description {
-
-      font-size: 13px;
-
-      color: var(--muted);
-
-      line-height: 1.5;
+      gap:9px;
 
       margin:
-        0 0 16px;
+        15px
+        0;
 
     }
 
 
-    /* ================================
-       ESTADOS
-    ================================= */
+    .detail{
+
+      background:#f8fafc;
+
+      border-radius:13px;
+
+      padding:10px;
+
+    }
+
+
+    .detail small{
+
+      display:block;
+
+      color:var(--muted);
+
+      font-size:10px;
+
+      margin-bottom:3px;
+
+    }
+
+
+    .detail b{
+
+      font-size:13px;
+
+    }
+
+
+    .message{
+
+      background:#f8fafc;
+
+      border:
+        1px dashed
+        #d0d5dd;
+
+      border-radius:14px;
+
+      padding:11px;
+
+      font-size:12px;
+
+      line-height:1.45;
+
+      color:#475467;
+
+      margin-bottom:13px;
+
+    }
+
+
+    .actions{
+
+      display:grid;
+
+      grid-template-columns:
+        1fr
+        1fr;
+
+      gap:9px;
+
+    }
+
+
+    .btn{
+
+      border:0;
+
+      border-radius:13px;
+
+      padding:
+        12px
+        10px;
+
+      font-weight:700;
+
+      cursor:pointer;
+
+    }
+
+
+    .btn-primary{
+
+      background:var(--primary);
+
+      color:#fff;
+
+    }
+
+
+    .btn-primary:active{
+
+      background:var(--primary2);
+
+    }
+
+
+    .btn-secondary{
+
+      background:#eef4ff;
+
+      color:#155eef;
+
+    }
+
 
     .empty,
     .loading,
-    .error {
+    .error{
 
-      background:
-        var(--surface);
+      background:var(--card);
 
       border:
-        1px solid var(--border);
+        1px solid
+        var(--border);
 
-      border-radius: 18px;
+      border-radius:18px;
+
+      padding:26px;
+
+      text-align:center;
+
+      color:var(--muted);
+
+    }
+
+
+    .empty-icon{
+
+      font-size:34px;
+
+      margin-bottom:8px;
+
+    }
+
+
+    .install{
+
+      display:none;
+
+      margin-top:12px;
+
+      background:#111827;
+
+      color:#fff;
+
+      border-radius:15px;
 
       padding:
-        30px 20px;
+        12px
+        14px;
 
-      text-align: center;
+      border:0;
 
-      color:
-        var(--muted);
+      width:100%;
 
-    }
-
-
-    .empty strong,
-    .error strong {
-
-      display: block;
-
-      color:
-        var(--text);
-
-      margin-bottom: 5px;
+      font-weight:700;
 
     }
 
 
-    /* ================================
-       NAVEGAÇÃO
-    ================================= */
+    .footer{
 
-    .bottom-nav {
+      text-align:center;
 
-      position: fixed;
+      color:#98a2b3;
 
-      left: 50%;
+      font-size:11px;
 
-      bottom: 0;
-
-      transform:
-        translateX(-50%);
-
-      width:
-        min(760px, 100%);
-
-      height: 70px;
-
-      background:
-        rgba(255,255,255,.97);
-
-      backdrop-filter:
-        blur(12px);
-
-      border-top:
-        1px solid var(--border);
-
-      display: grid;
-
-      grid-template-columns:
-        repeat(3, 1fr);
-
-      z-index: 50;
+      padding:18px;
 
     }
 
 
-    .nav-btn {
+    @media(max-width:430px){
 
-      border: 0;
-
-      background:
-        transparent;
-
-      color:
-        #98a2b3;
-
-      font-size: 11px;
-
-      font-weight: 650;
-
-    }
-
-
-    .nav-btn span {
-
-      display: block;
-
-      font-size: 20px;
-
-      margin-bottom: 3px;
-
-    }
-
-
-    .nav-btn.active {
-
-      color:
-        var(--primary);
-
-    }
-
-
-    /* ================================
-       INSTALAÇÃO
-    ================================= */
-
-    .install {
-
-      display: none;
-
-      width: 100%;
-
-      margin-bottom: 15px;
-
-      border: 0;
-
-      border-radius: 13px;
-
-      padding: 12px;
-
-      background:
-        #111827;
-
-      color:
-        white;
-
-      font-weight: 700;
-
-    }
-
-
-    /* ================================
-       RESPONSIVO
-    ================================= */
-
-    @media (min-width: 700px) {
-
-      .app {
-
-        border-left:
-          1px solid var(--border);
-
-        border-right:
-          1px solid var(--border);
-
+      main{
+        padding:14px;
       }
 
-      .bottom-nav {
-
-        border-left:
-          1px solid var(--border);
-
-        border-right:
-          1px solid var(--border);
-
+      .summary{
+        gap:8px;
       }
 
-    }
-
-
-    @media (max-width: 430px) {
-
-      main {
-
-        padding:
-          15px;
-
+      .card{
+        padding:14px;
       }
 
-
-      .next-names {
-
-        font-size:
-          21px;
-
-      }
-
-
-      .people-buttons {
-
-        grid-template-columns:
-          1fr;
-
+      .hero-title{
+        font-size:24px;
       }
 
     }
@@ -996,46 +663,34 @@
 <div class="app">
 
 
-  <!-- =====================================
-       HEADER
-  ====================================== -->
-
   <header>
 
-    <div class="header-row">
-
+    <div class="top">
 
       <div class="brand">
 
+        <div class="logo">
 
-        <img
-          src="logo.png"
-          class="brand-logo"
-          alt="Logo"
-          onerror="
-            this.style.display='none';
-            document.querySelector('.brand-fallback').style.display='flex';
-          "
-        >
+          <img
+            src="logo.png"
+            alt="Carrinho Village"
+            onerror="this.style.display='none';this.parentElement.innerHTML='🚗';"
+          >
 
-
-        <div class="brand-fallback">
-          CV
         </div>
 
 
         <div>
 
-          <h1 class="brand-title">
-            Controle de Carrinhos
+          <h1>
+            Carrinho Village
           </h1>
 
-          <div class="brand-subtitle">
-            Testemunho público
+          <div class="subtitle">
+            Lembretes de testemunho público
           </div>
 
         </div>
-
 
       </div>
 
@@ -1048,6 +703,18 @@
         ↻
       </button>
 
+    </div>
+
+
+    <div class="hero">
+
+      <p class="hero-title">
+        Seus próximos lembretes
+      </p>
+
+      <p class="hero-text">
+        Toque em “Abrir WhatsApp” para revisar e enviar a mensagem.
+      </p>
 
     </div>
 
@@ -1061,317 +728,180 @@
       id="installBtn"
       class="install"
     >
-      📲 Instalar aplicativo
+      📲 Instalar Carrinho Village
     </button>
 
 
-    <!-- =====================================
-         INÍCIO
-    ====================================== -->
+    <div class="summary">
 
-    <section
-      id="inicio"
-      class="tab-content active"
-    >
+      <div class="stat">
 
-
-      <h2 class="page-title">
-        Próximos lembretes
-      </h2>
-
-
-      <p class="page-subtitle">
-        Veja rapidamente quem você precisa lembrar.
-      </p>
-
-
-      <div id="proximo"></div>
-
-
-      <div class="section-title">
-
-        <h2>
-          Próximos
-        </h2>
-
-        <span
-          class="section-count"
-          id="proximosCount"
-        >
+        <strong id="pendentes">
           —
+        </strong>
+
+        <span>
+          Lembretes pendentes
         </span>
 
       </div>
 
 
-      <div
-        id="proximos"
-        class="upcoming-list"
-      >
+      <div class="stat">
 
-        <div class="loading">
-          Carregando…
-        </div>
+        <strong id="total">
+          —
+        </strong>
+
+        <span>
+          Designações carregadas
+        </span>
 
       </div>
 
-
-    </section>
-
-
-    <!-- =====================================
-         LISTA
-    ====================================== -->
-
-    <section
-      id="listaTab"
-      class="tab-content"
-    >
+    </div>
 
 
-      <h2 class="page-title">
-        Todas as designações
+    <div class="section-head">
+
+      <h2>
+        Próximas designações
       </h2>
 
-
-      <p class="page-subtitle">
-        Consulte todas as pessoas e horários.
-      </p>
-
-
-      <div class="filters">
-
-        <input
-          id="busca"
-          class="search"
-          type="search"
-          placeholder="Pesquisar nome ou dupla…"
-          oninput="filtrarLista()"
-        >
-
-      </div>
-
-
-      <div
-        id="listaCompleta"
-        class="all-list"
+      <span
+        class="count"
+        id="atualizado"
       >
+        Atualizando…
+      </span>
 
-        <div class="loading">
-          Carregando…
-        </div>
-
-      </div>
+    </div>
 
 
-    </section>
-
-
-    <!-- =====================================
-         NOTIFICAÇÕES
-    ====================================== -->
-
-    <section
-      id="notificacoes"
-      class="tab-content"
+    <div
+      id="lista"
+      class="list"
     >
 
-
-      <h2 class="page-title">
-        Notificações
-      </h2>
-
-
-      <p class="page-subtitle">
-        Configure os avisos do aplicativo.
-      </p>
-
-
-      <div class="notification-card">
-
-
-        <div
-          id="statusNotificacao"
-          class="notification-status"
-        >
-          Verificando…
-        </div>
-
-
-        <p class="notification-description">
-
-          Permita as notificações para que o aplicativo
-          possa avisar você quando chegar o momento
-          de enviar um lembrete.
-
-        </p>
-
-
-        <button
-          class="whatsapp-btn"
-          onclick="ativarNotificacoes()"
-        >
-          🔔 Ativar notificações
-        </button>
-
-
+      <div class="loading">
+        Carregando seus lembretes…
       </div>
 
-
-    </section>
+    </div>
 
 
   </main>
 
 
-  <!-- =====================================
-       MENU
-  ====================================== -->
-
-  <nav class="bottom-nav">
-
-
-    <button
-      class="nav-btn active"
-      onclick="
-        abrirAba(
-          'inicio',
-          this
-        )
-      "
-    >
-
-      <span>
-        ⌂
-      </span>
-
-      Início
-
-    </button>
-
-
-    <button
-      class="nav-btn"
-      onclick="
-        abrirAba(
-          'listaTab',
-          this
-        )
-      "
-    >
-
-      <span>
-        ☷
-      </span>
-
-      Lista
-
-    </button>
-
-
-    <button
-      class="nav-btn"
-      onclick="
-        abrirAba(
-          'notificacoes',
-          this
-        )
-      "
-    >
-
-      <span>
-        🔔
-      </span>
-
-      Notificações
-
-    </button>
-
-
-  </nav>
+  <div class="footer">
+    Carrinho Village • versão 1.0
+  </div>
 
 
 </div>
 
 
+
 <script>
 
 
-/* =====================================================
+/* =========================================================
    API
-===================================================== */
+========================================================= */
 
 const API =
-  "https://script.google.com/macros/s/AKfycbxigrLwmQlKyAAg_fxvQnFPy5NiXWbkYUOWJX0tQdD9ldQWrDcqx2hcLCrGNugRCukS/exec?api=lembretes";
+  "https://script.google.com/macros/s/AKfycbw2oS_My7_WG0XWVF36aRWYwbNhO3u_h7cyNj9xYml6TKGAgkMK5pIo0E1SboMtAvr1PQ/exec?api=lembretes";
 
 
-/* =====================================================
-   DADOS
-===================================================== */
 
-let lembretes = [];
-
-let filtrados = [];
-
-
-/* =====================================================
+/* =========================================================
    SEGURANÇA
-===================================================== */
+========================================================= */
 
-function escapeHtml(valor) {
+function escapeHtml(valor){
 
   return String(valor ?? "")
-
     .replace(
       /[&<>"']/g,
-
       m => ({
-
         "&":"&amp;",
         "<":"&lt;",
         ">":"&gt;",
         '"':"&quot;",
         "'":"&#039;"
-
       }[m])
-
     );
 
 }
 
 
-/* =====================================================
-   WHATSAPP
-===================================================== */
 
-function normalizarNumero(valor) {
+/* =========================================================
+   NORMALIZAR NOME
+========================================================= */
+
+function normalizarNome(nome){
+
+  return String(nome || "")
+    .normalize("NFD")
+    .replace(
+      /[\u0300-\u036f]/g,
+      ""
+    )
+    .trim()
+    .toLowerCase()
+    .replace(
+      /\s+/g,
+      " "
+    );
+
+}
+
+
+
+/* =========================================================
+   NORMALIZAR TELEFONE
+========================================================= */
+
+function normalizarNumero(valor){
 
   let numero =
     String(valor || "")
-      .replace(/\D/g, "");
+      .replace(
+        /\D/g,
+        ""
+      );
 
-  if (
+
+  if(
     numero &&
     !numero.startsWith("55")
-  ) {
+  ){
 
     numero =
-      "55" + numero;
+      "55" +
+      numero;
 
   }
+
 
   return numero;
 
 }
 
 
-/* =====================================================
+
+/* =========================================================
    DATA
-===================================================== */
+========================================================= */
 
-function formatarData(valor) {
+function formatarData(valor){
 
-  if (!valor) {
+  if(
+    valor === null ||
+    valor === undefined ||
+    String(valor).trim() === ""
+  ){
 
     return "Data não informada";
 
@@ -1382,26 +912,52 @@ function formatarData(valor) {
     String(valor).trim();
 
 
+  /*
+   * API correta:
+   *
+   * 06/10/2026
+   */
+
   const brasileira =
     texto.match(
       /^(\d{1,2})\/(\d{1,2})\/(\d{4})/
     );
 
 
-  if (brasileira) {
+  if(brasileira){
 
     return (
-
-      brasileira[1].padStart(2,"0")
-
-      + "/" +
-
-      brasileira[2].padStart(2,"0")
-
-      + "/" +
-
+      brasileira[1].padStart(2,"0") +
+      "/" +
+      brasileira[2].padStart(2,"0") +
+      "/" +
       brasileira[3]
+    );
 
+  }
+
+
+  /*
+   * Só tenta Date se realmente
+   * não for uma data brasileira.
+   */
+
+  const data =
+    new Date(texto);
+
+
+  if(
+    !isNaN(
+      data.getTime()
+    )
+  ){
+
+    return data.toLocaleDateString(
+      "pt-BR",
+      {
+        timeZone:
+          "America/Sao_Paulo"
+      }
     );
 
   }
@@ -1412,37 +968,20 @@ function formatarData(valor) {
 }
 
 
-/* =====================================================
+
+/* =========================================================
    HORÁRIO
-===================================================== */
+========================================================= */
 
-/*
-   IMPORTANTE:
+function formatarHorario(valor){
 
-   A API já está enviando:
-
-   "08:30"
-
-   ou
-
-   "16:30"
-
-   Portanto NÃO usamos new Date()
-   para interpretar o horário.
-
-   O aplicativo simplesmente pega
-   o texto que veio da API.
-*/
-
-function formatarHorario(valor) {
-
-  if (
+  if(
     valor === null ||
     valor === undefined ||
-    valor === ""
-  ) {
+    String(valor).trim() === ""
+  ){
 
-    return "Horário não informado";
+    return "";
 
   }
 
@@ -1452,11 +991,15 @@ function formatarHorario(valor) {
 
 
   /*
-    Caso normal:
-
-    08:30
-    16:30
-  */
+   * PRIMEIRA REGRA:
+   *
+   * A API já manda:
+   *
+   * 08:30
+   * 16:30
+   *
+   * Portanto usamos diretamente.
+   */
 
   const simples =
     texto.match(
@@ -1464,70 +1007,86 @@ function formatarHorario(valor) {
     );
 
 
-  if (simples) {
+  if(simples){
 
     return (
-
-      simples[1].padStart(2,"0")
-
-      + ":" +
-
+      simples[1].padStart(2,"0") +
+      ":" +
       simples[2]
-
     );
 
   }
 
 
   /*
-    Compatibilidade com registros antigos
-    que eventualmente ainda venham como:
+   * Compatibilidade com Date antigo.
+   *
+   * Exemplo:
+   *
+   * Sat Dec 30 1899 05:23:32 GMT...
+   *
+   * NÃO usamos isso para substituir
+   * um horário que já veio como 08:30.
+   */
 
-    Sat Dec 30 1899 05:23:32 GMT...
-  */
-
-  const google =
+  const antigo =
     texto.match(
-      /\b(\d{2}):(\d{2}):\d{2}\b/
+      /1899.*?(\d{1,2}):(\d{2}):\d{2}/
     );
 
 
-  if (google) {
+  if(antigo){
 
     return (
-
-      google[1]
-      + ":"
-      + google[2]
-
+      antigo[1].padStart(2,"0") +
+      ":" +
+      antigo[2]
     );
 
   }
 
 
-  return texto;
+  return "";
 
 }
 
 
-/* =====================================================
+
+/* =========================================================
+   VERIFICAR SE EXISTE HORÁRIO
+========================================================= */
+
+function temHorario(valor){
+
+  return (
+    formatarHorario(valor) !== ""
+  );
+
+}
+
+
+
+/* =========================================================
    DATA/HORA PARA ORDENAÇÃO
-===================================================== */
+========================================================= */
 
-function dataHora(item) {
+function dataHora(item){
 
-  const data =
-    String(item.data || "")
-      .trim();
+  const dataTexto =
+    formatarData(
+      item.data
+    );
 
 
   const partes =
-    data.split("/");
+    dataTexto.split("/");
 
 
-  if (partes.length !== 3) {
+  if(
+    partes.length !== 3
+  ){
 
-    return Infinity;
+    return Number.MAX_SAFE_INTEGER;
 
   }
 
@@ -1544,37 +1103,31 @@ function dataHora(item) {
     Number(partes[2]);
 
 
-  /*
-    IMPORTANTE:
-
-    Aqui também NÃO usamos
-    new Date(item.horario).
-
-    O horário é tratado apenas como
-    texto HH:mm.
-  */
-
   const horario =
-    String(item.horario || "")
-      .trim();
+    formatarHorario(
+      item.horario
+    );
+
+
+  let hora = 0;
+  let minuto = 0;
 
 
   const hm =
     horario.match(
-      /^(\d{1,2}):(\d{2})/
+      /^(\d{2}):(\d{2})$/
     );
 
 
-  const hora =
-    hm
-      ? Number(hm[1])
-      : 0;
+  if(hm){
 
+    hora =
+      Number(hm[1]);
 
-  const minuto =
-    hm
-      ? Number(hm[2])
-      : 0;
+    minuto =
+      Number(hm[2]);
+
+  }
 
 
   return new Date(
@@ -1588,205 +1141,61 @@ function dataHora(item) {
 }
 
 
-/* =====================================================
-   MENSAGEM
-===================================================== */
 
-function mensagem(item) {
+/* =========================================================
+   MESMA DATA
+========================================================= */
 
-  if (
-    item.mensagem &&
-    String(item.mensagem).trim()
-  ) {
-
-    return item.mensagem;
-
-  }
-
+function mesmaData(a,b){
 
   return (
-
-    `Olá, ${item.nome || ""}! 😊\n\n` +
-
-    `Passando para lembrar que você está ` +
-
-    `designado(a) para o carrinho de ` +
-
-    `testemunho público no dia ` +
-
-    `${formatarData(item.data)}, às ` +
-
-    `${formatarHorario(item.horario)}.\n\n` +
-
-    `Sua dupla será: ` +
-
-    `${item.dupla || ""}.\n\n` +
-
-    `Agradecemos pela sua disposição ` +
-
-    `em apoiar essa atividade! 💚`
-
+    formatarData(a) ===
+    formatarData(b)
   );
 
 }
 
 
-/* =====================================================
-   ABRIR WHATSAPP
-===================================================== */
 
-function abrirWhatsAppPorIndex(index) {
+/* =========================================================
+   AGRUPAMENTO DE DUPLAS
+========================================================= */
 
-  const item =
-    lembretes[index];
+/*
+ *
+ * REGRA:
+ *
+ * Pessoa A -> Pessoa B
+ *
+ * procuramos Pessoa B na mesma data.
+ *
+ * Se B também indicar A como dupla,
+ * melhor ainda.
+ *
+ * O horário NÃO é obrigatório.
+ *
+ * Isso evita que um problema de formato
+ * do horário faça a dupla desaparecer.
+ *
+ */
 
-
-  if (!item) {
-
-    alert(
-      "Não foi possível encontrar este cadastro."
-    );
-
-    return;
-
-  }
-
-
-  const numero =
-    normalizarNumero(
-      item.whatsapp
-    );
-
-
-  if (!numero) {
-
-    alert(
-      "Este cadastro não possui número de WhatsApp."
-    );
-
-    return;
-
-  }
-
-
-  const url =
-
-    "https://wa.me/" +
-
-    numero +
-
-    "?text=" +
-
-    encodeURIComponent(
-      mensagem(item)
-    );
-
-
-  window.location.href =
-    url;
-
-}
-
-
-/* =====================================================
-   AGRUPAR DUPLAS
-===================================================== */
-
-function normalizarNome(nome) {
-
-  return String(nome || "")
-    .normalize("NFD")
-    .replace(/[\u0300-\u036f]/g, "")
-    .trim()
-    .toLowerCase()
-    .replace(/\s+/g, " ");
-
-}
-
-
-function mesmaData(a, b) {
-
-  return formatarData(a) === formatarData(b);
-
-}
-
-
-function horarioValido(valor) {
-
-  if (
-    valor === null ||
-    valor === undefined ||
-    String(valor).trim() === ""
-  ) {
-    return false;
-  }
-
-  const texto = String(valor).trim();
-
-  /*
-   * A API normalmente já manda:
-   *
-   * 08:30
-   * 16:30
-   */
-
-  if (/^\d{1,2}:\d{2}/.test(texto)) {
-    return true;
-  }
-
-  /*
-   * Compatibilidade com formatos antigos.
-   */
-
-  if (
-    /(?:19\d{2}|20\d{2}).*?\d{1,2}:\d{2}/.test(texto)
-  ) {
-    return true;
-  }
-
-  return false;
-
-}
-
-
-function obterHorarioDoGrupo(pessoas) {
-
-  /*
-   * Primeiro tenta encontrar um horário válido
-   * em qualquer pessoa da dupla.
-   */
-
-  for (const pessoa of pessoas) {
-
-    if (horarioValido(pessoa.horario)) {
-
-      return formatarHorario(
-        pessoa.horario
-      );
-
-    }
-
-  }
-
-  return "Horário não informado";
-
-}
-
-
-function agruparDuplas(lista) {
+function agruparDuplas(lista){
 
   const grupos = [];
 
-  const usados = new Set();
+  const usados =
+    new Set();
 
 
-  for (
+  for(
     let i = 0;
     i < lista.length;
     i++
-  ) {
+  ){
 
-    if (usados.has(i)) {
+    if(
+      usados.has(i)
+    ){
       continue;
     }
 
@@ -1807,88 +1216,183 @@ function agruparDuplas(lista) {
       );
 
 
-    let indiceDupla = -1;
+    /*
+     * Se não existe dupla
+     * na planilha, permanece sozinho.
+     */
+
+    if(!nomeDupla){
+
+      grupos.push({
+
+        dataHora:
+          dataHora(pessoa),
+
+        pessoas:[
+          pessoa
+        ]
+
+      });
+
+
+      usados.add(i);
+
+      continue;
+
+    }
+
+
+    let melhorIndice =
+      -1;
+
+
+    let melhorPontuacao =
+      -1;
 
 
     /*
-     * Se a pessoa não possui dupla
-     * na planilha, ela fica sozinha.
+     * Procurar a pessoa indicada
+     * como dupla.
      */
 
-    if (nomeDupla) {
+    for(
+      let j = 0;
+      j < lista.length;
+      j++
+    ){
 
-      for (
-        let j = 0;
-        j < lista.length;
-        j++
-      ) {
-
-        if (
-          j === i ||
-          usados.has(j)
-        ) {
-          continue;
-        }
+      if(
+        j === i ||
+        usados.has(j)
+      ){
+        continue;
+      }
 
 
-        const outra =
-          lista[j];
+      const candidata =
+        lista[j];
 
 
-        const nomeOutra =
-          normalizarNome(
-            outra.nome
-          );
+      /*
+       * O nome precisa ser exatamente
+       * o nome informado em "Dupla".
+       */
+
+      if(
+        normalizarNome(
+          candidata.nome
+        ) !== nomeDupla
+      ){
+
+        continue;
+
+      }
 
 
-        const duplaOutra =
-          normalizarNome(
-            outra.dupla
-          );
+      /*
+       * Precisa ser a mesma data.
+       */
+
+      if(
+        !mesmaData(
+          pessoa.data,
+          candidata.data
+        )
+      ){
+
+        continue;
+
+      }
 
 
-        /*
-         * A dupla precisa ser RECÍPROCA.
-         *
-         * Exemplo:
-         *
-         * Albertina → Elma
-         * Elma      → Albertina
-         */
-
-        const duplaReciproca =
-          nomeOutra === nomeDupla &&
-          duplaOutra === nomePessoa;
+      const nomeDuplaCandidata =
+        normalizarNome(
+          candidata.dupla
+        );
 
 
-        if (!duplaReciproca) {
-          continue;
-        }
+      let pontuacao =
+        1;
 
 
-        /*
-         * Precisa ser a mesma data.
-         */
+      /*
+       * Se for recíproco:
+       *
+       * Albertina -> Elma
+       * Elma -> Albertina
+       *
+       * recebe prioridade.
+       */
 
-        if (
-          !mesmaData(
-            pessoa.data,
-            outra.data
-          )
-        ) {
-          continue;
-        }
+      if(
+        nomeDuplaCandidata ===
+        nomePessoa
+      ){
+
+        pontuacao += 10;
+
+      }
 
 
-        /*
-         * NÃO verificamos o horário aqui.
-         *
-         * O horário não decide se são dupla.
-         */
+      /*
+       * Se os horários forem iguais,
+       * damos mais prioridade.
+       */
 
-        indiceDupla = j;
+      const horarioA =
+        formatarHorario(
+          pessoa.horario
+        );
 
-        break;
+
+      const horarioB =
+        formatarHorario(
+          candidata.horario
+        );
+
+
+      if(
+        horarioA &&
+        horarioB &&
+        horarioA === horarioB
+      ){
+
+        pontuacao += 5;
+
+      }
+
+
+      /*
+       * Se a candidata estiver sem horário,
+       * não eliminamos a dupla.
+       *
+       * Isso é importante.
+       */
+
+      if(
+        !horarioA ||
+        !horarioB
+      ){
+
+        pontuacao += 1;
+
+      }
+
+
+      /*
+       * Escolher a melhor candidata.
+       */
+
+      if(
+        pontuacao >
+        melhorPontuacao
+      ){
+
+        melhorPontuacao =
+          pontuacao;
+
+        melhorIndice =
+          j;
 
       }
 
@@ -1899,62 +1403,50 @@ function agruparDuplas(lista) {
      * ENCONTROU A DUPLA
      */
 
-    if (indiceDupla !== -1) {
+    if(
+      melhorIndice !== -1
+    ){
 
-      const outra =
-        lista[indiceDupla];
-
-
-      /*
-       * Escolhemos o horário disponível
-       * entre as duas pessoas.
-       */
-
-      const pessoasGrupo = [
-        pessoa,
-        outra
-      ];
+      const dupla =
+        lista[melhorIndice];
 
 
       grupos.push({
 
         dataHora:
-          dataHora(pessoa),
-
-        horario:
-          obterHorarioDoGrupo(
-            pessoasGrupo
+          Math.min(
+            dataHora(pessoa),
+            dataHora(dupla)
           ),
 
-        pessoas:
-          pessoasGrupo
+        pessoas:[
+          pessoa,
+          dupla
+        ]
 
       });
 
 
       usados.add(i);
-      usados.add(indiceDupla);
+      usados.add(
+        melhorIndice
+      );
 
     }
 
 
     /*
-     * NÃO ENCONTROU DUPLA
+     * NÃO ENCONTROU
      */
 
-    else {
+    else{
 
       grupos.push({
 
         dataHora:
           dataHora(pessoa),
 
-        horario:
-          obterHorarioDoGrupo([
-            pessoa
-          ]),
-
-        pessoas: [
+        pessoas:[
           pessoa
         ]
 
@@ -1969,634 +1461,605 @@ function agruparDuplas(lista) {
 
 
   return grupos.sort(
-    (a, b) =>
-      a.dataHora - b.dataHora
+    (a,b) =>
+      a.dataHora -
+      b.dataHora
   );
 
 }
 
-/* =====================================================
-   RENDER INÍCIO
-===================================================== */
-
-function renderInicio() {
 
 
-  const proximo =
-    document.getElementById(
-      "proximo"
-    );
+/* =========================================================
+   HORÁRIO DO GRUPO
+========================================================= */
+
+function horarioDoGrupo(grupo){
+
+  /*
+   * Primeiro tenta encontrar um horário
+   * válido entre todas as pessoas.
+   */
+
+  for(
+    const pessoa of grupo.pessoas
+  ){
+
+    const horario =
+      formatarHorario(
+        pessoa.horario
+      );
 
 
-  const proximos =
-    document.getElementById(
-      "proximos"
-    );
+    if(horario){
 
+      return horario;
 
-  const grupos =
-    agruparDuplas(
-      lembretes
-    );
-
-
-  if (
-    !grupos.length
-  ) {
-
-
-    proximo.innerHTML = `
-
-      <div class="empty">
-
-        <strong>
-          Nenhum lembrete encontrado
-        </strong>
-
-        Não há designações disponíveis.
-
-      </div>
-
-    `;
-
-
-    proximos.innerHTML =
-      "";
-
-
-    return;
+    }
 
   }
 
 
-  const primeiro =
-    grupos[0];
+  return "Horário não informado";
+
+}
 
 
-  const pessoas =
-    primeiro.pessoas;
 
+/* =========================================================
+   MENSAGEM
+========================================================= */
 
-  const nomes =
-    pessoas
-
-      .map(
-        p =>
-          escapeHtml(
-            p.nome
-          )
-      )
-
-      .join(" + ");
-
-
-  const data =
-    formatarData(
-      pessoas[0].data
-    );
-
+function mensagem(item){
 
   /*
-    AQUI está a correção principal.
+   * Se a API já mandou a mensagem pronta,
+   * usamos exatamente ela.
+   */
 
-    Pegamos o horário diretamente
-    do objeto recebido pela API.
+  if(
+    item.mensagem
+  ){
 
-    Não transformamos em Date.
-  */
+    return item.mensagem;
+
+  }
+
 
   const horario =
     formatarHorario(
-      pessoas[0].horario
+      item.horario
     );
 
 
-  console.log(
-    "PRÓXIMO:",
-    pessoas[0].nome,
-    pessoas[0].horario,
-    "=>",
-    horario
+  return (
+    `Olá, ${item.nome || ""}! 😊\n\n` +
+
+    `Passando para lembrar que você está ` +
+    `designado(a) para o carrinho de ` +
+    `testemunho público no dia ` +
+
+    `${formatarData(item.data)}` +
+
+    `${horario ? `, às ${horario}` : ""}.` +
+
+    `\n\nSua dupla será: ` +
+
+    `${item.dupla || ""}.` +
+
+    `\n\nAgradecemos pela sua disposição ` +
+    `em apoiar essa atividade! 💚`
   );
 
-
-  proximo.innerHTML = `
-
-    <div class="next-label">
-      PRÓXIMO LEMBRETE
-    </div>
+}
 
 
-    <div class="next-card">
+
+/* =========================================================
+   WHATSAPP
+========================================================= */
+
+function abrirWhatsApp(item){
+
+  const numero =
+    normalizarNumero(
+      item.whatsapp
+    );
 
 
-      <div class="next-date">
+  if(!numero){
 
-        📅 ${escapeHtml(data)}
-
-      </div>
-
-
-      <div class="next-names">
-
-        ${nomes}
-
-      </div>
-
-
-      <div class="next-info">
-
-
-        <div class="info-pill">
-
-          🕐 ${escapeHtml(horario)}
-
-        </div>
-
-
-        <div class="info-pill">
-
-          👥 ${pessoas.length}
-
-          pessoa${
-
-            pessoas.length > 1
-              ? "s"
-              : ""
-
-          }
-
-        </div>
-
-
-      </div>
-
-
-      <div class="people-buttons">
-
-
-        ${pessoas
-
-          .map(
-            p => `
-
-              <button
-
-                class="whatsapp-btn"
-
-                onclick="
-                  abrirWhatsAppPorIndex(
-                    ${lembretes.indexOf(p)}
-                  )
-                "
-              >
-
-                💬
-                ${escapeHtml(p.nome)}
-
-              </button>
-
-            `
-          )
-
-          .join("")}
-
-
-      </div>
-
-
-    </div>
-
-  `;
-
-
-  /*
-    Próximos 5 grupos.
-  */
-
-  const proximosGrupos =
-    grupos.slice(1,6);
-
-
-  document.getElementById(
-    "proximosCount"
-  ).textContent =
-
-    `${proximosGrupos.length} próximos`;
-
-
-  if (
-    !proximosGrupos.length
-  ) {
-
-
-    proximos.innerHTML = `
-
-      <div class="empty">
-
-        <strong>
-          Não há outros lembretes.
-        </strong>
-
-      </div>
-
-    `;
-
+    alert(
+      "Este cadastro não possui número de WhatsApp."
+    );
 
     return;
 
   }
 
 
-  proximos.innerHTML =
-
-    proximosGrupos
-
-      .map(
-        grupo => {
+  const texto =
+    mensagem(item);
 
 
-          const pessoasGrupo =
-            grupo.pessoas;
+  window.location.href =
+    `https://wa.me/${numero}?text=${encodeURIComponent(texto)}`;
+
+}
 
 
-          const nomesGrupo =
 
-            pessoasGrupo
+/* =========================================================
+   COPIAR
+========================================================= */
 
-              .map(
-                p =>
-                  escapeHtml(
-                    p.nome
-                  )
-              )
+function marcarCopiar(item){
 
-              .join(" + ");
+  const texto =
+    mensagem(item);
 
 
-          const p =
-            pessoasGrupo[0];
+  if(
+    navigator.clipboard
+  ){
+
+    navigator.clipboard
+      .writeText(texto)
+      .then(
+        () =>
+          alert(
+            "Mensagem copiada!"
+          )
+      )
+      .catch(
+        () =>
+          alert(texto)
+      );
+
+  }
+  else{
+
+    alert(texto);
+
+  }
+
+}
 
 
-          const horarioGrupo =
-            formatarHorario(
-              p.horario
+
+/* =========================================================
+   STATUS
+========================================================= */
+
+function statusLimpo(status){
+
+  let texto =
+    String(
+      status ||
+      "Pendente"
+    ).trim();
+
+
+  /*
+   * Evita:
+   *
+   * 🟡 🟡 Pendente
+   */
+
+  texto =
+    texto.replace(
+      /^🟡\s*/u,
+      ""
+    );
+
+
+  return texto;
+
+}
+
+
+
+/* =========================================================
+   RENDER
+========================================================= */
+
+function render(listaOriginal){
+
+  const lista =
+    document.getElementById(
+      "lista"
+    );
+
+
+  if(
+    !Array.isArray(
+      listaOriginal
+    )
+  ){
+
+    listaOriginal = [];
+
+  }
+
+
+  /*
+   * Primeiro agrupamos.
+   */
+
+  const grupos =
+    agruparDuplas(
+      listaOriginal
+    );
+
+
+  /*
+   * Quantidade de pessoas
+   */
+
+  document.getElementById(
+    "total"
+  ).textContent =
+    listaOriginal.length;
+
+
+  /*
+   * Quantidade de pessoas pendentes
+   */
+
+  const pendentes =
+    listaOriginal.filter(
+      item =>
+        statusLimpo(
+          item.status
+        )
+        .toLowerCase()
+        .includes(
+          "pend"
+        )
+    ).length;
+
+
+  document.getElementById(
+    "pendentes"
+  ).textContent =
+    pendentes;
+
+
+  document.getElementById(
+    "atualizado"
+  ).textContent =
+    "Atualizado agora";
+
+
+  /*
+   * Nenhum registro
+   */
+
+  if(
+    !grupos.length
+  ){
+
+    lista.innerHTML = `
+
+      <div class="empty">
+
+        <div class="empty-icon">
+          🎉
+        </div>
+
+        <b>
+          Nenhum lembrete pendente
+        </b>
+
+        <p>
+          Quando houver uma nova designação,
+          ela aparecerá aqui.
+        </p>
+
+      </div>
+
+    `;
+
+    return;
+
+  }
+
+
+  /*
+   * Criar cartões
+   */
+
+  lista.innerHTML =
+    grupos.map(
+      grupo => {
+
+
+        const pessoas =
+          grupo.pessoas;
+
+
+        const primeira =
+          pessoas[0];
+
+
+        /*
+         * Nomes
+         */
+
+        const nomes =
+          pessoas
+            .map(
+              pessoa =>
+                escapeHtml(
+                  pessoa.nome ||
+                  "Sem nome"
+                )
+            )
+            .join(
+              " + "
             );
 
 
-          return `
+        /*
+         * Data
+         */
 
-            <div class="upcoming-card">
+        const data =
+          formatarData(
+            primeira.data
+          );
 
 
-              <div class="upcoming-main">
+        /*
+         * HORÁRIO DO GRUPO
+         *
+         * Aqui está a correção importante:
+         * NÃO usamos diretamente
+         * primeira.horario.
+         */
+
+        const horario =
+          horarioDoGrupo(
+            grupo
+          );
 
 
-                <div class="upcoming-date">
+        /*
+         * Status
+         */
 
-                  ${escapeHtml(
-                    formatarData(
-                      p.data
-                    )
-                  )}
+        const status =
+          statusLimpo(
+            primeira.status
+          );
+
+
+        const statusLower =
+          status.toLowerCase();
+
+
+        const classeStatus =
+          statusLower.includes(
+            "enviado"
+          )
+            ? "enviado"
+            : statusLower.includes(
+                "erro"
+              )
+                ? "erro"
+                : "";
+
+
+        /*
+         * Mensagem.
+         *
+         * Para dupla usamos a mensagem
+         * da primeira pessoa, porque cada
+         * botão abre o WhatsApp da pessoa
+         * correspondente.
+         */
+
+
+        return `
+
+          <article class="card">
+
+            <div class="card-top">
+
+              <div>
+
+                <p class="person">
+                  ${nomes}
+                </p>
+
+
+                <div class="date">
+
+                  📅
+                  ${escapeHtml(data)}
 
                 </div>
-
-
-                <div class="upcoming-name">
-
-                  ${nomesGrupo}
-
-                </div>
-
-
-                <div class="upcoming-time">
-
-                  🕐 ${escapeHtml(
-                    horarioGrupo
-                  )}
-
-                </div>
-
 
               </div>
 
 
-              <button
-
-                class="mini-btn"
-
-                onclick="
-                  abrirAba(
-                    'listaTab',
-                    document.querySelectorAll(
-                      '.nav-btn'
-                    )[1]
-                  )
-                "
+              <span
+                class="badge ${classeStatus}"
               >
 
-                Ver
+                ${escapeHtml(status)}
 
-              </button>
+              </span>
+
+            </div>
+
+
+            <div class="details">
+
+
+              <div class="detail">
+
+                <small>
+                  Horário
+                </small>
+
+                <b>
+
+                  🕐
+                  ${escapeHtml(
+                    horario
+                  )}
+
+                </b>
+
+              </div>
+
+
+              <div class="detail">
+
+                <small>
+                  Dupla
+                </small>
+
+                <b>
+
+                  👥
+
+                  ${
+                    pessoas.length > 1
+                      ? escapeHtml(
+                          pessoas
+                            .map(
+                              p =>
+                                p.nome
+                            )
+                            .join(
+                              " + "
+                            )
+                        )
+                      : escapeHtml(
+                          primeira.dupla ||
+                          "Não informada"
+                        )
+                  }
+
+                </b>
+
+              </div>
 
 
             </div>
 
-          `;
 
-        }
-      )
+            <div class="message">
 
-      .join("");
+              ${escapeHtml(
+                mensagem(
+                  primeira
+                )
+              ).replace(
+                /\n/g,
+                "<br>"
+              )}
 
-}
+            </div>
 
 
-/* =====================================================
-   RENDER LISTA
-===================================================== */
+            <div class="actions">
 
-function renderLista(lista) {
-
-
-  const container =
-    document.getElementById(
-      "listaCompleta"
-    );
-
-
-  if (
-    !lista.length
-  ) {
-
-
-    container.innerHTML = `
-
-      <div class="empty">
-
-        <strong>
-          Nenhum resultado.
-        </strong>
-
-        Não encontramos nenhuma designação.
-
-      </div>
-
-    `;
-
-
-    return;
-
-  }
-
-
-  const grupos =
-    agruparDuplas(
-      lista
-    );
-
-
-  container.innerHTML =
-
-    grupos
-
-      .map(
-        grupo => {
-
-
-          const pessoas =
-            grupo.pessoas;
-
-
-          const primeiro =
-            pessoas[0];
-
-
-          const nomes =
-
-            pessoas
-
-              .map(
-                p =>
-                  escapeHtml(
-                    p.nome
-                  )
-              )
-
-              .join(" + ");
-
-
-          const horario =
-            formatarHorario(
-              primeiro.horario
-            );
-
-
-          return `
-
-            <article class="list-card">
-
-
-              <div class="list-top">
-
-
-                <div>
-
-
-                  <div class="list-name">
-
-                    ${nomes}
-
-                  </div>
-
-
-                  <div class="list-date">
-
-                    📅 ${escapeHtml(
-                      formatarData(
-                        primeiro.data
-                      )
-                    )}
-
-                  </div>
-
-
-                </div>
-
-
-                <span class="status">
-
-                  ${escapeHtml(
-                    primeiro.status ||
-                    "Pendente"
-                  )}
-
-                </span>
-
-
-              </div>
-
-
-              <div class="list-details">
-
-
-                <span class="list-pill">
-
-                  🕐 ${escapeHtml(
-                    horario
-                  )}
-
-                </span>
-
-
-                <span class="list-pill">
-
-                  👥 ${pessoas.length}
-                  pessoa${
-
-                    pessoas.length > 1
-                      ? "s"
-                      : ""
-
-                  }
-
-                </span>
-
-
-              </div>
-
-
-              <div class="list-actions">
-
-
-                ${pessoas
-
+              ${
+                pessoas
                   .map(
-                    p => `
+                    pessoa => `
 
                       <button
-
-                        class="whatsapp-btn"
-
-                        onclick="
-                          abrirWhatsAppPorIndex(
-                            ${lembretes.indexOf(p)}
-                          )
-                        "
+                        class="btn btn-primary"
+                        onclick='abrirWhatsApp(${JSON.stringify(
+                          pessoa
+                        ).replace(
+                          /</g,
+                          "\\u003c"
+                        )})'
                       >
 
                         💬
-                        ${escapeHtml(p.nome)}
+                        ${escapeHtml(
+                          pessoa.nome
+                        )}
 
                       </button>
 
                     `
                   )
-
-                  .join("")}
-
-
-              </div>
+                  .join("")
+              }
 
 
-            </article>
+              <button
+                class="btn btn-secondary"
+                onclick='marcarCopiar(${JSON.stringify(
+                  primeira
+                ).replace(
+                  /</g,
+                  "\\u003c"
+                )})'
+              >
 
-          `;
+                📋 Copiar
 
-        }
-      )
+              </button>
 
-      .join("");
+            </div>
+
+
+          </article>
+
+        `;
+
+      }
+    ).join("");
 
 }
 
 
-/* =====================================================
-   PESQUISA
-===================================================== */
 
-function filtrarLista() {
+/* =========================================================
+   CARREGAR API
+========================================================= */
 
+async function carregar(){
 
-  const termo =
-
-    document
-
-      .getElementById(
-        "busca"
-      )
-
-      .value
-
-      .toLowerCase()
-
-      .trim();
-
-
-  filtrados =
-
-    lembretes.filter(
-      item =>
-
-
-        String(
-          item.nome || ""
-        )
-        .toLowerCase()
-        .includes(termo)
-
-
-        ||
-
-
-        String(
-          item.dupla || ""
-        )
-        .toLowerCase()
-        .includes(termo)
-
+  const lista =
+    document.getElementById(
+      "lista"
     );
 
 
-  renderLista(
-    filtrados
-  );
-
-}
-
-
-/* =====================================================
-   CARREGAR API
-===================================================== */
-
-async function carregar() {
+  lista.innerHTML =
+    `
+      <div class="loading">
+        Atualizando lembretes…
+      </div>
+    `;
 
 
-  try {
-
+  try{
 
     const resposta =
-
       await fetch(
-
         API +
-
         "&_=" +
-
         Date.now(),
-
         {
           cache:
             "no-store"
         }
-
       );
 
 
-    if (
+    if(
       !resposta.ok
-    ) {
+    ){
 
       throw new Error(
         "HTTP " +
@@ -2606,82 +2069,75 @@ async function carregar() {
     }
 
 
-    const dados =
+    const data =
       await resposta.json();
 
 
     console.log(
-      "DADOS RECEBIDOS DA API:",
-      dados
+      "API COMPLETA:",
+      data
     );
 
 
     /*
-      Aqui mantemos exatamente
-      os dados enviados pela API.
+     * SUA API USA "itens".
+     *
+     * Não usamos "items".
+     */
 
-      Não convertemos o horário.
-    */
-
-    lembretes =
-
+    const itens =
       Array.isArray(
-        dados.itens
+        data.itens
       )
-
-        ? dados.itens
+        ? data.itens
         : [];
 
 
-    console.log(
-      "PRIMEIRO HORÁRIO DA API:",
-      lembretes[0]?.horario
-    );
-
-
     /*
-      Ordenação.
+     * Normaliza os horários
+     * antes de renderizar.
+     *
+     * NÃO modifica a API.
+     * Apenas o que fica em memória
+     * no aplicativo.
+     */
 
-      dataHora() trabalha com
-      o texto HH:mm.
-    */
+    const itensNormalizados =
+      itens.map(
+        item => ({
 
-    lembretes.sort(
-      (a,b) =>
-        dataHora(a) -
-        dataHora(b)
-    );
+          ...item,
+
+          horario:
+            formatarHorario(
+              item.horario
+            )
+
+        })
+      );
 
 
-    filtrados =
-      [...lembretes];
-
-
-    renderInicio();
-
-    renderLista(
-      filtrados
+    render(
+      itensNormalizados
     );
 
 
   }
-  catch (erro) {
-
+  catch(erro){
 
     console.error(
+      "Erro ao carregar:",
       erro
     );
 
 
-    document.getElementById(
-      "proximo"
-    ).innerHTML = `
+    lista.innerHTML = `
 
       <div class="error">
 
-        <strong>
+        <b>
           Não foi possível atualizar.
-        </strong>
+        </b>
 
         <p>
           ${escapeHtml(
@@ -2691,7 +2147,7 @@ async function carregar() {
 
 
         <button
-          class="mini-btn"
+          class="btn btn-secondary"
           onclick="carregar()"
         >
 
@@ -2705,196 +2161,19 @@ async function carregar() {
 
 
     document.getElementById(
-      "listaCompleta"
-    ).innerHTML =
-      "";
+      "atualizado"
+    ).textContent =
+      "Falha na atualização";
 
   }
 
 }
 
 
-/* =====================================================
-   ABAS
-===================================================== */
 
-function abrirAba(
-  id,
-  botao
-) {
-
-
-  document
-
-    .querySelectorAll(
-      ".tab-content"
-    )
-
-    .forEach(
-      secao =>
-        secao.classList.remove(
-          "active"
-        )
-    );
-
-
-  const aba =
-    document.getElementById(
-      id
-    );
-
-
-  if (aba) {
-
-    aba.classList.add(
-      "active"
-    );
-
-  }
-
-
-  document
-
-    .querySelectorAll(
-      ".nav-btn"
-    )
-
-    .forEach(
-      btn =>
-        btn.classList.remove(
-          "active"
-        )
-    );
-
-
-  if (botao) {
-
-    botao.classList.add(
-      "active"
-    );
-
-  }
-
-
-  window.scrollTo({
-    top: 0,
-    behavior: "smooth"
-  });
-
-}
-
-
-/* =====================================================
-   NOTIFICAÇÕES
-===================================================== */
-
-function atualizarStatusNotificacao() {
-
-
-  const elemento =
-    document.getElementById(
-      "statusNotificacao"
-    );
-
-
-  if (
-    !("Notification" in window)
-  ) {
-
-
-    elemento.textContent =
-      "Não disponível neste navegador.";
-
-
-    return;
-
-  }
-
-
-  if (
-    Notification.permission ===
-    "granted"
-  ) {
-
-
-    elemento.textContent =
-      "Notificações autorizadas ✓";
-
-
-  }
-
-  else if (
-    Notification.permission ===
-    "denied"
-  ) {
-
-
-    elemento.textContent =
-      "Notificações bloqueadas.";
-
-
-  }
-
-  else {
-
-
-    elemento.textContent =
-      "Notificações ainda não autorizadas.";
-
-  }
-
-}
-
-
-async function ativarNotificacoes() {
-
-
-  if (
-    !("Notification" in window)
-  ) {
-
-
-    alert(
-      "Seu navegador não oferece suporte a notificações."
-    );
-
-
-    return;
-
-  }
-
-
-  const permissao =
-    await Notification.requestPermission();
-
-
-  atualizarStatusNotificacao();
-
-
-  if (
-    permissao ===
-    "granted"
-  ) {
-
-
-    new Notification(
-      "Controle de Carrinhos",
-      {
-        body:
-          "As notificações foram ativadas.",
-        icon:
-          "./logo.png"
-      }
-    );
-
-  }
-
-}
-
-
-/* =====================================================
+/* =========================================================
    PWA
-===================================================== */
+========================================================= */
 
 let deferredPrompt;
 
@@ -2903,26 +2182,16 @@ window.addEventListener(
   "beforeinstallprompt",
   event => {
 
-
     event.preventDefault();
-
 
     deferredPrompt =
       event;
 
 
-    const botao =
-      document.getElementById(
-        "installBtn"
-      );
-
-
-    if (botao) {
-
-      botao.style.display =
-        "block";
-
-    }
+    document.getElementById(
+      "installBtn"
+    ).style.display =
+      "block";
 
   }
 );
@@ -2930,56 +2199,56 @@ window.addEventListener(
 
 document.getElementById(
   "installBtn"
-).onclick = async () => {
+).onclick =
+  async () => {
+
+    if(
+      !deferredPrompt
+    ){
+
+      return;
+
+    }
 
 
-  if (
-    !deferredPrompt
-  ) {
-
-    return;
-
-  }
+    deferredPrompt.prompt();
 
 
-  deferredPrompt.prompt();
+    await
+      deferredPrompt.userChoice;
 
 
-  await deferredPrompt.userChoice;
+    deferredPrompt =
+      null;
 
 
-  deferredPrompt =
-    null;
+    document.getElementById(
+      "installBtn"
+    ).style.display =
+      "none";
+
+  };
 
 
-  document.getElementById(
-    "installBtn"
-  ).style.display =
-    "none";
 
-};
-
-
-/* =====================================================
+/* =========================================================
    SERVICE WORKER
-===================================================== */
+========================================================= */
 
-if (
-  "serviceWorker" in navigator
-) {
-
+if(
+  "serviceWorker"
+  in navigator
+){
 
   window.addEventListener(
     "load",
     () => {
-
 
       navigator
         .serviceWorker
         .register(
           "sw.js"
         )
-
         .catch(
           erro =>
             console.error(
@@ -2994,23 +2263,19 @@ if (
 }
 
 
-/* =====================================================
-   INICIALIZAÇÃO
-===================================================== */
 
-atualizarStatusNotificacao();
+/* =========================================================
+   INICIAR
+========================================================= */
 
 carregar();
 
-
-/*
-  Atualiza os dados a cada 5 minutos.
-*/
 
 setInterval(
   carregar,
   5 * 60 * 1000
 );
+
 
 </script>
 
