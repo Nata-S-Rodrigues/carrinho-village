@@ -1416,24 +1416,6 @@ function formatarData(valor) {
    HORÁRIO
 ===================================================== */
 
-/*
-   IMPORTANTE:
-
-   A API já está enviando:
-
-   "08:30"
-
-   ou
-
-   "16:30"
-
-   Portanto NÃO usamos new Date()
-   para interpretar o horário.
-
-   O aplicativo simplesmente pega
-   o texto que veio da API.
-*/
-
 function formatarHorario(valor) {
 
   if (
@@ -1450,13 +1432,6 @@ function formatarHorario(valor) {
   const texto =
     String(valor).trim();
 
-
-  /*
-    Caso normal:
-
-    08:30
-    16:30
-  */
 
   const simples =
     texto.match(
@@ -1478,13 +1453,6 @@ function formatarHorario(valor) {
 
   }
 
-
-  /*
-    Compatibilidade com registros antigos
-    que eventualmente ainda venham como:
-
-    Sat Dec 30 1899 05:23:32 GMT...
-  */
 
   const google =
     texto.match(
@@ -1543,16 +1511,6 @@ function dataHora(item) {
   const ano =
     Number(partes[2]);
 
-
-  /*
-    IMPORTANTE:
-
-    Aqui também NÃO usamos
-    new Date(item.horario).
-
-    O horário é tratado apenas como
-    texto HH:mm.
-  */
 
   const horario =
     String(item.horario || "")
@@ -1723,20 +1681,9 @@ function horarioValido(valor) {
 
   const texto = String(valor).trim();
 
-  /*
-   * A API normalmente já manda:
-   *
-   * 08:30
-   * 16:30
-   */
-
   if (/^\d{1,2}:\d{2}/.test(texto)) {
     return true;
   }
-
-  /*
-   * Compatibilidade com formatos antigos.
-   */
 
   if (
     /(?:19\d{2}|20\d{2}).*?\d{1,2}:\d{2}/.test(texto)
@@ -1751,11 +1698,7 @@ function horarioValido(valor) {
 
 function obterHorarioDoGrupo(pessoas) {
 
-  /*
-   * Primeiro tenta encontrar um horário válido
-   * em qualquer pessoa da dupla.
-   */
-
+  // CORREÇÃO 1: Procura o primeiro horário válido dentro do grupo de pessoas (mesmo se a 1ª pessoa estiver vazia)
   for (const pessoa of pessoas) {
 
     if (horarioValido(pessoa.horario)) {
@@ -1810,11 +1753,6 @@ function agruparDuplas(lista) {
     let indiceDupla = -1;
 
 
-    /*
-     * Se a pessoa não possui dupla
-     * na planilha, ela fica sozinha.
-     */
-
     if (nomeDupla) {
 
       for (
@@ -1847,28 +1785,15 @@ function agruparDuplas(lista) {
           );
 
 
-        /*
-         * A dupla precisa ser RECÍPROCA.
-         *
-         * Exemplo:
-         *
-         * Albertina → Elma
-         * Elma      → Albertina
-         */
-
+        // CORREÇÃO 2: Flexibiliza a verificação da dupla para aceitar o vínculo por reciprocidade OU nome correspondente
         const duplaReciproca =
-          nomeOutra === nomeDupla &&
-          duplaOutra === nomePessoa;
+          (nomeOutra === nomeDupla) || (duplaOutra === nomePessoa);
 
 
         if (!duplaReciproca) {
           continue;
         }
 
-
-        /*
-         * Precisa ser a mesma data.
-         */
 
         if (
           !mesmaData(
@@ -1880,12 +1805,6 @@ function agruparDuplas(lista) {
         }
 
 
-        /*
-         * NÃO verificamos o horário aqui.
-         *
-         * O horário não decide se são dupla.
-         */
-
         indiceDupla = j;
 
         break;
@@ -1895,20 +1814,11 @@ function agruparDuplas(lista) {
     }
 
 
-    /*
-     * ENCONTROU A DUPLA
-     */
-
     if (indiceDupla !== -1) {
 
       const outra =
         lista[indiceDupla];
 
-
-      /*
-       * Escolhemos o horário disponível
-       * entre as duas pessoas.
-       */
 
       const pessoasGrupo = [
         pessoa,
@@ -1936,11 +1846,6 @@ function agruparDuplas(lista) {
       usados.add(indiceDupla);
 
     }
-
-
-    /*
-     * NÃO ENCONTROU DUPLA
-     */
 
     else {
 
@@ -2056,28 +1961,10 @@ function renderInicio() {
     );
 
 
-  /*
-    AQUI está a correção principal.
-
-    Pegamos o horário diretamente
-    do objeto recebido pela API.
-
-    Não transformamos em Date.
-  */
-
   const horario =
     formatarHorario(
-      pessoas[0].horario
+      primeiro.horario
     );
-
-
-  console.log(
-    "PRÓXIMO:",
-    pessoas[0].nome,
-    pessoas[0].horario,
-    "=>",
-    horario
-  );
 
 
   proximo.innerHTML = `
@@ -2170,10 +2057,6 @@ function renderInicio() {
   `;
 
 
-  /*
-    Próximos 5 grupos.
-  */
-
   const proximosGrupos =
     grupos.slice(1,6);
 
@@ -2239,9 +2122,7 @@ function renderInicio() {
 
 
           const horarioGrupo =
-            formatarHorario(
-              p.horario
-            );
+            grupo.horario;
 
 
           return `
@@ -2388,9 +2269,7 @@ function renderLista(lista) {
 
 
           const horario =
-            formatarHorario(
-              primeiro.horario
-            );
+            grupo.horario;
 
 
           return `
@@ -2610,19 +2489,6 @@ async function carregar() {
       await resposta.json();
 
 
-    console.log(
-      "DADOS RECEBIDOS DA API:",
-      dados
-    );
-
-
-    /*
-      Aqui mantemos exatamente
-      os dados enviados pela API.
-
-      Não convertemos o horário.
-    */
-
     lembretes =
 
       Array.isArray(
@@ -2632,19 +2498,6 @@ async function carregar() {
         ? dados.itens
         : [];
 
-
-    console.log(
-      "PRIMEIRO HORÁRIO DA API:",
-      lembretes[0]?.horario
-    );
-
-
-    /*
-      Ordenação.
-
-      dataHora() trabalha com
-      o texto HH:mm.
-    */
 
     lembretes.sort(
       (a,b) =>
@@ -3002,10 +2855,6 @@ atualizarStatusNotificacao();
 
 carregar();
 
-
-/*
-  Atualiza os dados a cada 5 minutos.
-*/
 
 setInterval(
   carregar,
