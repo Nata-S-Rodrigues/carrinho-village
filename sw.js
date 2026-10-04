@@ -79,13 +79,9 @@ self.addEventListener("activate", event => {
   );
 });
 
-self.addEventListener("fetch", event => {
-  ifSe mesmo após adicionar o código de fundo a notificação não apareceu, o próximo passo essencial é **verificar se o Service Worker chegou a receber o sinal** do Firebase. 
-
-Como o Service Worker roda num processo separado da página web, os erros ou logs dele aparecem numa consola própria.
-
-### Como verificar o Service Worker:
-
-1. No seu navegador, abra uma nova aba e digite:
-   ```text
-   chrome://inspect/#service-workers
+self.addEventListener('fetch', event => {
+  event.respondWith(
+    caches.match(event.request)
+      .then(response => response || fetch(event.request))
+  );
+});
