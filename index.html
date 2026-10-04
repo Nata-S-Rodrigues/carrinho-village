@@ -1712,6 +1712,80 @@ async function ativarNotificacoesPush() {
     );
 
     // ============================================================
+// CADASTRAR TOKEN NO APPS SCRIPT
+// ============================================================
+
+const dispositivo =
+  /Android|iPhone|iPad|iPod/i.test(
+    navigator.userAgent
+  )
+    ? "Celular"
+    : "Computador";
+
+
+const urlRegistro =
+  API_URL +
+  "?api=registrarToken" +
+  "&token=" +
+  encodeURIComponent(currentToken) +
+  "&dispositivo=" +
+  encodeURIComponent(dispositivo);
+
+
+console.log(
+  "Enviando token para o Apps Script..."
+);
+
+console.log(
+  "URL de registro:",
+  urlRegistro
+);
+
+
+try {
+
+  const resposta =
+    await fetch(urlRegistro);
+
+
+  const texto =
+    await resposta.text();
+
+
+  console.log(
+    "Resposta bruta do Apps Script:",
+    texto
+  );
+
+
+  const resultado =
+    JSON.parse(texto);
+
+
+  console.log(
+    "Resultado do cadastro:",
+    resultado
+  );
+
+
+  if (!resultado.sucesso) {
+
+    console.error(
+      "Apps Script recusou o cadastro:",
+      resultado.erro
+    );
+
+  }
+
+} catch (erro) {
+
+  console.error(
+    "ERRO AO CADASTRAR TOKEN:",
+    erro
+  );
+
+}
+    // ============================================================
 // ENVIA O TOKEN PARA O APPS SCRIPT
 // ============================================================
 
