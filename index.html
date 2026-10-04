@@ -119,35 +119,149 @@ function marcarCopiar(item){
   navigator.clipboard?.writeText(mensagem(item)).then(()=>alert("Mensagem copiada!")).catch(()=>alert(mensagem(item)));
 }
 function render(items){
-  const lista=document.getElementById("lista");
-  if(!Array.isArray(items)) items=[];
-  document.getElementById("total").textContent=items.length;
-  const pend=items.filter(x=>String(x.status||"").toLowerCase().includes("pend")).length;
-  document.getElementById("pendentes").textContent=pend;
-  document.getElementById("atualizado").textContent="Atualizado agora";
-  if(!items.length){
-    lista.innerHTML=`<div class="empty"><div class="empty-icon">🎉</div><b>Nenhum lembrete pendente</b><p>Quando houver uma nova designação, ela aparecerá aqui.</p></div>`;
+  const lista = document.getElementById("lista");
+
+  if (!Array.isArray(items)) {
+    items = [];
+  }
+
+  console.log("ITENS PARA RENDERIZAR:", items);
+
+  document.getElementById("total").textContent = items.length;
+
+  const pendentes = items.filter(item =>
+    String(item.status || "").toLowerCase().includes("pend")
+  ).length;
+
+  document.getElementById("pendentes").textContent = pendentes;
+
+  document.getElementById("atualizado").textContent = "Atualizado agora";
+
+  if (items.length === 0) {
+    lista.innerHTML = `
+      <div class="empty">
+        <div class="empty-icon">🎉</div>
+        <b>Nenhum lembrete pendente</b>
+        <p>Quando houver uma nova designação, ela aparecerá aqui.</p>
+      </div>
+    `;
     return;
   }
-  lista.innerHTML=items.map((item,i)=>{
-    const status=String(item.status||"Pendente");
-    const cls=status.toLowerCase().includes("enviado")?"enviado":status.toLowerCase().includes("erro")?"erro":"";
-    return `<article class="card">
-      <div class="card-top">
-        <div><p class="person">${escapeHtml(item.nome||"Sem nome")}</p><div class="date">📅 ${escapeHtml(formatarData(item.data))}</div></div>
-        <span class="badge ${cls}">${escapeHtml(status)}</span>
-      </div>
-      <div class="details">
-        <div class="detail"><small>Horário</small><b>🕐 ${escapeHtml(item.horario||"—")}</b></div>
-        <div class="detail"><small>Dupla</small><b>👥 ${escapeHtml(item.dupla||"—")}</b></div>
-      </div>
-      <div class="message">${escapeHtml(mensagem(item)).replace(/\n/g,"<br>")}</div>
-      <div class="actions">
-        <button class="btn btn-primary" onclick='abrirWhatsApp(${JSON.stringify(item).replace(/</g,"\\u003c")})'>💬 Abrir WhatsApp</button>
-        <button class="btn btn-secondary" onclick='marcarCopiar(${JSON.stringify(item).replace(/</g,"\\u003c")})'>📋 Copiar</button>
-      </div>
-    </article>`;
+
+  lista.innerHTML = items.map((item, index) => {
+
+    const nome = item.nome || "Sem nome";
+    const data = item.data || "Data não informada";
+    const horario = item.horario || "—";
+    const dupla = item.dupla || "—";
+    const status = item.status || "Pendente";
+    const whatsapp = item.whatsapp || "";
+
+    return `
+      <article class="card">
+
+        <div class="card-top">
+
+          <div>
+            <p class="person">${escapeHtml(nome)}</p>
+
+            <div class="date">
+              📅 ${escapeHtml(formatarData(data))}
+            </div>
+          </div>
+
+          <span class="badge">
+            ${escapeHtml(status)}
+          </span>
+
+        </div>
+
+        <div class="details">
+
+          <div class="detail">
+            <small>Horário</small>
+            <b>🕐 ${escapeHtml(horario)}</b>
+          </div>
+
+          <div class="detail">
+            <small>Dupla</small>
+            <b>👥 ${escapeHtml(dupla)}</b>
+          </div>
+
+        </div>
+
+        <div class="actions">
+
+          <button
+            class="btn btn-primary"
+            onclick="abrirWhatsApp(${index})">
+            💬 Abrir WhatsApp
+          </button>
+
+          <button
+            class="btn btn-secondary"
+            onclick="copiarMensagem(${index})">
+            📋 Copiar
+          </button>
+
+        </div>
+
+      </article>
+    `;
+
   }).join("");
+
+  window.lembretesAtuais = items;
+}
+
+ function abrirWhatsApp(index) {
+
+  const item = window.lembretesAtuais[index];
+
+  if (!item) return;
+
+  const numero = String(item.whatsapp || "").replace(/\D/g, "");
+
+  if (!numero) {
+    alert("Este cadastro não possui número de WhatsApp.");
+    return;
+  }
+
+  const texto =
+`Olá, ${item.nome || ""}! 😊
+
+Passando para lembrar que você está designado(a) para o carrinho de testemunho público no dia ${formatarData(item.data)}, às ${item.horario || ""}.
+
+Sua dupla será: ${item.dupla || ""}.
+
+Agradecemos pela sua disposição em apoiar essa atividade! 💚`;
+
+  const url =
+    "https://wa.me/" +
+    numero +
+    "?text=" +
+    encodeURIComponent(texto);
+
+  window.open(url, "_blank");
+}
+
+
+function copiarMensagem(index) {
+
+  const item = window.lembretesAtuais[index];
+
+  if (!item) return;
+
+  const texto =
+`Olá, ${item.nome || ""}! 😊
+
+Passando para lembrar que você está designado(a) para o carrinho de testemunho público no dia ${formatarData(item.data)}, às ${item.horario || ""}.
+
+Sua dupla será: ${item.dupla || ""}.`;
+
+  navigator.clipboard.writeText(texto)
+    .then(() => alert("Mensagem copiada!"))
+    .catch(() => alert("Não foi possível copiar a mensagem."));
 }
 async function carregar(){
   const lista=document.getElementById("lista");
