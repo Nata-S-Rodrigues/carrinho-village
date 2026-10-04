@@ -2074,22 +2074,12 @@ function dataHora(item) {
 
 function mensagem(item) {
 
-  if (
-    item.mensagem &&
-    String(item.mensagem).trim()
-  ) {
-
-    return item.mensagem;
-
-  }
-
-
   const configuracoes =
     obterConfiguracoesNotificacao();
 
 
   let texto =
-    configuracoes.mensagem;
+    configuracoes.mensagem || "";
 
 
   texto =
@@ -2123,8 +2113,6 @@ function mensagem(item) {
   return texto;
 
 }
-
-
 /* =====================================================
    ABRIR WHATSAPP
 ===================================================== */
