@@ -1,18 +1,3 @@
-// Verifica se o navegador suporta Service Workers
-if ('serviceWorker' in navigator) {
-  window.addEventListener('load', function() {
-    navigator.serviceWorker.register('./sw.js')
-      .then(function(registration) {
-        // Registo bem-sucedido
-        console.log('Service Worker registado com sucesso. Escopo:', registration.scope);
-      })
-      .catch(function(error) {
-        // Falha no registo
-        console.error('Falha ao registar o Service Worker:', error);
-      });
-  });
-}
-
 // Importa os scripts do Firebase necessários
 importScripts('https://www.gstatic.com/firebasejs/10.12.0/firebase-app-compat.js');
 importScripts('https://www.gstatic.com/firebasejs/10.12.0/firebase-messaging-compat.js');
@@ -30,18 +15,24 @@ const messaging = firebase.messaging();
 
 // Captura direta de eventos push do Firebase (Garante que exibe mesmo com o app fechado)
 self.addEventListener("push", function(event) {
-
   console.log("[SW] PUSH RECEBIDO");
 
   let texto = "Teste de notificação";
+  let titulo = "Controle de Carrinhos";
 
   if (event.data) {
-    texto = event.data.text();
+    try {
+      const dadosJson = event.data.json();
+      titulo = dadosJson.title || titulo;
+      texto = dadosJson.body || texto;
+    } catch (e) {
+      texto = event.data.text();
+    }
   }
 
   event.waitUntil(
     self.registration.showNotification(
-      "Controle de Carrinhos",
+      titulo,
       {
         body: texto,
         icon: "./logo.png",
@@ -49,7 +40,6 @@ self.addEventListener("push", function(event) {
       }
     )
   );
-
 });
 
 // Lida com cliques na notificação
@@ -103,16 +93,11 @@ self.addEventListener("activate", event => {
 });
 
 self.addEventListener('fetch', event => {
-
   const url = new URL(event.request.url);
 
   /*
-   * NÃO intercepta requisições externas.
-   *
-   * Isso é importante porque sua API está no
-   * Google Apps Script (script.google.com).
+   * NÃO intercepta requisições externas (Google Apps Script).
    */
-
   if (url.origin !== self.location.origin) {
     return;
   }
@@ -120,34 +105,10 @@ self.addEventListener('fetch', event => {
   event.respondWith(
     caches.match(event.request)
       .then(response => {
-
         if (response) {
           return response;
         }
-
         return fetch(event.request);
-
       })
-  );
-
-});
-
-// sw.js - Service Worker para gerir notificações
-self.addEventListener('push', function(event) {
-  const data = event.data ? event.data.json() : {};
-  const title = data.title || "Controle de Carrinhos";
-  const options = {
-    body: data.body || "🔔 Notificação recebida.",
-    icon: './logo.png'
-  };
-  event.waitUntil(
-    self.registration.showNotification(title, options)
-  );
-});
-
-self.addEventListener('notificationclick', function(event) {
-  event.notification.close();
-  event.waitUntil(
-    clients.openWindow('/')
   );
 });
