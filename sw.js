@@ -98,3 +98,16 @@ self.addEventListener("fetch", event => {
       .catch(() => caches.match(event.request))
   );
 });
+
+// Ouve as mensagens push enviadas pelo Firebase Cloud Messaging em background
+messaging.onBackgroundMessage(function(payload) {
+  console.log('[sw.js] Mensagem recebida em background: ', payload);
+  
+  const notificationTitle = payload.notification.title;
+  const notificationOptions = {
+    body: payload.notification.body,
+    icon: './logo.png'
+  };
+
+  self.registration.showNotification(notificationTitle, notificationOptions);
+});
