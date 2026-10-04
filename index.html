@@ -1693,73 +1693,202 @@ function abrirWhatsAppPorIndex(index) {
 ===================================================== */
 
 function normalizarNome(nome) {
+
   return String(nome || "")
     .normalize("NFD")
     .replace(/[\u0300-\u036f]/g, "")
     .trim()
     .toLowerCase()
     .replace(/\s+/g, " ");
+
+}
+
+
+function mesmaData(a, b) {
+
+  return formatarData(a) === formatarData(b);
+
+}
+
+
+function horarioValido(valor) {
+
+  if (
+    valor === null ||
+    valor === undefined ||
+    String(valor).trim() === ""
+  ) {
+    return false;
+  }
+
+  const texto = String(valor).trim();
+
+  /*
+   * A API normalmente já manda:
+   *
+   * 08:30
+   * 16:30
+   */
+
+  if (/^\d{1,2}:\d{2}/.test(texto)) {
+    return true;
+  }
+
+  /*
+   * Compatibilidade com formatos antigos.
+   */
+
+  if (
+    /(?:19\d{2}|20\d{2}).*?\d{1,2}:\d{2}/.test(texto)
+  ) {
+    return true;
+  }
+
+  return false;
+
+}
+
+
+function obterHorarioDoGrupo(pessoas) {
+
+  /*
+   * Primeiro tenta encontrar um horário válido
+   * em qualquer pessoa da dupla.
+   */
+
+  for (const pessoa of pessoas) {
+
+    if (horarioValido(pessoa.horario)) {
+
+      return formatarHorario(
+        pessoa.horario
+      );
+
+    }
+
+  }
+
+  return "Horário não informado";
+
 }
 
 
 function agruparDuplas(lista) {
 
   const grupos = [];
+
   const usados = new Set();
 
-  for (let i = 0; i < lista.length; i++) {
+
+  for (
+    let i = 0;
+    i < lista.length;
+    i++
+  ) {
 
     if (usados.has(i)) {
       continue;
     }
 
-    const pessoa = lista[i];
+
+    const pessoa =
+      lista[i];
+
 
     const nomePessoa =
-      normalizarNome(pessoa.nome);
+      normalizarNome(
+        pessoa.nome
+      );
+
 
     const nomeDupla =
-      normalizarNome(pessoa.dupla);
+      normalizarNome(
+        pessoa.dupla
+      );
+
 
     let indiceDupla = -1;
 
 
     /*
-     * Procura pelo nome informado
-     * no campo "dupla".
+     * Se a pessoa não possui dupla
+     * na planilha, ela fica sozinha.
      */
 
     if (nomeDupla) {
 
-      for (let j = 0; j < lista.length; j++) {
+      for (
+        let j = 0;
+        j < lista.length;
+        j++
+      ) {
 
-        if (j === i || usados.has(j)) {
+        if (
+          j === i ||
+          usados.has(j)
+        ) {
           continue;
         }
 
-        const outraPessoa = lista[j];
 
-        const nomeOutraPessoa =
-          normalizarNome(outraPessoa.nome);
+        const outra =
+          lista[j];
+
+
+        const nomeOutra =
+          normalizarNome(
+            outra.nome
+          );
+
+
+        const duplaOutra =
+          normalizarNome(
+            outra.dupla
+          );
 
 
         /*
-         * Aqui só verificamos:
+         * A dupla precisa ser RECÍPROCA.
          *
-         * Albertina → dupla = Elma
+         * Exemplo:
          *
-         * e procuramos alguém chamado Elma.
-         *
-         * NÃO verificamos horário.
+         * Albertina → Elma
+         * Elma      → Albertina
          */
 
-        if (nomeOutraPessoa === nomeDupla) {
+        const duplaReciproca =
+          nomeOutra === nomeDupla &&
+          duplaOutra === nomePessoa;
 
-          indiceDupla = j;
 
-          break;
-
+        if (!duplaReciproca) {
+          continue;
         }
+
+
+        /*
+         * Precisa ser a mesma data.
+         */
+
+        if (
+          !mesmaData(
+            pessoa.data,
+            outra.data
+          )
+        ) {
+          continue;
+        }
+
+
+        /*
+         * NÃO verificamos o horário aqui.
+         *
+         * O horário não decide se são dupla.
+         */
+
+        indiceDupla = j;
+
+        break;
 
       }
 
@@ -1772,16 +1901,36 @@ function agruparDuplas(lista) {
 
     if (indiceDupla !== -1) {
 
+      const outra =
+        lista[indiceDupla];
+
+
+      /*
+       * Escolhemos o horário disponível
+       * entre as duas pessoas.
+       */
+
+      const pessoasGrupo = [
+        pessoa,
+        outra
+      ];
+
+
       grupos.push({
 
-        dataHora: dataHora(pessoa),
+        dataHora:
+          dataHora(pessoa),
 
-        pessoas: [
-          pessoa,
-          lista[indiceDupla]
-        ]
+        horario:
+          obterHorarioDoGrupo(
+            pessoasGrupo
+          ),
+
+        pessoas:
+          pessoasGrupo
 
       });
+
 
       usados.add(i);
       usados.add(indiceDupla);
@@ -1797,13 +1946,20 @@ function agruparDuplas(lista) {
 
       grupos.push({
 
-        dataHora: dataHora(pessoa),
+        dataHora:
+          dataHora(pessoa),
+
+        horario:
+          obterHorarioDoGrupo([
+            pessoa
+          ]),
 
         pessoas: [
           pessoa
         ]
 
       });
+
 
       usados.add(i);
 
