@@ -1416,30 +1416,12 @@ function formatarData(valor) {
    HORÁRIO
 ===================================================== */
 
-/*
-   IMPORTANTE:
-
-   A API já está enviando:
-
-   "08:30"
-
-   ou
-
-   "16:30"
-
-   Portanto NÃO usamos new Date()
-   para interpretar o horário.
-
-   O aplicativo simplesmente pega
-   o texto que veio da API.
-*/
-
 function formatarHorario(valor) {
 
   if (
     valor === null ||
     valor === undefined ||
-    valor === ""
+    String(valor).trim() === ""
   ) {
 
     return "Horário não informado";
@@ -1450,13 +1432,6 @@ function formatarHorario(valor) {
   const texto =
     String(valor).trim();
 
-
-  /*
-    Caso normal:
-
-    08:30
-    16:30
-  */
 
   const simples =
     texto.match(
@@ -1478,13 +1453,6 @@ function formatarHorario(valor) {
 
   }
 
-
-  /*
-    Compatibilidade com registros antigos
-    que eventualmente ainda venham como:
-
-    Sat Dec 30 1899 05:23:32 GMT...
-  */
 
   const google =
     texto.match(
@@ -1543,16 +1511,6 @@ function dataHora(item) {
   const ano =
     Number(partes[2]);
 
-
-  /*
-    IMPORTANTE:
-
-    Aqui também NÃO usamos
-    new Date(item.horario).
-
-    O horário é tratado apenas como
-    texto HH:mm.
-  */
 
   const horario =
     String(item.horario || "")
@@ -1689,7 +1647,7 @@ function abrirWhatsAppPorIndex(index) {
 
 
 /* =====================================================
-   AGRUPAR DUPLAS
+   AGRUPAR DUPLAS (CORRIGIDO)
 ===================================================== */
 
 function normalizarNome(nome) {
@@ -1723,20 +1681,9 @@ function horarioValido(valor) {
 
   const texto = String(valor).trim();
 
-  /*
-   * A API normalmente já manda:
-   *
-   * 08:30
-   * 16:30
-   */
-
   if (/^\d{1,2}:\d{2}/.test(texto)) {
     return true;
   }
-
-  /*
-   * Compatibilidade com formatos antigos.
-   */
 
   if (
     /(?:19\d{2}|20\d{2}).*?\d{1,2}:\d{2}/.test(texto)
@@ -1750,11 +1697,6 @@ function horarioValido(valor) {
 
 
 function obterHorarioDoGrupo(pessoas) {
-
-  /*
-   * Primeiro tenta encontrar um horário válido
-   * em qualquer pessoa da dupla.
-   */
 
   for (const pessoa of pessoas) {
 
@@ -1810,11 +1752,6 @@ function agruparDuplas(lista) {
     let indiceDupla = -1;
 
 
-    /*
-     * Se a pessoa não possui dupla
-     * na planilha, ela fica sozinha.
-     */
-
     if (nomeDupla) {
 
       for (
@@ -1847,15 +1784,6 @@ function agruparDuplas(lista) {
           );
 
 
-        /*
-         * A dupla precisa ser RECÍPROCA.
-         *
-         * Exemplo:
-         *
-         * Albertina → Elma
-         * Elma      → Albertina
-         */
-
         const duplaReciproca =
           nomeOutra === nomeDupla &&
           duplaOutra === nomePessoa;
@@ -1866,10 +1794,6 @@ function agruparDuplas(lista) {
         }
 
 
-        /*
-         * Precisa ser a mesma data.
-         */
-
         if (
           !mesmaData(
             pessoa.data,
@@ -1878,13 +1802,6 @@ function agruparDuplas(lista) {
         ) {
           continue;
         }
-
-
-        /*
-         * NÃO verificamos o horário aqui.
-         *
-         * O horário não decide se são dupla.
-         */
 
         indiceDupla = j;
 
@@ -1895,20 +1812,17 @@ function agruparDuplas(lista) {
     }
 
 
-    /*
-     * ENCONTROU A DUPLA
-     */
-
     if (indiceDupla !== -1) {
 
       const outra =
         lista[indiceDupla];
 
-
-      /*
-       * Escolhemos o horário disponível
-       * entre as duas pessoas.
-       */
+      // Se uma pessoa está com horário vazio e a outra preencheu, sincronizamos para evitar inconsistência
+      if (!horarioValido(pessoa.horario) && horarioValido(outra.horario)) {
+        pessoa.horario = outra.horario;
+      } else if (horarioValido(pessoa.horario) && !horarioValido(outra.horario)) {
+        outra.horario = pessoa.horario;
+      }
 
       const pessoasGrupo = [
         pessoa,
@@ -1935,14 +1849,7 @@ function agruparDuplas(lista) {
       usados.add(i);
       usados.add(indiceDupla);
 
-    }
-
-
-    /*
-     * NÃO ENCONTROU DUPLA
-     */
-
-    else {
+    } else {
 
       grupos.push({
 
@@ -2056,28 +1963,10 @@ function renderInicio() {
     );
 
 
-  /*
-    AQUI está a correção principal.
-
-    Pegamos o horário diretamente
-    do objeto recebido pela API.
-
-    Não transformamos em Date.
-  */
-
   const horario =
     formatarHorario(
-      pessoas[0].horario
+      primeiro.horario
     );
-
-
-  console.log(
-    "PRÓXIMO:",
-    pessoas[0].nome,
-    pessoas[0].horario,
-    "=>",
-    horario
-  );
 
 
   proximo.innerHTML = `
@@ -2170,10 +2059,6 @@ function renderInicio() {
   `;
 
 
-  /*
-    Próximos 5 grupos.
-  */
-
   const proximosGrupos =
     grupos.slice(1,6);
 
@@ -2234,13 +2119,9 @@ function renderInicio() {
               .join(" + ");
 
 
-          const p =
-            pessoasGrupo[0];
-
-
           const horarioGrupo =
             formatarHorario(
-              p.horario
+              grupo.horario
             );
 
 
@@ -2256,7 +2137,7 @@ function renderInicio() {
 
                   ${escapeHtml(
                     formatarData(
-                      p.data
+                      pessoasGrupo[0].data
                     )
                   )}
 
@@ -2389,7 +2270,7 @@ function renderLista(lista) {
 
           const horario =
             formatarHorario(
-              primeiro.horario
+              grupo.horario
             );
 
 
@@ -2610,19 +2491,6 @@ async function carregar() {
       await resposta.json();
 
 
-    console.log(
-      "DADOS RECEBIDOS DA API:",
-      dados
-    );
-
-
-    /*
-      Aqui mantemos exatamente
-      os dados enviados pela API.
-
-      Não convertemos o horário.
-    */
-
     lembretes =
 
       Array.isArray(
@@ -2632,19 +2500,6 @@ async function carregar() {
         ? dados.itens
         : [];
 
-
-    console.log(
-      "PRIMEIRO HORÁRIO DA API:",
-      lembretes[0]?.horario
-    );
-
-
-    /*
-      Ordenação.
-
-      dataHora() trabalha com
-      o texto HH:mm.
-    */
 
     lembretes.sort(
       (a,b) =>
@@ -3002,10 +2857,6 @@ atualizarStatusNotificacao();
 
 carregar();
 
-
-/*
-  Atualiza os dados a cada 5 minutos.
-*/
 
 setInterval(
   carregar,
