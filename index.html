@@ -271,7 +271,7 @@ async function carregar(){
     if(!r.ok) throw new Error("HTTP "+r.status);
     const data=await r.json();
     console.log("DADOS RECEBIDOS DA API:", data);
-    render(data.items || data || []);
+    render(data.itens || data.items || data || []);
   }catch(e){
     lista.innerHTML=`<div class="error"><b>Não foi possível atualizar.</b><p>${escapeHtml(e.message)}</p><button class="btn btn-secondary" onclick="carregar()">Tentar novamente</button></div>`;
     document.getElementById("atualizado").textContent="Falha na atualização";
