@@ -79,10 +79,55 @@
 
   <div class="container">
     <h1>Painel de Designações</h1>
-    <div id="painel-container">Carregando dados da API...</div>
+    <div id="painel-container">Carregando dados...</div>
   </div>
 
   <script>
+    /* =====================================================
+       DADOS COMPLETOS DA API
+    ===================================================== */
+    const dadosApi = {
+      "sucesso": true,
+      "atualizadoEm": "2026-10-04T03:40:45.346Z",
+      "itens": [
+        {"nome":"Albertina","whatsapp":"556282250281","data":"06/10/2026","horario":"08:30","dupla":"Elma","status":"🟡 Pendente","mensagem":"Olá, Albertina! 😊\n\nPassando para lembrar que você está designado para o carrinho de testemunho público no dia 06/10/2026, às 08:30.\n\nSua dupla será: Elma.\n\nAgradecemos pela sua disposição em apoiar essa atividade! 💚"},
+        {"nome":"Ana Souza","whatsapp":"556285018849","data":"10/10/2026","horario":"08:30","dupla":"Aurelia","status":"🟡 Pendente","mensagem":"Olá, Ana Souza! 😊\n\nPassando para lembrar que você está designado para o carrinho de testemunho público no dia 10/10/2026, às 08:30.\n\nSua dupla será: Aurelia.\n\nAgradecemos pela sua disposição em apoiar essa atividade! 💚"},
+        {"nome":"Antonia","whatsapp":"556283252256","data":"14/10/2026","horario":"16:30","dupla":"Aparecida","status":"🟡 Pendente","mensagem":"Olá, Antonia! 😊\n\nPassando para lembrar que você está designado para o carrinho de testemunho público no dia 14/10/2026, às 16:30.\n\nSua dupla será: Aparecida.\n\nAgradecemos pela sua disposição em apoiar essa atividade! 💚"},
+        {"nome":"Aparecida","whatsapp":"556291968173","data":"14/10/2026","horario":"16:30","dupla":"Antonia","status":"🟡 Pendente","mensagem":"Olá, Aparecida! 😊\n\nPassando para lembrar que você está designado para o carrinho de testemunho público no dia 14/10/2026, às 16:30.\n\nSua dupla será: Antonia.\n\nAgradecemos pela sua disposição em apoiar essa atividade! 💚"},
+        {"nome":"Aurelia","whatsapp":"556286364662","data":"10/10/2026","horario":"08:30","dupla":"Ana Souza","status":"🟡 Pendente","mensagem":"Olá, Aurelia! 😊\n\nPassando para lembrar que você está designado para o carrinho de testemunho público no dia 10/10/2026, às 08:30.\n\nSua dupla será: Ana Souza.\n\nAgradecemos pela sua disposição em apoiar essa atividade! 💚"},
+        {"nome":"Claudiane","whatsapp":"556295647794","data":"28/10/2026","horario":"16:30","dupla":"Aparecida","status":"🟡 Pendente","mensagem":"Olá, Claudiane! 😊\n\nPassando para lembrar que você está designado para o carrinho de testemunho público no dia 28/10/2026, às 16:30.\n\nSua dupla será: Aparecida.\n\nAgradecemos pela sua disposição em apoiar essa atividade! 💚"},
+        {"nome":"Cristian","whatsapp":"556291226008","data":"25/10/2026","horario":"","dupla":"Raiane","status":"🟡 Pendente","mensagem":"Olá, Cristian! 😊\n\nPassando para lembrar que você está designado para o carrinho de testemunho público no dia 25/10/2026, às .\n\nSua dupla será: Raiane.\n\nAgradecemos pela sua disposição em apoiar essa atividade! 💚"},
+        {"nome":"Divina","whatsapp":"556291737742","data":"13/10/2026","horario":"08:30","dupla":"Raimunda","status":"🟡 Pendente","mensagem":"Olá, Divina! 😊\n\nPassando para lembrar que você está designado para o carrinho de testemunho público no dia 13/10/2026, às 08:30.\n\nSua dupla será: Raimunda.\n\nAgradecemos pela sua disposição em apoiar essa atividade! 💚"},
+        {"nome":"Eduardo","whatsapp":"556292101596","data":"17/10/2026","horario":"","dupla":"Zacarias","status":"🟡 Pendente","mensagem":"Olá, Eduardo! 😊\n\nPassando para lembrar que você está designado para o carrinho de testemunho público no dia 17/10/2026, às .\n\nSua dupla será: Zacarias.\n\nAgradecemos pela sua disposição em apoiar essa atividade! 💚"},
+        {"nome":"Elma","whatsapp":"556291466853","data":"06/10/2026","horario":"08:30","dupla":"Albertina","status":"🟡 Pendente","mensagem":"Olá, Elma! 😊\n\nPassando para lembrar que você está designado para o carrinho de testemunho público no dia 06/10/2026, às 08:30.\n\nSua dupla será: Albertina.\n\nAgradecemos pela sua disposição em apoiar essa atividade! 💚"},
+        {"nome":"Fabio","whatsapp":"556291214237","data":"10/10/2026","horario":"08:30","dupla":"Geno","status":"🟡 Pendente","mensagem":"Olá, Fabio! 😊\n\nPassando para lembrar que você está designado para o carrinho de testemunho público no dia 10/10/2026, às 08:30.\n\nSua dupla será: Geno.\n\nAgradecemos pela sua disposição em apoiar essa atividade! 💚"},
+        {"nome":"Fernando","whatsapp":"556292877574","data":"11/10/2026","horario":"08:30","dupla":"Raylton","status":"🟡 Pendente","mensagem":"Olá, Fernando! 😊\n\nPassando para lembrar que você está designado para o carrinho de testemunho público no dia 11/10/2026, às 08:30.\n\nSua dupla será: Raylton.\n\nAgradecemos pela sua disposição em apoiar essa atividade! 💚"},
+        {"nome":"Francisca","whatsapp":"556292954872","data":"17/10/2026","horario":"08:30","dupla":"Leticia","status":"🟡 Pendente","mensagem":"Olá, Francisca! 😊\n\nPassando para lembrar que você está designado para o carrinho de testemunho público no dia 17/10/2026, às 08:30.\n\nSua dupla será: Leticia.\n\nAgradecemos pela sua disposição em apoiar essa atividade! 💚"},
+        {"nome":"Geno","whatsapp":"556283393340","data":"10/10/2026","horario":"08:30","dupla":"Fabio","status":"🟡 Pendente","mensagem":"Olá, Geno! 😊\n\nPassando para lembrar que você está designado para o carrinho de testemunho público no dia 10/10/2026, às 08:30.\n\nSua dupla será: Fabio.\n\nAgradecemos pela sua disposição em apoiar essa atividade! 💚"},
+        {"nome":"Gerciane","whatsapp":"556299573830","data":"31/10/2026","horario":"08:30","dupla":"Hermilia","status":"🟡 Pendente","mensagem":"Olá, Gerciane! 😊\n\nPassando para lembrar que você está designado para o carrinho de testemunho público no dia 31/10/2026, às 08:30.\n\nSua dupla será: Hermilia.\n\nAgradecemos pela sua disposição em apoiar essa atividade! 💚"},
+        {"nome":"Gessiane","whatsapp":"556299325856","data":"07/10/2026","horario":"08:30","dupla":"Waldivina","status":"🟡 Pendente","mensagem":"Olá, Gessiane! 😊\n\nPassando para lembrar que você está designado para o carrinho de testemunho público no dia 07/10/2026, às 08:30.\n\nSua dupla será: Waldivina.\n\nAgradecemos pela sua disposição em apoiar essa atividade! 💚"},
+        {"nome":"Glória","whatsapp":"556299083475","data":"31/10/2026","horario":"08:30","dupla":"Luzia","status":"🟡 Pendente","mensagem":"Olá, Glória! 😊\n\nPassando para lembrar que você está designado para o carrinho de testemunho público no dia 31/10/2026, às 08:30.\n\nSua dupla será: Luzia.\n\nAgradecemos pela sua disposição em apoiar essa atividade! 💚"},
+        {"nome":"Hermilia","whatsapp":"556284328786","data":"31/10/2026","horario":"16:30","dupla":"Gerciane","status":"🟡 Pendente","mensagem":"Olá, Hermilia! 😊\n\nPassando para lembrar que você está designado para o carrinho de testemunho público no dia 31/10/2026, às 16:30.\n\nSua dupla será: Gerciane.\n\nAgradecemos pela sua disposição em apoiar essa atividade! 💚"},
+        {"nome":"Ketlen","whatsapp":"556196958321","data":"21/10/2026","horario":"08:30","dupla":"Nivea","status":"🟡 Pendente","mensagem":"Olá, Ketlen! 😊\n\nPassando para lembrar que você está designado para o carrinho de testemunho público no dia 21/10/2026, às 08:30.\n\nSua dupla será: Nivea.\n\nAgradecemos pela sua disposição em apoiar essa atividade! 💚"},
+        {"nome":"Leticia","whatsapp":"556292221506","data":"17/10/2026","horario":"08:30","dupla":"Francisca","status":"🟡 Pendente","mensagem":"Olá, Leticia! 😊\n\nPassando para lembrar que você está designado para o carrinho de testemunho público no dia 17/10/2026, às 08:30.\n\nSua dupla será: Francisca.\n\nAgradecemos pela sua disposição em apoiar essa atividade! 💚"},
+        {"nome":"Lorena","whatsapp":"556293829449","data":"24/10/2026","horario":"","dupla":"Vitória","status":"🟡 Pendente","mensagem":"Olá, Lorena! 😊\n\nPassando para lembrar que você está designado para o carrinho de testemunho público no dia 24/10/2026, às .\n\nSua dupla será: Vitória.\n\nAgradecemos pela sua disposição em apoiar essa atividade! 💚"},
+        {"nome":"Luzia","whatsapp":"556299855604","data":"31/10/2026","horario":"16:30","dupla":"Glória","status":"🟡 Pendente","mensagem":"Olá, Luzia! 😊\n\nPassando para lembrar que você está designado para o carrinho de testemunho público no dia 31/10/2026, às 16:30.\n\nSua dupla será: Glória.\n\nAgradecemos pela sua disposição em apoiar essa atividade! 💚"},
+        {"nome":"Mateus","whatsapp":"556198237300","data":"18/10/2026","horario":"08:30","dupla":"Riube","status":"🟡 Pendente","mensagem":"Olá, Mateus! 😊\n\nPassando para lembrar que você está designado para o carrinho de testemunho público no dia 18/10/2026, às 08:30.\n\nSua dupla será: Riube.\n\nAgradecemos pela sua disposição em apoiar essa atividade! 💚"},
+        {"nome":"Nivea","whatsapp":"556291156979","data":"21/10/2026","horario":"08:30","dupla":"Ketlen","status":"🟡 Pendente","mensagem":"Olá, Nivea! 😊\n\nPassando para lembrar que você está designado para o carrinho de testemunho público no dia 21/10/2026, às 08:30.\n\nSua dupla será: Ketlen.\n\nAgradecemos pela sua disposição em apoiar essa atividade! 💚"},
+        {"nome":"Raiane","whatsapp":"556292038901","data":"25/10/2026","horario":"08:30","dupla":"Cristian","status":"🟡 Pendente","mensagem":"Olá, Raiane! 😊\n\nPassando para lembrar que você está designado para o carrinho de testemunho público no dia 25/10/2026, às 08:30.\n\nSua dupla será: Cristian.\n\nAgradecemos pela sua disposição em apoiar essa atividade! 💚"},
+        {"nome":"Raimunda","whatsapp":"556281432057","data":"13/10/2026","horario":"","dupla":"Divina","status":"🟡 Pendente","mensagem":"Olá, Raimunda! 😊\n\nPassando para lembrar que você está designado para o carrinho de testemunho público no dia 13/10/2026, às .\n\nSua dupla será: Divina.\n\nAgradecemos pela sua disposição em apoiar essa atividade! 💚"},
+        {"nome":"Raimundo","whatsapp":"556299380392","data":"01/11/2026","horario":"08:30","dupla":"Ricardo","status":"🟡 Pendente","mensagem":"Olá, Raimundo! 😊\n\nPassando para lembrar que você está designado para o carrinho de testemunho público no dia 01/11/2026, às 08:30.\n\nSua dupla será: Ricardo.\n\nAgradecemos pela sua disposição em apoiar essa atividade! 💚"},
+        {"nome":"Raylton","whatsapp":"556291531426","data":"11/10/2026","horario":"","dupla":"Fernando","status":"🟡 Pendente","mensagem":"Olá, Raylton! 😊\n\nPassando para lembrar que você está designado para o carrinho de testemunho público no dia 11/10/2026, às .\n\nSua dupla será: Fernando.\n\nAgradecemos pela sua disposição em apoiar essa atividade! 💚"},
+        {"nome":"Ricardo","whatsapp":"556295442295","data":"01/11/2026","horario":"","dupla":"Raimundo","status":"🟡 Pendente","mensagem":"Olá, Ricardo! 😊\n\nPassando para lembrar que você está designado para o carrinho de testemunho público no dia 01/11/2026, às .\n\nSua dupla será: Raimundo.\n\nAgradecemos pela sua disposição em apoiar essa atividade! 💚"},
+        {"nome":"Riube","whatsapp":"556283466694","data":"18/10/2026","horario":"16:30","dupla":"Mateus","status":"🟡 Pendente","mensagem":"Olá, Riube! 😊\n\nPassando para lembrar que você está designado para o carrinho de testemunho público no dia 18/10/2026, às 16:30.\n\nSua dupla será: Mateus.\n\nAgradecemos pela sua disposição em apoiar essa atividade! 💚"},
+        {"nome":"Vilmonia","whatsapp":"553492523062","data":"20/10/2026","horario":"08:30","dupla":"Divina","status":"🟡 Pendente","mensagem":"Olá, Vilmonia! 😊\n\nPassando para lembrar que você está designado para o carrinho de testemunho público no dia 20/10/2026, às 08:30.\n\nSua dupla será: Divina.\n\nAgradecemos pela sua disposição em apoiar essa atividade! 💚"},
+        {"nome":"Vitória","whatsapp":"556294171954","data":"24/10/2026","horario":"08:30","dupla":"Lorena","status":"🟡 Pendente","mensagem":"Olá, Vitória! 😊\n\nPassando para lembrar que você está designado para o carrinho de testemunho público no dia 24/10/2026, às 08:30.\n\nSua dupla será: Lorena.\n\nAgradecemos pela sua disposição em apoiar essa atividade! 💚"},
+        {"nome":"Waldivina","whatsapp":"556295679080","data":"07/10/2026","horario":"08:30","dupla":"Gessiane","status":"🟡 Pendente","mensagem":"Olá, Waldivina! 😊\n\nPassando para lembrar que você está designado para o carrinho de testemunho público no dia 07/10/2026, às 08:30.\n\nSua dupla será: Gessiane.\n\nAgradecemos pela sua disposição em apoiar essa atividade! 💚"},
+        {"nome":"Willisson","whatsapp":"556291788837","data":"24/10/2026","horario":"08:30","dupla":"Fabio","status":"🟡 Pendente","mensagem":"Olá, Willisson! 😊\n\nPassando para lembrar que você está designado para o carrinho de testemunho público no dia 24/10/2026, às 08:30.\n\nSua dupla será: Fabio.\n\nAgradecemos pela sua disposição em apoiar essa atividade! 💚"},
+        {"nome":"Zacarias","whatsapp":"556298119927","data":"17/10/2026","horario":"08:30","dupla":"Eduardo","status":"🟡 Pendente","mensagem":"Olá, Zacarias! 😊\n\nPassando para lembrar que você está designado para o carrinho de testemunho público no dia 17/10/2026, às 08:30.\n\nSua dupla será: Eduardo.\n\nAgradecemos pela sua disposição em apoiar essa atividade! 💚"}
+      ]
+    };
+
     /* =====================================================
        FUNÇÕES AUXILIARES E DE FORMATAÇÃO
     ===================================================== */
@@ -132,7 +177,6 @@
       const grupos = [];
       const usados = new Set();
 
-      // 1ª Passagem: Tentar juntar pelo nome da dupla indicado no JSON ou reciprocidade
       for (let i = 0; i < lista.length; i++) {
         if (usados.has(i)) continue;
 
@@ -168,7 +212,6 @@
         }
       }
 
-      // 2ª Passagem: Pessoas que sobraram sem par exato correspondido
       for (let i = 0; i < lista.length; i++) {
         if (usados.has(i)) continue;
 
@@ -222,28 +265,16 @@
     }
 
     /* =====================================================
-       CONSUMIR API
+       INICIALIZAÇÃO
     ===================================================== */
-    async function carregarDados() {
-      try {
-        // Substitua pelo link real da sua API
-        const urlApi = 'COLOQUE_O_LINK_DA_SUA_API_AQUI';
-        
-        const resposta = await fetch(urlApi);
-        const resultado = await resposta.json();
-        
-        if (resultado.sucesso && Array.isArray(resultado.itens)) {
-          renderizarPainel(resultado.itens);
-        } else {
-          document.getElementById('painel-container').innerHTML = '<p>A API não retornou os itens esperados.</p>';
-        }
-      } catch (erro) {
-        console.error('Erro:', erro);
-        document.getElementById('painel-container').innerHTML = '<p>Erro de conexão ao carregar a API. Verifique a ligação ou as permissões de CORS.</p>';
+    function carregarDados() {
+      if (dadosApi.sucesso && Array.isArray(dadosApi.itens)) {
+        renderizarPainel(dadosApi.itens);
+      } else {
+        document.getElementById('painel-container').innerHTML = '<p>Erro ao processar os dados.</p>';
       }
     }
 
-    // Executar ao carregar a página
     carregarDados();
   </script>
 
