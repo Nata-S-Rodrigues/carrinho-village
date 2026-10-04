@@ -1702,23 +1702,6 @@ function normalizarNome(nome) {
 }
 
 
-function mesmaData(a, b) {
-
-  return formatarData(a) === formatarData(b);
-
-}
-
-
-function mesmoHorario(a, b) {
-
-  const horaA = formatarHorario(a);
-  const horaB = formatarHorario(b);
-
-  return horaA === horaB;
-
-}
-
-
 function agruparDuplas(lista) {
 
   const grupos = [];
@@ -1738,14 +1721,13 @@ function agruparDuplas(lista) {
     const nomeDupla =
       normalizarNome(pessoa.dupla);
 
-
-    /*
-     * Procura a pessoa que corresponde
-     * à dupla informada.
-     */
-
     let indiceDupla = -1;
 
+
+    /*
+     * Procura pelo nome informado
+     * no campo "dupla".
+     */
 
     if (nomeDupla) {
 
@@ -1755,34 +1737,23 @@ function agruparDuplas(lista) {
           continue;
         }
 
-        const outraPessoa =
-          lista[j];
+        const outraPessoa = lista[j];
 
         const nomeOutraPessoa =
-          normalizarNome(
-            outraPessoa.nome
-          );
+          normalizarNome(outraPessoa.nome);
 
 
         /*
-         * A outra pessoa precisa:
+         * Aqui só verificamos:
          *
-         * 1. Ter o nome indicado como dupla
-         * 2. Ter a mesma data
-         * 3. Ter o mesmo horário
+         * Albertina → dupla = Elma
+         *
+         * e procuramos alguém chamado Elma.
+         *
+         * NÃO verificamos horário.
          */
 
-        if (
-          nomeOutraPessoa === nomeDupla &&
-          mesmaData(
-            pessoa.data,
-            outraPessoa.data
-          ) &&
-          mesmoHorario(
-            pessoa.horario,
-            outraPessoa.horario
-          )
-        ) {
+        if (nomeOutraPessoa === nomeDupla) {
 
           indiceDupla = j;
 
@@ -1796,15 +1767,14 @@ function agruparDuplas(lista) {
 
 
     /*
-     * Encontrou a dupla
+     * ENCONTROU A DUPLA
      */
 
     if (indiceDupla !== -1) {
 
       grupos.push({
 
-        dataHora:
-          dataHora(pessoa),
+        dataHora: dataHora(pessoa),
 
         pessoas: [
           pessoa,
@@ -1813,30 +1783,27 @@ function agruparDuplas(lista) {
 
       });
 
-
       usados.add(i);
       usados.add(indiceDupla);
 
     }
 
+
     /*
-     * Não encontrou dupla.
-     * Mantém a pessoa sozinha.
+     * NÃO ENCONTROU DUPLA
      */
 
     else {
 
       grupos.push({
 
-        dataHora:
-          dataHora(pessoa),
+        dataHora: dataHora(pessoa),
 
         pessoas: [
           pessoa
         ]
 
       });
-
 
       usados.add(i);
 
