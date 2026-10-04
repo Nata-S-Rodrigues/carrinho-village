@@ -1747,10 +1747,10 @@ function renderInicio(){
     );
 
 
-  const horario =
-    formatarHorario(
-      pessoas[0].horario
-    );
+  const horario = pessoas[0].horario;
+
+console.log("HORÁRIO DIRETO DO ITEM:", pessoas[0].horario);
+console.log("HORÁRIO USADO NA TELA:", horario);
 
 
   proximo.innerHTML = `
