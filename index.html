@@ -1698,7 +1698,6 @@ function horarioValido(valor) {
 
 function obterHorarioDoGrupo(pessoas) {
 
-  // CORREÇÃO 1: Procura o primeiro horário válido dentro do grupo de pessoas (mesmo se a 1ª pessoa estiver vazia)
   for (const pessoa of pessoas) {
 
     if (horarioValido(pessoa.horario)) {
@@ -1779,18 +1778,10 @@ function agruparDuplas(lista) {
           );
 
 
-        const duplaOutra =
-          normalizarNome(
-            outra.dupla
-          );
+        const nomeBate = (nomeOutra === nomeDupla);
 
 
-        // CORREÇÃO 2: Flexibiliza a verificação da dupla para aceitar o vínculo por reciprocidade OU nome correspondente
-        const duplaReciproca =
-          (nomeOutra === nomeDupla) || (duplaOutra === nomePessoa);
-
-
-        if (!duplaReciproca) {
+        if (!nomeBate) {
           continue;
         }
 
