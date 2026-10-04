@@ -1343,7 +1343,7 @@
 
         <button
           class="whatsapp-btn"
-          onclick="ativarNotificacoes()"
+          onclick="ativarNotificacoesPush()"
         >
           🔔 Ativar notificações
         </button>
@@ -1576,7 +1576,62 @@
 </div>
 
 
+<!-- =====================================================
+     SDKs DO FIREBASE
+===================================================== -->
+<script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-app-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-messaging-compat.js"></script>
+
 <script>
+
+/* =====================================================
+   CONFIGURAÇÃO DO FIREBASE (CLOUD MESSAGING)
+===================================================== */
+const firebaseConfig = {
+  apiKey: "AIzaSyADjX2IrWrEHjYIxQjr-jzuyvHlwU9DQKE",
+  authDomain: "carrinho-village-controle.firebaseapp.com",
+  projectId: "carrinho-village-controle",
+  storageBucket: "carrinho-village-controle.firebasestorage.app",
+  messagingSenderId: "680890955138",
+  appId: "1:680890955138:web:ee16694100af20fb208b9b"
+};
+
+// Inicializar Firebase
+firebase.initializeApp(firebaseConfig);
+const messaging = firebase.messaging();
+
+async function ativarNotificacoesPush() {
+  if (!("Notification" in window)) {
+    alert("Seu navegador não oferece suporte a notificações.");
+    return;
+  }
+
+  try {
+    const registration = await navigator.serviceWorker.register('/sw.js');
+    console.log('Service Worker registado com sucesso:', registration);
+
+    const permissao = await Notification.requestPermission();
+    atualizarStatusNotificacao();
+
+    if (permissao === 'granted') {
+      const currentToken = await messaging.getToken({
+        serviceWorkerRegistration: registration,
+        vapidKey: 'BAgSnPtwqAW9Law8171fvD9Vjisz-ctGKhnxc-6uJjsezn9FG-sxpLbG0TQ72hxohy1CSanXzcEAGfQTe6wMfCE'
+      });
+
+      if (currentToken) {
+        console.log('Token FCM obtido com sucesso:', currentToken);
+        alert('Notificações ativadas com sucesso! Token gerado.');
+      } else {
+        console.warn('Não foi possível encontrar um token de registo.');
+      }
+    } else {
+      alert('Permissão de notificação negada.');
+    }
+  } catch (error) {
+    console.error('Erro ao configurar notificações push:', error);
+  }
+}
 
 
 /* =====================================================
@@ -2016,13 +2071,6 @@ function agruparDuplas(lista) {
   const grupos = [];
   const usados = new Set();
 
-  /*
-   * Procura o cadastro de uma pessoa pelo nome.
-   *
-   * Isso permite que uma pessoa seja usada como
-   * dupla mesmo quando ela não possui uma linha
-   * específica para aquela mesma designação.
-   */
   function encontrarCadastroPorNome(nome) {
 
     const nomeNormalizado =
@@ -2032,10 +2080,6 @@ function agruparDuplas(lista) {
       return null;
     }
 
-    /*
-     * Primeiro procura alguém com nome igual
-     * e WhatsApp preenchido.
-     */
     for (let i = 0; i < lista.length; i++) {
 
       const pessoa = lista[i];
@@ -2060,10 +2104,6 @@ function agruparDuplas(lista) {
 
     }
 
-    /*
-     * Se não encontrou WhatsApp,
-     * ainda tenta encontrar o cadastro.
-     */
     for (let i = 0; i < lista.length; i++) {
 
       const pessoa = lista[i];
@@ -2085,14 +2125,6 @@ function agruparDuplas(lista) {
   }
 
 
-  /*
-   * Procura uma linha real da dupla
-   * na mesma data.
-   *
-   * Só usamos essa linha como o segundo
-   * integrante quando a relação é realmente
-   * correspondente.
-   */
   function encontrarCorrespondenciaReal(
     pessoa,
     nomeDupla,
@@ -2118,10 +2150,6 @@ function agruparDuplas(lista) {
       const candidata =
         lista[j];
 
-      /*
-       * O nome precisa ser exatamente
-       * o nome indicado no campo Dupla.
-       */
       if (
         normalizarNome(
           candidata.nome
@@ -2130,9 +2158,6 @@ function agruparDuplas(lista) {
         continue;
       }
 
-      /*
-       * A data precisa ser a mesma.
-       */
       if (
         !mesmaData(
           pessoa.data,
@@ -2144,10 +2169,6 @@ function agruparDuplas(lista) {
 
       let pontuacao = 1;
 
-      /*
-       * Se a candidata também aponta
-       * de volta para a pessoa, melhor ainda.
-       */
       if (
         normalizarNome(
           candidata.dupla
@@ -2159,10 +2180,6 @@ function agruparDuplas(lista) {
         pontuacao += 10;
       }
 
-      /*
-       * Se os horários existem e são iguais,
-       * damos preferência a essa correspondência.
-       */
       if (
         horarioValido(
           pessoa.horario
@@ -2200,9 +2217,6 @@ function agruparDuplas(lista) {
   }
 
 
-  /*
-   * Monta os grupos.
-   */
   for (
     let i = 0;
     i < lista.length;
@@ -2222,9 +2236,6 @@ function agruparDuplas(lista) {
       );
 
 
-    /*
-     * Não possui dupla.
-     */
     if (!nomeDupla) {
 
       grupos.push({
@@ -2250,10 +2261,6 @@ function agruparDuplas(lista) {
     }
 
 
-    /*
-     * Primeiro tentamos encontrar
-     * uma linha real da dupla na mesma data.
-     */
     const indiceReal =
       encontrarCorrespondenciaReal(
         pessoa,
@@ -2262,10 +2269,6 @@ function agruparDuplas(lista) {
       );
 
 
-    /*
-     * Encontrou a outra pessoa na
-     * mesma designação.
-     */
     if (indiceReal !== -1) {
 
       const outra =
@@ -2281,10 +2284,6 @@ function agruparDuplas(lista) {
         dataHora:
           dataHora(pessoa),
 
-        /*
-         * O horário vem da própria
-         * designação.
-         */
         horario:
           obterHorarioDoGrupo(
             pessoasGrupo
@@ -2303,25 +2302,6 @@ function agruparDuplas(lista) {
     }
 
 
-    /*
-     * =================================================
-     * OPÇÃO B
-     *
-     * Não existe uma linha da dupla
-     * nessa mesma data.
-     *
-     * Então buscamos o cadastro geral
-     * dessa pessoa apenas para obter:
-     *
-     * - nome
-     * - WhatsApp
-     *
-     * NÃO usamos a data/hora do cadastro dela.
-     * A data e o horário continuam sendo
-     * os da designação atual.
-     * =================================================
-     */
-
     const cadastroDupla =
       encontrarCadastroPorNome(
         pessoa.dupla
@@ -2332,37 +2312,18 @@ function agruparDuplas(lista) {
 
       const pessoaVirtual = {
 
-        /*
-         * Nome correto da dupla.
-         */
         nome:
           cadastroDupla.nome,
 
-        /*
-         * WhatsApp encontrado no
-         * cadastro existente.
-         */
         whatsapp:
           cadastroDupla.whatsapp,
 
-        /*
-         * IMPORTANTE:
-         * usamos a data da designação atual.
-         */
         data:
           pessoa.data,
 
-        /*
-         * IMPORTANTE:
-         * usamos o horário da designação atual.
-         */
         horario:
           pessoa.horario,
 
-        /*
-         * A dupla dessa pessoa virtual
-         * é a pessoa que originou a designação.
-         */
         dupla:
           pessoa.nome,
 
@@ -2372,11 +2333,6 @@ function agruparDuplas(lista) {
         mensagem:
           cadastroDupla.mensagem || "",
 
-        /*
-         * Marca que esse objeto foi criado
-         * pelo aplicativo e não veio como
-         * uma linha independente da API.
-         */
         _virtual:
           true
 
@@ -2405,15 +2361,6 @@ function agruparDuplas(lista) {
       });
 
 
-      /*
-       * Só marcamos a pessoa atual como usada.
-       *
-       * NÃO marcamos o cadastro do Fabio,
-       * por exemplo.
-       *
-       * Assim o Fabio poderá aparecer
-       * normalmente em outra designação.
-       */
       usados.add(i);
 
       continue;
@@ -2421,10 +2368,6 @@ function agruparDuplas(lista) {
     }
 
 
-    /*
-     * Se nem o cadastro da dupla
-     * existir, mantém a pessoa sozinha.
-     */
     grupos.push({
 
       dataHora:
@@ -3266,52 +3209,6 @@ function atualizarStatusNotificacao() {
 
     elemento.textContent =
       "Notificações ainda não autorizadas.";
-
-  }
-
-}
-
-
-async function ativarNotificacoes() {
-
-
-  if (
-    !("Notification" in window)
-  ) {
-
-
-    alert(
-      "Seu navegador não oferece suporte a notificações."
-    );
-
-
-    return;
-
-  }
-
-
-  const permissao =
-    await Notification.requestPermission();
-
-
-  atualizarStatusNotificacao();
-
-
-  if (
-    permissao ===
-    "granted"
-  ) {
-
-
-    new Notification(
-      "Controle de Carrinhos",
-      {
-        body:
-          "As notificações foram ativadas.",
-        icon:
-          "./logo.png"
-      }
-    );
 
   }
 
