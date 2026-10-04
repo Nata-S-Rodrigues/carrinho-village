@@ -1326,42 +1326,30 @@ function formatarData(valor){
    HORÁRIO
 ========================================================= */
 
-function formatarHorario(valor){
-
-  if(!valor){
+function formatarHorario(valor) {
+  if (!valor) {
     return "Horário não informado";
   }
 
+  const texto = String(valor).trim();
 
-  const texto =
-    String(valor).trim();
+  // Se a API já enviar HH:mm
+  const horarioSimples = texto.match(/^(\d{1,2}):(\d{2})/);
 
-
-  /*
-   * Corrige:
-   *
-   * Sat Dec 30 1899 05:23:32 GMT-0306
-   */
-
-  const match =
-    texto.match(
-      /(\d{1,2}):(\d{2})(?::(\d{2}))?/
-    );
-
-
-  if(match){
-
-    return (
-      String(match[1]).padStart(2,"0")
-      + ":" +
-      match[2]
-    );
-
+  if (horarioSimples) {
+    return `${horarioSimples[1].padStart(2, "0")}:${horarioSimples[2]}`;
   }
 
+  // Compatibilidade caso ainda venha como Date do Google
+  const horarioGoogle = texto.match(
+    /1899.*?(\d{2}):(\d{2}):(\d{2})/
+  );
+
+  if (horarioGoogle) {
+    return `${horarioGoogle[1]}:${horarioGoogle[2]}`;
+  }
 
   return texto;
-
 }
 
 
