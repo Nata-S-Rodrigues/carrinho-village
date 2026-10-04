@@ -785,6 +785,141 @@
     }
 
 
+    .notification-setting {
+
+      margin-top: 18px;
+      padding-top: 18px;
+      border-top: 1px solid var(--border);
+
+    }
+
+    .notification-setting:first-of-type {
+      margin-top: 16px;
+    }
+
+    .notification-label {
+
+      display: block;
+      font-size: 13px;
+      font-weight: 750;
+      margin-bottom: 8px;
+
+    }
+
+    .notification-help {
+
+      margin: 0 0 10px;
+      color: var(--muted);
+      font-size: 12px;
+      line-height: 1.45;
+
+    }
+
+    .notification-select,
+    .notification-time,
+    .notification-textarea {
+
+      width: 100%;
+      border: 1px solid var(--border);
+      background: var(--surface);
+      border-radius: 12px;
+      padding: 11px 12px;
+      color: var(--text);
+      outline: none;
+
+    }
+
+    .notification-select:focus,
+    .notification-time:focus,
+    .notification-textarea:focus {
+      border-color: var(--primary);
+    }
+
+    .notification-textarea {
+
+      min-height: 180px;
+      resize: vertical;
+      line-height: 1.5;
+      font-size: 13px;
+
+    }
+
+    .notification-days {
+
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 8px;
+
+    }
+
+    .notification-day {
+
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 5px;
+      min-height: 42px;
+      border: 1px solid var(--border);
+      border-radius: 11px;
+      background: var(--surface-2);
+      font-size: 12px;
+      font-weight: 650;
+      cursor: pointer;
+
+    }
+
+    .notification-day input {
+      accent-color: var(--primary);
+    }
+
+    .notification-actions {
+
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 8px;
+      margin-top: 18px;
+
+    }
+
+    .notification-secondary {
+
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 11px;
+      background: var(--surface);
+      color: var(--text);
+      font-weight: 700;
+
+    }
+
+    .notification-preview {
+
+      white-space: pre-wrap;
+      background: var(--surface-2);
+      border-radius: 12px;
+      padding: 12px;
+      font-size: 12px;
+      line-height: 1.5;
+      color: #344054;
+
+    }
+
+    .notification-saved {
+
+      display: none;
+      margin-top: 10px;
+      color: var(--green);
+      font-size: 12px;
+      font-weight: 700;
+
+    }
+
+    @media(max-width: 430px) {
+      .notification-days {
+        grid-template-columns: repeat(2, 1fr);
+      }
+    }
+
     /* ================================
        ESTADOS
     ================================= */
@@ -1200,9 +1335,8 @@
 
         <p class="notification-description">
 
-          Permita as notificações para que o aplicativo
-          possa avisar você quando chegar o momento
-          de enviar um lembrete.
+          Configure quando você quer ser avisado e personalize
+          a mensagem que será preparada para o WhatsApp.
 
         </p>
 
@@ -1213,6 +1347,154 @@
         >
           🔔 Ativar notificações
         </button>
+
+
+        <div class="notification-setting">
+
+          <label
+            class="notification-label"
+            for="antecedenciaNotificacao"
+          >
+            📅 Antecedência do aviso
+          </label>
+
+          <p class="notification-help">
+            Escolha quantos dias antes da designação o aviso deverá ser enviado.
+          </p>
+
+          <select
+            id="antecedenciaNotificacao"
+            class="notification-select"
+          >
+            <option value="0">No mesmo dia</option>
+            <option value="1">1 dia antes</option>
+            <option value="2">2 dias antes</option>
+            <option value="3">3 dias antes</option>
+            <option value="5">5 dias antes</option>
+            <option value="7">7 dias antes</option>
+          </select>
+
+        </div>
+
+
+        <div class="notification-setting">
+
+          <label
+            class="notification-label"
+            for="horarioNotificacao"
+          >
+            🕐 Horário do aviso
+          </label>
+
+          <p class="notification-help">
+            Horário em que o aplicativo deverá enviar o lembrete.
+          </p>
+
+          <input
+            id="horarioNotificacao"
+            class="notification-time"
+            type="time"
+            value="19:00"
+          >
+
+        </div>
+
+
+        <div class="notification-setting">
+
+          <div class="notification-label">
+            📆 Dias da semana
+          </div>
+
+          <p class="notification-help">
+            Selecione os dias em que você deseja receber notificações.
+          </p>
+
+          <div class="notification-days">
+
+            <label class="notification-day"><input type="checkbox" value="1"> Seg</label>
+            <label class="notification-day"><input type="checkbox" value="2"> Ter</label>
+            <label class="notification-day"><input type="checkbox" value="3"> Qua</label>
+            <label class="notification-day"><input type="checkbox" value="4"> Qui</label>
+            <label class="notification-day"><input type="checkbox" value="5"> Sex</label>
+            <label class="notification-day"><input type="checkbox" value="6"> Sáb</label>
+            <label class="notification-day"><input type="checkbox" value="0"> Dom</label>
+
+          </div>
+
+        </div>
+
+
+        <div class="notification-setting">
+
+          <label
+            class="notification-label"
+            for="modeloMensagem"
+          >
+            💬 Mensagem do WhatsApp
+          </label>
+
+          <p class="notification-help">
+            Você pode editar o texto. Use {nome}, {dupla}, {data} e {horario} para preencher automaticamente os dados.
+          </p>
+
+          <textarea
+            id="modeloMensagem"
+            class="notification-textarea"
+            spellcheck="true"
+          ></textarea>
+
+        </div>
+
+
+        <div class="notification-setting">
+
+          <div class="notification-label">
+            👁️ Pré-visualização
+          </div>
+
+          <div
+            id="previewMensagem"
+            class="notification-preview"
+          ></div>
+
+        </div>
+
+
+        <div class="notification-actions">
+
+          <button
+            class="whatsapp-btn"
+            onclick="salvarConfiguracoesNotificacao()"
+          >
+            💾 Salvar configurações
+          </button>
+
+          <button
+            class="notification-secondary"
+            onclick="restaurarConfiguracoesNotificacao()"
+          >
+            Restaurar padrão
+          </button>
+
+        </div>
+
+
+        <button
+          class="notification-secondary"
+          style="width:100%;margin-top:8px;"
+          onclick="enviarNotificacaoTeste()"
+        >
+          🔔 Enviar notificação de teste
+        </button>
+
+
+        <div
+          id="configuracoesSalvas"
+          class="notification-saved"
+        >
+          ✓ Configurações salvas neste dispositivo.
+        </div>
 
 
       </div>
@@ -1562,29 +1844,43 @@ function mensagem(item) {
   }
 
 
-  return (
+  const configuracoes =
+    obterConfiguracoesNotificacao();
 
-    `Olá, ${item.nome || ""}! 😊\n\n` +
 
-    `Passando para lembrar que você está ` +
+  let texto =
+    configuracoes.mensagem;
 
-    `designado(a) para o carrinho de ` +
 
-    `testemunho público no dia ` +
+  texto =
+    texto.replaceAll(
+      "{nome}",
+      item.nome || ""
+    );
 
-    `${formatarData(item.data)}, às ` +
 
-    `${formatarHorario(item.horario)}.\n\n` +
+  texto =
+    texto.replaceAll(
+      "{dupla}",
+      item.dupla || ""
+    );
 
-    `Sua dupla será: ` +
 
-    `${item.dupla || ""}.\n\n` +
+  texto =
+    texto.replaceAll(
+      "{data}",
+      formatarData(item.data)
+    );
 
-    `Agradecemos pela sua disposição ` +
 
-    `em apoiar essa atividade! 💚`
+  texto =
+    texto.replaceAll(
+      "{horario}",
+      formatarHorario(item.horario)
+    );
 
-  );
+
+  return texto;
 
 }
 
@@ -3023,6 +3319,372 @@ async function ativarNotificacoes() {
 
 
 /* =====================================================
+   CONFIGURAÇÕES DAS NOTIFICAÇÕES
+===================================================== */
+
+const CHAVE_CONFIGURACOES_NOTIFICACAO =
+  "controleCarrinhosConfiguracoesNotificacao";
+
+const CONFIGURACAO_PADRAO_NOTIFICACAO = {
+
+  antecedencia: 1,
+
+  horario: "19:00",
+
+  dias: [
+    1,
+    2,
+    3,
+    4,
+    5,
+    6,
+    0
+  ],
+
+  mensagem:
+    "Olá, {nome}! 😊\n\n" +
+    "Passando para lembrar que você está designado(a) para o carrinho de testemunho público no dia {data}, às {horario}.\n\n" +
+    "Sua dupla será: {dupla}.\n\n" +
+    "Agradecemos pela sua disposição em apoiar essa atividade! 💚"
+
+};
+
+
+function obterConfiguracoesNotificacao() {
+
+  try {
+
+    const salvo =
+      localStorage.getItem(
+        CHAVE_CONFIGURACOES_NOTIFICACAO
+      );
+
+
+    if (!salvo) {
+      return {
+        ...CONFIGURACAO_PADRAO_NOTIFICACAO
+      };
+    }
+
+
+    const dados =
+      JSON.parse(salvo);
+
+
+    return {
+      ...CONFIGURACAO_PADRAO_NOTIFICACAO,
+      ...dados,
+      dias: Array.isArray(dados.dias)
+        ? dados.dias
+        : CONFIGURACAO_PADRAO_NOTIFICACAO.dias
+    };
+
+  }
+  catch (erro) {
+
+    console.error(
+      "Erro ao ler configurações:",
+      erro
+    );
+
+    return {
+      ...CONFIGURACAO_PADRAO_NOTIFICACAO
+    };
+
+  }
+
+}
+
+
+function salvarConfiguracoesNotificacao() {
+
+  const antecedencia =
+    Number(
+      document.getElementById(
+        "antecedenciaNotificacao"
+      ).value
+    );
+
+
+  const horario =
+    document.getElementById(
+      "horarioNotificacao"
+    ).value || "19:00";
+
+
+  const mensagemTexto =
+    document.getElementById(
+      "modeloMensagem"
+    ).value.trim();
+
+
+  if (!mensagemTexto) {
+
+    alert(
+      "Digite uma mensagem antes de salvar."
+    );
+
+    return;
+
+  }
+
+
+  const dias =
+    Array.from(
+      document.querySelectorAll(
+        ".notification-day input:checked"
+      )
+    ).map(
+      checkbox => Number(checkbox.value)
+    );
+
+
+  if (!dias.length) {
+
+    alert(
+      "Selecione pelo menos um dia da semana."
+    );
+
+    return;
+
+  }
+
+
+  const configuracoes = {
+
+    antecedencia,
+    horario,
+    dias,
+    mensagem: mensagemTexto
+
+  };
+
+
+  localStorage.setItem(
+    CHAVE_CONFIGURACOES_NOTIFICACAO,
+    JSON.stringify(configuracoes)
+  );
+
+
+  atualizarPreviewMensagem();
+
+
+  const aviso =
+    document.getElementById(
+      "configuracoesSalvas"
+    );
+
+
+  aviso.style.display = "block";
+
+
+  setTimeout(() => {
+    aviso.style.display = "none";
+  }, 3000);
+
+}
+
+
+function carregarConfiguracoesNotificacao() {
+
+  const configuracoes =
+    obterConfiguracoesNotificacao();
+
+
+  const antecedencia =
+    document.getElementById(
+      "antecedenciaNotificacao"
+    );
+
+  const horario =
+    document.getElementById(
+      "horarioNotificacao"
+    );
+
+  const mensagemCampo =
+    document.getElementById(
+      "modeloMensagem"
+    );
+
+
+  if (antecedencia) {
+    antecedencia.value =
+      String(configuracoes.antecedencia);
+  }
+
+
+  if (horario) {
+    horario.value =
+      configuracoes.horario || "19:00";
+  }
+
+
+  if (mensagemCampo) {
+    mensagemCampo.value =
+      configuracoes.mensagem ||
+      CONFIGURACAO_PADRAO_NOTIFICACAO.mensagem;
+  }
+
+
+  document
+    .querySelectorAll(
+      ".notification-day input"
+    )
+    .forEach(checkbox => {
+
+      checkbox.checked =
+        configuracoes.dias
+          .map(Number)
+          .includes(
+            Number(checkbox.value)
+          );
+
+    });
+
+
+  atualizarPreviewMensagem();
+
+}
+
+
+function restaurarConfiguracoesNotificacao() {
+
+  const confirmar =
+    confirm(
+      "Restaurar as configurações padrão?"
+    );
+
+
+  if (!confirmar) {
+    return;
+  }
+
+
+  localStorage.removeItem(
+    CHAVE_CONFIGURACOES_NOTIFICACAO
+  );
+
+
+  carregarConfiguracoesNotificacao();
+
+}
+
+
+function gerarMensagemPreview() {
+
+  const campo =
+    document.getElementById(
+      "modeloMensagem"
+    );
+
+
+  if (!campo) {
+    return "";
+  }
+
+
+  let texto = campo.value;
+
+
+  texto = texto.replaceAll(
+    "{nome}",
+    "Albertina"
+  );
+
+
+  texto = texto.replaceAll(
+    "{dupla}",
+    "Elma"
+  );
+
+
+  texto = texto.replaceAll(
+    "{data}",
+    "06/10/2026"
+  );
+
+
+  texto = texto.replaceAll(
+    "{horario}",
+    "08:30"
+  );
+
+
+  return texto;
+
+}
+
+
+function atualizarPreviewMensagem() {
+
+  const preview =
+    document.getElementById(
+      "previewMensagem"
+    );
+
+
+  if (!preview) {
+    return;
+  }
+
+
+  preview.textContent =
+    gerarMensagemPreview();
+
+}
+
+
+async function enviarNotificacaoTeste() {
+
+  if (!(`Notification` in window)) {
+
+    alert(
+      "Seu navegador não oferece suporte a notificações."
+    );
+
+    return;
+
+  }
+
+
+  if (
+    Notification.permission !==
+    "granted"
+  ) {
+
+    const permissao =
+      await Notification.requestPermission();
+
+
+    atualizarStatusNotificacao();
+
+
+    if (permissao !== "granted") {
+
+      alert(
+        "Autorize as notificações primeiro."
+      );
+
+      return;
+
+    }
+
+  }
+
+
+  new Notification(
+    "Controle de Carrinhos",
+    {
+      body:
+        "🔔 Esta é uma notificação de teste.",
+      icon:
+        "./logo.png"
+    }
+  );
+
+}
+
+/* =====================================================
    PWA
 ===================================================== */
 
@@ -3127,6 +3789,22 @@ if (
 /* =====================================================
    INICIALIZAÇÃO
 ===================================================== */
+
+carregarConfiguracoesNotificacao();
+
+const campoMensagem =
+  document.getElementById(
+    "modeloMensagem"
+  );
+
+if (campoMensagem) {
+
+  campoMensagem.addEventListener(
+    "input",
+    atualizarPreviewMensagem
+  );
+
+}
 
 atualizarStatusNotificacao();
 
