@@ -1,6 +1,8 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
+
 <head>
+
   <meta charset="UTF-8">
 
   <meta
@@ -8,792 +10,973 @@
     content="width=device-width, initial-scale=1, viewport-fit=cover"
   >
 
-  <meta name="theme-color" content="#ffffff">
+  <meta
+    name="theme-color"
+    content="#111827"
+  >
 
   <meta
     name="description"
-    content="Controle de Carrinhos"
+    content="Lembretes do Carrinho Village"
   >
 
   <link rel="manifest" href="manifest.json">
 
-  <title>Controle de Carrinhos</title>
+  <title>Carrinho Village</title>
+
 
   <style>
 
-    :root {
-      --bg: #f5f7fa;
-      --card: #ffffff;
-      --text: #172033;
-      --muted: #667085;
-      --border: #e6e9ef;
+    :root{
+      --bg:#f4f7fb;
+      --card:#ffffff;
+      --text:#101828;
+      --muted:#667085;
 
-      --primary: #2563eb;
-      --primary-dark: #1d4ed8;
+      --primary:#1677ff;
+      --primary2:#0b5bd3;
 
-      --green: #16a34a;
-      --green-bg: #ecfdf3;
+      --green:#12b76a;
+      --yellow:#f79009;
+      --red:#f04438;
 
-      --orange: #d97706;
-      --orange-bg: #fff7ed;
+      --border:#e4e7ec;
 
-      --red: #dc2626;
-      --red-bg: #fef2f2;
+      --shadow:0 8px 30px rgba(16,24,40,.08);
 
-      --shadow:
-        0 4px 20px rgba(15, 23, 42, .06);
-
-      --radius: 18px;
+      --radius:22px;
     }
 
 
-    * {
-      box-sizing: border-box;
+    *{
+      box-sizing:border-box;
     }
 
 
-    html {
-      scroll-behavior: smooth;
-    }
-
-
-    body {
-      margin: 0;
+    body{
+      margin:0;
 
       font-family:
         Inter,
+        system-ui,
         -apple-system,
         BlinkMacSystemFont,
         "Segoe UI",
-        Roboto,
         sans-serif;
 
-      background: var(--bg);
-      color: var(--text);
+      background:var(--bg);
+      color:var(--text);
     }
 
 
     button,
     input,
     textarea,
-    select {
-      font: inherit;
+    select{
+      font:inherit;
     }
 
 
-    button {
-      cursor: pointer;
+    button{
+      cursor:pointer;
     }
 
 
-    .app {
-      width: 100%;
-      max-width: 760px;
-      margin: auto;
-      min-height: 100vh;
-      padding-bottom: 90px;
+    .app{
+      max-width:720px;
+      margin:auto;
+      min-height:100vh;
+      padding-bottom:32px;
     }
 
 
-    /* =========================
-       HEADER
-    ========================= */
+    /* =========================================
+       CABEÇALHO
+    ========================================= */
 
-    .header {
-      background: #fff;
+    header{
 
-      border-bottom:
-        1px solid var(--border);
+      background:
+        linear-gradient(
+          135deg,
+          #111827,
+          #1f2937
+        );
+
+      color:#fff;
 
       padding:
-        calc(18px + env(safe-area-inset-top))
-        20px
-        16px;
+        24px
+        18px
+        22px;
 
-      position: sticky;
-      top: 0;
-      z-index: 20;
+      border-radius:
+        0
+        0
+        28px
+        28px;
     }
 
 
-    .header-row {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      gap: 15px;
+    .top{
+
+      display:flex;
+
+      align-items:center;
+
+      justify-content:space-between;
+
+      gap:12px;
     }
 
 
-    .brand {
-      display: flex;
-      align-items: center;
-      gap: 12px;
+    .brand{
+
+      display:flex;
+
+      align-items:center;
+
+      gap:12px;
     }
 
 
-    .brand-icon {
-      width: 42px;
-      height: 42px;
+    .logo{
 
-      border-radius: 12px;
+      width:48px;
+      height:48px;
 
-      display: grid;
-      place-items: center;
+      border-radius:15px;
 
-      background: #eff6ff;
-      color: var(--primary);
+      background:#ffffff12;
 
-      font-size: 20px;
-      font-weight: 800;
+      display:grid;
+
+      place-items:center;
+
+      font-size:25px;
+
+      border:
+        1px solid
+        #ffffff22;
     }
 
 
-    .brand-title {
-      font-size: 18px;
-      font-weight: 750;
-      margin: 0;
-      letter-spacing: -.2px;
+    h1{
+
+      font-size:21px;
+
+      margin:
+        0
+        0
+        3px;
     }
 
 
-    .brand-subtitle {
-      font-size: 12px;
-      color: var(--muted);
-      margin-top: 2px;
+    .subtitle{
+
+      font-size:13px;
+
+      color:#d0d5dd;
     }
 
 
-    .refresh-btn {
-      width: 40px;
-      height: 40px;
+    .refresh{
 
-      border: 1px solid var(--border);
+      border:
+        1px solid
+        #ffffff2b;
 
-      background: #fff;
+      background:#ffffff12;
 
-      border-radius: 12px;
+      color:#fff;
 
-      color: #344054;
+      width:42px;
+      height:42px;
 
-      font-size: 18px;
+      border-radius:13px;
+
+      font-size:20px;
     }
 
 
-    .refresh-btn:active {
-      transform: scale(.96);
+    .hero{
+
+      margin-top:22px;
     }
 
 
-    /* =========================
-       NAV
-    ========================= */
+    .hero-title{
 
-    .tabs {
-      display: grid;
+      font-size:28px;
+
+      font-weight:750;
+
+      margin:
+        0
+        0
+        6px;
+    }
+
+
+    .hero-text{
+
+      margin:0;
+
+      color:#d0d5dd;
+
+      font-size:14px;
+
+      line-height:1.5;
+    }
+
+
+    /* =========================================
+       ABAS
+    ========================================= */
+
+    .tabs{
+
+      display:grid;
 
       grid-template-columns:
-        repeat(3, 1fr);
+        1fr
+        1fr
+        1fr;
 
-      gap: 5px;
+      gap:7px;
 
-      margin-top: 15px;
-
-      background: #f2f4f7;
-
-      padding: 4px;
-
-      border-radius: 13px;
+      margin-top:20px;
     }
 
 
-    .tab {
-      border: 0;
+    .tab{
 
-      background: transparent;
+      border:
+        1px solid
+        #ffffff22;
 
-      color: var(--muted);
+      background:#ffffff0d;
 
-      padding: 10px 5px;
+      color:#d0d5dd;
 
-      border-radius: 10px;
+      border-radius:12px;
 
-      font-size: 12px;
+      padding:
+        10px
+        5px;
 
-      font-weight: 700;
+      font-size:12px;
+
+      font-weight:700;
     }
 
 
-    .tab.active {
-      background: #fff;
+    .tab.active{
 
-      color: var(--primary);
+      background:#fff;
 
-      box-shadow:
-        0 1px 4px rgba(16, 24, 40, .08);
+      color:#111827;
     }
 
 
-    /* =========================
+    /* =========================================
        MAIN
-    ========================= */
+    ========================================= */
 
-    main {
-      padding: 20px;
+    main{
+      padding:18px;
     }
 
 
-    .view {
-      display: none;
+    .view{
+      display:none;
     }
 
 
-    .view.active {
-      display: block;
+    .view.active{
+      display:block;
     }
 
 
-    .page-title {
-      font-size: 24px;
-
-      font-weight: 800;
-
-      letter-spacing: -.5px;
-
-      margin: 0 0 5px;
-    }
-
-
-    .page-subtitle {
-      margin: 0 0 20px;
-
-      font-size: 13px;
-
-      color: var(--muted);
-
-      line-height: 1.5;
-    }
-
-
-    /* =========================
+    /* =========================================
        RESUMO
-    ========================= */
+    ========================================= */
 
-    .summary {
-      display: grid;
+    .summary{
+
+      display:grid;
 
       grid-template-columns:
-        1fr 1fr;
+        1fr
+        1fr;
 
-      gap: 10px;
+      gap:12px;
 
-      margin-bottom: 22px;
+      margin-bottom:18px;
     }
 
 
-    .summary-card {
-      background: #fff;
+    .stat{
 
-      border: 1px solid var(--border);
-
-      border-radius: 16px;
-
-      padding: 15px;
-
-      box-shadow: var(--shadow);
-    }
-
-
-    .summary-number {
-      font-size: 25px;
-
-      font-weight: 800;
-
-      margin-bottom: 3px;
-    }
-
-
-    .summary-label {
-      color: var(--muted);
-
-      font-size: 11px;
-    }
-
-
-    /* =========================
-       SECTION
-    ========================= */
-
-    .section-header {
-      display: flex;
-
-      justify-content: space-between;
-
-      align-items: center;
-
-      margin-bottom: 12px;
-    }
-
-
-    .section-title {
-      font-size: 16px;
-
-      font-weight: 750;
-
-      margin: 0;
-    }
-
-
-    .section-info {
-      color: var(--muted);
-
-      font-size: 11px;
-    }
-
-
-    /* =========================
-       CARD DA DUPLA
-    ========================= */
-
-    .pair-card {
-      background: #fff;
+      background:var(--card);
 
       border:
-        1px solid var(--border);
+        1px solid
+        var(--border);
 
-      border-radius: var(--radius);
+      border-radius:18px;
 
-      padding: 16px;
+      padding:16px;
 
-      margin-bottom: 12px;
-
-      box-shadow: var(--shadow);
+      box-shadow:var(--shadow);
     }
 
 
-    .pair-top {
-      display: flex;
+    .stat strong{
 
-      justify-content: space-between;
+      display:block;
 
-      align-items: flex-start;
+      font-size:24px;
 
-      gap: 10px;
-
-      margin-bottom: 14px;
+      margin-bottom:3px;
     }
 
 
-    .pair-names {
-      font-size: 18px;
+    .stat span{
 
-      font-weight: 800;
+      font-size:12px;
 
-      margin: 0 0 5px;
+      color:var(--muted);
     }
 
 
-    .pair-date {
-      color: var(--muted);
+    /* =========================================
+       TÍTULOS
+    ========================================= */
 
-      font-size: 12px;
+    .section-head{
+
+      display:flex;
+
+      align-items:center;
+
+      justify-content:space-between;
+
+      margin:
+        8px
+        2px
+        12px;
     }
 
 
-    .status {
-      border-radius: 999px;
+    .section-head h2{
 
-      padding: 6px 9px;
+      font-size:17px;
 
-      font-size: 10px;
-
-      font-weight: 750;
-
-      background: var(--orange-bg);
-
-      color: var(--orange);
-
-      white-space: nowrap;
+      margin:0;
     }
 
 
-    .pair-info {
-      display: flex;
+    .count{
 
-      gap: 8px;
+      font-size:12px;
 
-      margin-bottom: 15px;
-
-      flex-wrap: wrap;
+      color:var(--muted);
     }
 
 
-    .info-pill {
-      background: #f8fafc;
+    .list{
+
+      display:grid;
+
+      gap:12px;
+    }
+
+
+    /* =========================================
+       CARD
+    ========================================= */
+
+    .card{
+
+      background:var(--card);
 
       border:
-        1px solid #eef2f6;
+        1px solid
+        var(--border);
 
-      border-radius: 10px;
+      border-radius:var(--radius);
 
-      padding: 8px 10px;
+      padding:17px;
 
-      font-size: 12px;
-
-      color: #475467;
+      box-shadow:var(--shadow);
     }
 
 
-    .people {
-      display: grid;
+    .card-top{
 
-      gap: 8px;
+      display:flex;
+
+      justify-content:space-between;
+
+      align-items:flex-start;
+
+      gap:12px;
     }
 
 
-    .person-row {
-      display: flex;
+    .person{
 
-      align-items: center;
+      font-size:18px;
 
-      justify-content: space-between;
+      font-weight:750;
 
-      gap: 10px;
-
-      padding: 10px;
-
-      background: #f8fafc;
-
-      border-radius: 13px;
+      margin:
+        0
+        0
+        4px;
     }
 
 
-    .person-name {
-      font-size: 13px;
+    .date{
 
-      font-weight: 700;
+      font-size:13px;
+
+      color:var(--muted);
     }
 
 
-    .whatsapp-btn {
-      border: 0;
+    .badge{
 
-      background: var(--green);
+      align-self:flex-start;
 
-      color: #fff;
+      border-radius:999px;
 
-      border-radius: 10px;
+      padding:
+        6px
+        10px;
 
-      padding: 9px 12px;
+      font-size:11px;
 
-      font-size: 11px;
+      font-weight:700;
 
-      font-weight: 750;
+      background:#fff4e5;
 
-      white-space: nowrap;
+      color:#b54708;
+
+      white-space:nowrap;
     }
 
 
-    .whatsapp-btn:active {
-      transform: scale(.97);
+    .details{
+
+      display:grid;
+
+      grid-template-columns:
+        1fr
+        1fr;
+
+      gap:9px;
+
+      margin:
+        15px
+        0;
     }
 
 
-    /* =========================
-       EMPTY
-    ========================= */
+    .detail{
 
-    .empty {
-      background: #fff;
+      background:#f8fafc;
+
+      border-radius:13px;
+
+      padding:10px;
+    }
+
+
+    .detail small{
+
+      display:block;
+
+      color:var(--muted);
+
+      font-size:10px;
+
+      margin-bottom:3px;
+    }
+
+
+    .detail b{
+
+      font-size:13px;
+    }
+
+
+    /* =========================================
+       PESSOAS DA DUPLA
+    ========================================= */
+
+    .people{
+
+      display:grid;
+
+      gap:8px;
+
+      margin-top:3px;
+    }
+
+
+    .person-row{
+
+      display:flex;
+
+      align-items:center;
+
+      justify-content:space-between;
+
+      gap:10px;
+
+      background:#f8fafc;
+
+      border-radius:13px;
+
+      padding:
+        10px
+        11px;
+    }
+
+
+    .person-name{
+
+      font-size:13px;
+
+      font-weight:700;
+
+      overflow:hidden;
+
+      text-overflow:ellipsis;
+
+      white-space:nowrap;
+    }
+
+
+    .btn-whatsapp{
+
+      border:0;
+
+      background:#12b76a;
+
+      color:#fff;
+
+      border-radius:10px;
+
+      padding:
+        9px
+        11px;
+
+      font-size:11px;
+
+      font-weight:700;
+
+      white-space:nowrap;
+    }
+
+
+    /* =========================================
+       BOTÕES
+    ========================================= */
+
+    .actions{
+
+      display:grid;
+
+      grid-template-columns:
+        1fr
+        1fr;
+
+      gap:9px;
+
+      margin-top:13px;
+    }
+
+
+    .btn{
+
+      border:0;
+
+      border-radius:13px;
+
+      padding:
+        12px
+        10px;
+
+      font-weight:700;
+    }
+
+
+    .btn-primary{
+
+      background:var(--primary);
+
+      color:#fff;
+    }
+
+
+    .btn-primary:active{
+
+      background:var(--primary2);
+    }
+
+
+    .btn-secondary{
+
+      background:#eef4ff;
+
+      color:#155eef;
+    }
+
+
+    /* =========================================
+       ESTADOS
+    ========================================= */
+
+    .empty,
+    .loading,
+    .error{
+
+      background:var(--card);
 
       border:
-        1px solid var(--border);
+        1px solid
+        var(--border);
 
-      border-radius: 18px;
+      border-radius:18px;
 
-      padding: 35px 20px;
+      padding:26px;
 
-      text-align: center;
+      text-align:center;
 
-      color: var(--muted);
+      color:var(--muted);
     }
 
 
-    .empty-icon {
-      font-size: 32px;
+    .empty-icon{
 
-      margin-bottom: 10px;
+      font-size:34px;
+
+      margin-bottom:8px;
     }
 
 
-    .empty strong {
-      display: block;
-
-      color: var(--text);
-
-      margin-bottom: 5px;
-    }
-
-
-    .loading {
-      background: #fff;
-
-      border:
-        1px solid var(--border);
-
-      border-radius: 18px;
-
-      padding: 30px;
-
-      text-align: center;
-
-      color: var(--muted);
-    }
-
-
-    .error {
-      background: var(--red-bg);
-
-      border:
-        1px solid #fecaca;
-
-      border-radius: 16px;
-
-      padding: 18px;
-
-      color: var(--red);
-
-      font-size: 13px;
-    }
-
-
-    /* =========================
+    /* =========================================
        CONFIGURAÇÕES
-    ========================= */
+    ========================================= */
 
-    .settings-card {
-      background: #fff;
+    .settings-card{
+
+      background:#fff;
 
       border:
-        1px solid var(--border);
+        1px solid
+        var(--border);
 
-      border-radius: var(--radius);
+      border-radius:var(--radius);
 
-      padding: 18px;
+      padding:18px;
 
-      margin-bottom: 14px;
+      margin-bottom:14px;
 
-      box-shadow: var(--shadow);
+      box-shadow:var(--shadow);
     }
 
 
-    .settings-title {
-      font-size: 16px;
+    .settings-card h2{
 
-      font-weight: 750;
+      font-size:18px;
 
-      margin: 0 0 5px;
+      margin:
+        0
+        0
+        5px;
     }
 
 
-    .settings-description {
-      font-size: 12px;
+    .settings-card > p{
 
-      line-height: 1.5;
+      font-size:12px;
 
-      color: var(--muted);
+      color:var(--muted);
 
-      margin: 0 0 16px;
+      line-height:1.5;
+
+      margin:
+        0
+        0
+        17px;
     }
 
 
-    .field {
-      margin-bottom: 15px;
+    .field{
+
+      margin-bottom:16px;
     }
 
 
-    .field:last-child {
-      margin-bottom: 0;
+    .field label{
+
+      display:block;
+
+      font-size:12px;
+
+      font-weight:700;
+
+      margin-bottom:7px;
     }
 
 
-    .field label {
-      display: block;
-
-      font-size: 12px;
-
-      font-weight: 700;
-
-      margin-bottom: 7px;
-    }
-
-
-    .field input,
     .field textarea,
-    .field select {
-      width: 100%;
+    .field select,
+    .field input{
+
+      width:100%;
 
       border:
-        1px solid #d0d5dd;
+        1px solid
+        #d0d5dd;
 
-      border-radius: 11px;
+      border-radius:11px;
 
-      padding: 11px 12px;
+      padding:
+        11px
+        12px;
 
-      outline: none;
+      background:#fff;
 
-      background: #fff;
+      color:var(--text);
 
-      color: var(--text);
-
-      font-size: 13px;
+      outline:none;
     }
 
 
-    .field textarea {
-      min-height: 170px;
+    .field textarea{
 
-      resize: vertical;
+      min-height:180px;
 
-      line-height: 1.5;
+      resize:vertical;
+
+      line-height:1.5;
     }
 
 
-    .field input:focus,
     .field textarea:focus,
-    .field select:focus {
-      border-color: var(--primary);
+    .field select:focus,
+    .field input:focus{
+
+      border-color:
+        var(--primary);
 
       box-shadow:
-        0 0 0 3px rgba(37, 99, 235, .1);
+        0 0 0 3px
+        rgba(22,119,255,.1);
     }
 
 
-    .variables {
-      display: flex;
+    .variables{
 
-      flex-wrap: wrap;
+      display:flex;
 
-      gap: 6px;
+      flex-wrap:wrap;
 
-      margin-top: 8px;
+      gap:6px;
+
+      margin-top:8px;
     }
 
 
-    .variable {
-      background: #eff6ff;
+    .variable{
 
-      color: #1d4ed8;
+      background:#eef4ff;
 
-      padding: 5px 8px;
+      color:#155eef;
 
-      border-radius: 7px;
+      padding:
+        5px
+        8px;
 
-      font-size: 10px;
+      border-radius:7px;
 
-      font-weight: 700;
+      font-size:10px;
+
+      font-weight:700;
     }
 
 
-    .save-btn {
-      width: 100%;
+    .save{
 
-      border: 0;
+      width:100%;
 
-      border-radius: 12px;
+      border:0;
 
-      padding: 13px;
+      border-radius:13px;
 
-      background: var(--primary);
+      padding:13px;
 
-      color: #fff;
+      background:var(--primary);
 
-      font-weight: 750;
+      color:#fff;
 
-      margin-top: 8px;
+      font-weight:700;
     }
 
 
-    .save-btn:active {
-      background: var(--primary-dark);
+    .saved{
+
+      display:none;
+
+      text-align:center;
+
+      color:var(--green);
+
+      font-size:12px;
+
+      margin-top:10px;
     }
 
 
-    .saved-message {
-      text-align: center;
+    /* =========================================
+       NOTIFICAÇÃO
+    ========================================= */
 
-      font-size: 12px;
+    .notification-info{
 
-      color: var(--green);
+      background:#eef4ff;
 
-      margin-top: 10px;
+      border:
+        1px solid
+        #c7d7fe;
 
-      display: none;
+      border-radius:13px;
+
+      padding:12px;
+
+      color:#344054;
+
+      font-size:12px;
+
+      line-height:1.5;
+
+      margin-top:10px;
     }
 
 
-    /* =========================
+    .notification-status{
+
+      display:flex;
+
+      align-items:center;
+
+      gap:8px;
+
+      font-weight:700;
+
+      margin-bottom:5px;
+    }
+
+
+    .dot{
+
+      width:9px;
+      height:9px;
+
+      border-radius:50%;
+
+      background:#f79009;
+    }
+
+
+    /* =========================================
        FOOTER
-    ========================= */
+    ========================================= */
 
-    .footer {
-      text-align: center;
+    .footer{
 
-      color: #98a2b3;
+      text-align:center;
 
-      font-size: 10px;
+      color:#98a2b3;
 
-      padding: 20px;
+      font-size:11px;
+
+      padding:18px;
     }
 
 
-    /* =========================
-       RESPONSIVO
-    ========================= */
+    @media(max-width:430px){
 
-    @media (max-width: 430px) {
-
-      main {
-        padding: 16px;
+      main{
+        padding:14px;
       }
 
-      .page-title {
-        font-size: 22px;
+
+      .summary{
+        gap:8px;
       }
 
-      .pair-card {
-        padding: 14px;
+
+      .card{
+        padding:14px;
+      }
+
+
+      .hero-title{
+        font-size:24px;
+      }
+
+
+      .person-row{
+        padding:9px;
+      }
+
+
+      .btn-whatsapp{
+        padding:
+          8px
+          9px;
       }
 
     }
 
   </style>
+
 </head>
 
 
 <body>
 
+
 <div class="app">
 
 
-  <!-- HEADER -->
+  <!-- =====================================================
+       CABEÇALHO
+  ====================================================== -->
 
-  <header class="header">
+  <header>
 
-    <div class="header-row">
+    <div class="top">
 
       <div class="brand">
 
-        <div class="brand-icon">
-          ✓
+        <div class="logo">
+          🚗
         </div>
 
         <div>
 
-          <h1 class="brand-title">
-            Controle de Carrinhos
+          <h1>
+            Carrinho Village
           </h1>
 
-          <div class="brand-subtitle">
+          <div class="subtitle">
             Lembretes de testemunho público
           </div>
 
@@ -803,7 +986,7 @@
 
 
       <button
-        class="refresh-btn"
+        class="refresh"
         onclick="carregar()"
         aria-label="Atualizar"
       >
@@ -813,104 +996,110 @@
     </div>
 
 
-    <!-- ABAS -->
+    <div class="hero">
 
-    <nav class="tabs">
+      <p class="hero-title">
+        Seus próximos lembretes
+      </p>
+
+      <p class="hero-text">
+        Toque em “WhatsApp” para enviar o lembrete diretamente.
+      </p>
+
+    </div>
+
+
+    <!-- =================================================
+         ABAS
+    ================================================== -->
+
+    <div class="tabs">
 
       <button
         class="tab active"
-        onclick="abrirAba('proximos', this)"
+        onclick="abrirAba('inicio',this)"
       >
-        Próximos
+        🏠 Início
       </button>
 
 
       <button
         class="tab"
-        onclick="abrirAba('todos', this)"
+        onclick="abrirAba('designacoes',this)"
       >
-        Todos
+        📋 Designações
       </button>
 
 
       <button
         class="tab"
-        onclick="abrirAba('config', this)"
+        onclick="abrirAba('configuracoes',this)"
       >
-        Configurações
+        ⚙️ Config.
       </button>
 
-    </nav>
+    </div>
 
   </header>
+
 
 
   <main>
 
 
-    <!-- =========================
-         PRÓXIMOS
-    ========================= -->
+    <!-- =================================================
+         INÍCIO
+    ================================================== -->
 
     <section
-      id="proximos"
+      id="inicio"
       class="view active"
     >
-
-      <h2 class="page-title">
-        Próximos lembretes
-      </h2>
-
-      <p class="page-subtitle">
-        Aqui aparecem somente as próximas designações que precisam da sua atenção.
-      </p>
 
 
       <div class="summary">
 
-        <div class="summary-card">
 
-          <div
-            class="summary-number"
-            id="proximosQtd"
-          >
+        <div class="stat">
+
+          <strong id="pendentes">
             —
-          </div>
+          </strong>
 
-          <div class="summary-label">
-            Próximos
-          </div>
+          <span>
+            Próximos lembretes
+          </span>
 
         </div>
 
 
-        <div class="summary-card">
+        <div class="stat">
 
-          <div
-            class="summary-number"
-            id="totalQtd"
-          >
+          <strong id="total">
             —
-          </div>
+          </strong>
 
-          <div class="summary-label">
-            Designações
-          </div>
+          <span>
+            Designações carregadas
+          </span>
 
         </div>
+
 
       </div>
 
 
-      <div class="section-header">
 
-        <h3 class="section-title">
+      <div class="section-head">
+
+        <h2>
           Próximas designações
-        </h3>
+        </h2>
+
 
         <span
-          class="section-info"
-          id="ultimaAtualizacao"
+          class="count"
+          id="atualizado"
         >
           Atualizando…
         </span>
@@ -918,37 +1107,55 @@
       </div>
 
 
-      <div id="listaProximos">
+
+      <div
+        id="listaProximos"
+        class="list"
+      >
 
         <div class="loading">
-          Carregando…
+          Carregando seus lembretes…
         </div>
 
       </div>
+
 
     </section>
 
 
 
-    <!-- =========================
-         TODOS
-    ========================= -->
+    <!-- =================================================
+         TODAS AS DESIGNAÇÕES
+    ================================================== -->
 
     <section
-      id="todos"
+      id="designacoes"
       class="view"
     >
 
-      <h2 class="page-title">
-        Todas as designações
-      </h2>
 
-      <p class="page-subtitle">
-        Consulte todas as designações pendentes.
-      </p>
+      <div class="section-head">
+
+        <h2>
+          Todas as designações
+        </h2>
 
 
-      <div id="listaTodos">
+        <span
+          class="count"
+          id="totalDesignacoes"
+        >
+          —
+        </span>
+
+      </div>
+
+
+
+      <div
+        id="listaTodos"
+        class="list"
+      >
 
         <div class="loading">
           Carregando…
@@ -956,38 +1163,32 @@
 
       </div>
 
+
     </section>
 
 
 
-    <!-- =========================
+    <!-- =================================================
          CONFIGURAÇÕES
-    ========================= -->
+    ================================================== -->
 
     <section
-      id="config"
+      id="configuracoes"
       class="view"
     >
-
-      <h2 class="page-title">
-        Configurações
-      </h2>
-
-      <p class="page-subtitle">
-        Personalize como você deseja receber e enviar os lembretes.
-      </p>
 
 
       <!-- MENSAGEM -->
 
       <div class="settings-card">
 
-        <h3 class="settings-title">
-          Mensagem do WhatsApp
-        </h3>
+        <h2>
+          💬 Mensagem do WhatsApp
+        </h2>
 
-        <p class="settings-description">
-          Personalize o texto que será preparado quando você tocar em “WhatsApp”.
+
+        <p>
+          Personalize a mensagem que será aberta quando você tocar no botão WhatsApp.
         </p>
 
 
@@ -996,6 +1197,7 @@
           <label>
             Modelo da mensagem
           </label>
+
 
           <textarea
             id="modeloMensagem"
@@ -1027,16 +1229,18 @@
       </div>
 
 
-      <!-- NOTIFICAÇÃO -->
+
+      <!-- NOTIFICAÇÕES -->
 
       <div class="settings-card">
 
-        <h3 class="settings-title">
-          Notificação
-        </h3>
+        <h2>
+          🔔 Notificações
+        </h2>
 
-        <p class="settings-description">
-          Escolha quando deseja ser lembrado das próximas designações.
+
+        <p>
+          Escolha quando o aplicativo deve lembrar você das próximas designações.
         </p>
 
 
@@ -1046,13 +1250,16 @@
             Antecedência
           </label>
 
-          <select id="antecedencia">
+
+          <select
+            id="antecedencia"
+          >
 
             <option value="0">
               No mesmo dia
             </option>
 
-            <option value="1" selected>
+            <option value="1">
               1 dia antes
             </option>
 
@@ -1064,6 +1271,10 @@
               3 dias antes
             </option>
 
+            <option value="5">
+              5 dias antes
+            </option>
+
             <option value="7">
               7 dias antes
             </option>
@@ -1073,11 +1284,13 @@
         </div>
 
 
+
         <div class="field">
 
           <label>
-            Horário do aviso
+            Horário da notificação
           </label>
+
 
           <input
             type="time"
@@ -1088,54 +1301,55 @@
         </div>
 
 
+
+        <div class="notification-info">
+
+          <div class="notification-status">
+
+            <span class="dot"></span>
+
+            Configuração salva neste dispositivo
+
+          </div>
+
+
+          As configurações definem quando você deseja ser lembrado.
+          Para notificações reais mesmo quando o aplicativo estiver fechado,
+          ainda precisamos configurar o sistema de notificações do aplicativo.
+
+        </div>
+
+
+        <br>
+
+
         <button
-          class="save-btn"
+          class="save"
           onclick="salvarConfiguracoes()"
         >
-          Salvar configurações
+          💾 Salvar configurações
         </button>
 
 
         <div
           id="salvo"
-          class="saved-message"
+          class="saved"
         >
-          Configurações salvas.
+          ✓ Configurações salvas
         </div>
-
-      </div>
-
-
-      <!-- INSTALAÇÃO -->
-
-      <div class="settings-card">
-
-        <h3 class="settings-title">
-          Aplicativo
-        </h3>
-
-        <p class="settings-description">
-          Você pode instalar o Controle de Carrinhos na tela inicial do celular para acessar rapidamente.
-        </p>
-
-        <button
-          id="installBtn"
-          class="save-btn"
-          style="display:none"
-        >
-          Instalar aplicativo
-        </button>
 
       </div>
 
 
     </section>
 
+
   </main>
 
 
+
   <div class="footer">
-    Controle de Carrinhos • versão 1.0
+    Carrinho Village • versão 1.0
   </div>
 
 
@@ -1151,15 +1365,18 @@
 ========================================================= */
 
 const API =
-  "https://script.google.com/macros/s/AKfycbxigrLwmQlKyAAg_fxvQnFPy5NiXWbkYUOWJX0tQdD9ldQWrDcqx2hcLCrGNugRCukS/exec?api=lembretes";
-
-
-let lembretesAtuais = [];
-
+"https://script.google.com/macros/s/AKfycbxigrLwmQlKyAAg_fxvQnFPy5NiXWbkYUOWJX0tQdD9ldQWrDcqx2hcLCrGNugRCukS/exec?api=lembretes";
 
 
 /* =========================================================
-   CONFIGURAÇÕES
+   VARIÁVEIS
+========================================================= */
+
+let lembretes = [];
+
+
+/* =========================================================
+   CONFIGURAÇÃO PADRÃO
 ========================================================= */
 
 const CONFIG_PADRAO = {
@@ -1173,52 +1390,93 @@ Sua dupla será: {dupla}.
 
 Agradecemos pela sua disposição em apoiar essa atividade! 💚`,
 
-  antecedencia: "1",
+  antecedencia:"1",
 
-  hora: "18:00"
+  hora:"18:00"
 
 };
 
 
+/* =========================================================
+   CONFIGURAÇÕES
+========================================================= */
 
-function carregarConfiguracoes() {
+function carregarConfiguracoes(){
 
-  const salvo =
-    localStorage.getItem(
-      "carrinhoConfig"
+  try{
+
+    const salvo =
+      localStorage.getItem(
+        "carrinhoConfig"
+      );
+
+
+    const config =
+      salvo
+        ? JSON.parse(salvo)
+        : CONFIG_PADRAO;
+
+
+    document.getElementById(
+      "modeloMensagem"
+    ).value =
+      config.mensagem ||
+      CONFIG_PADRAO.mensagem;
+
+
+    document.getElementById(
+      "antecedencia"
+    ).value =
+      config.antecedencia ??
+      "1";
+
+
+    document.getElementById(
+      "horaNotificacao"
+    ).value =
+      config.hora ||
+      "18:00";
+
+
+  }catch(e){
+
+    console.error(
+      "Erro nas configurações:",
+      e
     );
 
-  const config =
-    salvo
-      ? JSON.parse(salvo)
-      : CONFIG_PADRAO;
-
-
-  document.getElementById(
-    "modeloMensagem"
-  ).value =
-    config.mensagem ||
-    CONFIG_PADRAO.mensagem;
-
-
-  document.getElementById(
-    "antecedencia"
-  ).value =
-    config.antecedencia ??
-    "1";
-
-
-  document.getElementById(
-    "horaNotificacao"
-  ).value =
-    config.hora ||
-    "18:00";
+  }
 
 }
 
 
 
-function salvarConfiguracoes() {
+function obterConfig(){
+
+  try{
+
+    const salvo =
+      localStorage.getItem(
+        "carrinhoConfig"
+      );
+
+
+    return salvo
+      ? JSON.parse(salvo)
+      : CONFIG_PADRAO;
+
+
+  }catch(e){
+
+    return CONFIG_PADRAO;
+
+  }
+
+}
+
+
+
+function salvarConfiguracoes(){
 
   const config = {
 
@@ -1246,48 +1504,34 @@ function salvarConfiguracoes() {
   );
 
 
-  const aviso =
+  const salvo =
     document.getElementById(
       "salvo"
     );
 
 
-  aviso.style.display =
+  salvo.style.display =
     "block";
 
 
-  setTimeout(() => {
+  setTimeout(
+    function(){
 
-    aviso.style.display =
-      "none";
+      salvo.style.display =
+        "none";
 
-  }, 2500);
-
-}
-
-
-
-function obterConfig() {
-
-  const salvo =
-    localStorage.getItem(
-      "carrinhoConfig"
-    );
-
-
-  return salvo
-    ? JSON.parse(salvo)
-    : CONFIG_PADRAO;
+    },
+    2500
+  );
 
 }
-
 
 
 /* =========================================================
    MENSAGEM
 ========================================================= */
 
-function gerarMensagem(item) {
+function gerarMensagem(item){
 
   const config =
     obterConfig();
@@ -1298,50 +1542,60 @@ function gerarMensagem(item) {
     CONFIG_PADRAO.mensagem
   )
 
-    .replaceAll(
-      "{nome}",
-      item.nome || ""
-    )
+  .replaceAll(
+    "{nome}",
+    item.nome || ""
+  )
 
-    .replaceAll(
-      "{data}",
-      item.data || ""
-    )
+  .replaceAll(
+    "{data}",
+    item.data || ""
+  )
 
-    .replaceAll(
-      "{horario}",
-      item.horario || ""
-    )
+  .replaceAll(
+    "{horario}",
+    item.horario || ""
+  )
 
-    .replaceAll(
-      "{dupla}",
-      item.dupla || ""
-    );
+  .replaceAll(
+    "{dupla}",
+    item.dupla || ""
+  );
 
 }
-
 
 
 /* =========================================================
    WHATSAPP
 ========================================================= */
 
-function abrirWhatsApp(item) {
+function abrirWhatsApp(index){
+
+  const item =
+    lembretes[index];
+
+
+  if(!item){
+    return;
+  }
+
 
   const numero =
     String(
       item.whatsapp || ""
-    ).replace(/\D/g, "");
+    ).replace(
+      /\D/g,
+      ""
+    );
 
 
-  if (!numero) {
+  if(!numero){
 
     alert(
       "Este cadastro não possui número de WhatsApp."
     );
 
     return;
-
   }
 
 
@@ -1366,37 +1620,106 @@ function abrirWhatsApp(item) {
 }
 
 
+/* =========================================================
+   COPIAR MENSAGEM
+========================================================= */
+
+function copiarMensagem(index){
+
+  const item =
+    lembretes[index];
+
+
+  if(!item){
+    return;
+  }
+
+
+  const mensagem =
+    gerarMensagem(item);
+
+
+  navigator
+    .clipboard
+    .writeText(
+      mensagem
+    )
+
+    .then(
+      function(){
+
+        alert(
+          "Mensagem copiada!"
+        );
+
+      }
+    )
+
+    .catch(
+      function(){
+
+        alert(
+          "Não foi possível copiar a mensagem."
+        );
+
+      }
+    );
+
+}
+
 
 /* =========================================================
    DUPLAS
 ========================================================= */
 
-function agruparDuplas(items) {
+function chaveDupla(item){
+
+  const nomes = [
+
+    item.nome || "",
+
+    item.dupla || ""
+
+  ]
+
+  .filter(
+    Boolean
+  )
+
+  .sort();
+
+
+  return nomes.join("|");
+
+}
+
+
+
+function agruparDesignacoes(items){
 
   const grupos = {};
 
-  items.forEach(item => {
 
-    const nomes =
-      [
-        item.nome,
-        item.dupla
-      ]
-        .filter(Boolean)
-        .sort()
-        .join("|");
+  items.forEach(
+    function(item){
+
+      const chave =
+        chaveDupla(item);
 
 
-    if (!grupos[nomes]) {
+      if(!grupos[chave]){
 
-      grupos[nomes] = [];
+        grupos[chave] = [];
+
+      }
+
+
+      grupos[chave].push(
+        item
+      );
 
     }
-
-
-    grupos[nomes].push(item);
-
-  });
+  );
 
 
   return Object.values(
@@ -1406,15 +1729,75 @@ function agruparDuplas(items) {
 }
 
 
+/* =========================================================
+   DATA/HORA PARA ORDENAÇÃO
+========================================================= */
+
+function dataObjeto(
+  data,
+  horario
+){
+
+  if(!data){
+
+    return new Date(0);
+
+  }
+
+
+  const partes =
+    String(data)
+      .split("/");
+
+
+  if(partes.length !== 3){
+
+    return new Date(data);
+
+  }
+
+
+  let hora =
+    "00:00";
+
+
+  if(
+    horario &&
+    /^\d{1,2}:\d{2}$/.test(
+      String(horario)
+    )
+  ){
+
+    hora =
+      String(horario);
+
+  }
+
+
+  return new Date(
+
+    `${partes[2]}-${partes[1].padStart(2,"0")}-${partes[0].padStart(2,"0")}T${hora}:00`
+
+  );
+
+}
+
 
 /* =========================================================
    CARD
 ========================================================= */
 
-function criarCard(grupo) {
+function criarCard(
+  grupo
+){
 
-  if (!grupo.length) {
+  if(
+    !grupo ||
+    !grupo.length
+  ){
+
     return "";
+
   }
 
 
@@ -1424,77 +1807,150 @@ function criarCard(grupo) {
 
   const nomes =
     grupo
-      .map(item => item.nome)
+      .map(
+        function(item){
+
+          return item.nome;
+
+        }
+      )
+      .filter(Boolean)
       .join(" + ");
 
 
   const data =
-    primeiro.data || "—";
+    primeiro.data ||
+    "Data não informada";
 
 
   const horario =
-    primeiro.horario || "—";
+    primeiro.horario ||
+    "—";
 
 
-  const pessoas =
-    grupo
-      .map(item => {
+  let pessoas = "";
 
-        return `
 
-          <div class="person-row">
+  grupo.forEach(
+    function(item){
 
-            <span class="person-name">
-              ${escapeHtml(item.nome)}
-            </span>
+      const index =
+        lembretes.indexOf(
+          item
+        );
 
-            <button
-              class="whatsapp-btn"
-              onclick='abrirWhatsApp(${JSON.stringify(item).replace(/'/g,"&#39;")})'
-            >
-              WhatsApp
-            </button>
 
-          </div>
+      pessoas += `
 
-        `;
+        <div class="person-row">
 
-      })
-      .join("");
+          <span class="person-name">
+
+            ${escapeHtml(
+              item.nome
+            )}
+
+          </span>
+
+
+          <button
+            class="btn-whatsapp"
+            onclick="abrirWhatsApp(${index})"
+          >
+
+            💬 WhatsApp
+
+          </button>
+
+        </div>
+
+      `;
+
+    }
+  );
 
 
   return `
 
-    <article class="pair-card">
+    <article class="card">
 
-      <div class="pair-top">
+
+      <div class="card-top">
+
 
         <div>
 
-          <h3 class="pair-names">
-            ${escapeHtml(nomes)}
-          </h3>
+          <p class="person">
 
-          <div class="pair-date">
-            📅 ${escapeHtml(data)}
+            ${escapeHtml(
+              nomes
+            )}
+
+          </p>
+
+
+          <div class="date">
+
+            📅 ${escapeHtml(
+              data
+            )}
+
           </div>
 
         </div>
 
-        <span class="status">
+
+        <span class="badge">
+
           Pendente
+
         </span>
 
+
       </div>
 
 
-      <div class="pair-info">
 
-        <div class="info-pill">
-          🕐 ${escapeHtml(horario)}
+      <div class="details">
+
+
+        <div class="detail">
+
+          <small>
+            Horário
+          </small>
+
+
+          <b>
+
+            🕐 ${escapeHtml(
+              horario
+            )}
+
+          </b>
+
         </div>
 
+
+
+        <div class="detail">
+
+          <small>
+            Pessoas
+          </small>
+
+
+          <b>
+
+            👥 ${grupo.length}
+
+          </b>
+
+        </div>
+
+
       </div>
+
 
 
       <div class="people">
@@ -1503,6 +1959,7 @@ function criarCard(grupo) {
 
       </div>
 
+
     </article>
 
   `;
@@ -1510,75 +1967,66 @@ function criarCard(grupo) {
 }
 
 
-
 /* =========================================================
-   RENDER
+   RENDERIZAR
 ========================================================= */
 
-function renderizar(items) {
+function render(
+  items
+){
 
-  lembretesAtuais =
+  lembretes =
     Array.isArray(items)
       ? items
       : [];
 
 
+  console.log(
+    "ITENS PARA RENDERIZAR:",
+    lembretes
+  );
+
+
   document.getElementById(
-    "totalQtd"
+    "total"
   ).textContent =
-    lembretesAtuais.length;
+    lembretes.length;
 
 
   const grupos =
-    agruparDuplas(
-      lembretesAtuais
+    agruparDesignacoes(
+      lembretes
     );
 
 
-  /*
-   * Ordena por data + horário
-   */
+  /* Ordenar pela data e horário */
 
   grupos.sort(
-    (a, b) => {
+    function(a,b){
 
-      const da =
-        new Date(
-          converterData(
-            a[0].data
-          ) +
-          "T" +
-          (
-            a[0].horario ||
-            "00:00"
-          )
-        );
+      return (
 
+        dataObjeto(
+          a[0].data,
+          a[0].horario
+        )
 
-      const db =
-        new Date(
-          converterData(
-            b[0].data
-          ) +
-          "T" +
-          (
-            b[0].horario ||
-            "00:00"
-          )
-        );
+        -
 
+        dataObjeto(
+          b[0].data,
+          b[0].horario
+        )
 
-      return da - db;
+      );
 
     }
   );
 
 
-  /*
-   * Próximos
-   *
-   * Mostramos apenas os 3 primeiros grupos.
-   */
+  /* =====================================================
+     INÍCIO — SOMENTE OS PRÓXIMOS
+  ===================================================== */
 
   const proximos =
     grupos.slice(
@@ -1588,7 +2036,7 @@ function renderizar(items) {
 
 
   document.getElementById(
-    "proximosQtd"
+    "pendentes"
   ).textContent =
     proximos.length;
 
@@ -1599,29 +2047,32 @@ function renderizar(items) {
     );
 
 
-  if (!proximos.length) {
+  if(!proximos.length){
 
     listaProximos.innerHTML = `
 
       <div class="empty">
 
         <div class="empty-icon">
-          ✓
+          🎉
         </div>
 
-        <strong>
-          Nenhum lembrete pendente
-        </strong>
 
-        <span>
-          Quando houver uma nova designação, ela aparecerá aqui.
-        </span>
+        <b>
+          Nenhum lembrete pendente
+        </b>
+
+
+        <p>
+          Quando houver uma nova designação,
+          ela aparecerá aqui.
+        </p>
 
       </div>
 
     `;
 
-  } else {
+  }else{
 
     listaProximos.innerHTML =
       proximos
@@ -1633,9 +2084,15 @@ function renderizar(items) {
   }
 
 
-  /*
-   * Todos
-   */
+  /* =====================================================
+     TODAS
+  ===================================================== */
+
+  document.getElementById(
+    "totalDesignacoes"
+  ).textContent =
+    grupos.length;
+
 
   const listaTodos =
     document.getElementById(
@@ -1643,25 +2100,26 @@ function renderizar(items) {
     );
 
 
-  if (!grupos.length) {
+  if(!grupos.length){
 
     listaTodos.innerHTML = `
 
       <div class="empty">
 
         <div class="empty-icon">
-          ✓
+          🎉
         </div>
 
-        <strong>
+
+        <b>
           Nenhuma designação
-        </strong>
+        </b>
 
       </div>
 
     `;
 
-  } else {
+  }else{
 
     listaTodos.innerHTML =
       grupos
@@ -1674,108 +2132,42 @@ function renderizar(items) {
 
 
   document.getElementById(
-    "ultimaAtualizacao"
+    "atualizado"
   ).textContent =
     "Atualizado agora";
 
 }
 
 
-
-/* =========================================================
-   DATA
-========================================================= */
-
-function converterData(data) {
-
-  if (!data) {
-
-    return "1970-01-01";
-
-  }
-
-
-  const partes =
-    String(data).split("/");
-
-
-  if (
-    partes.length === 3
-  ) {
-
-    return (
-      partes[2] +
-      "-" +
-      partes[1].padStart(2, "0") +
-      "-" +
-      partes[0].padStart(2, "0")
-    );
-
-  }
-
-
-  return String(data);
-
-}
-
-
-
-/* =========================================================
-   HTML
-========================================================= */
-
-function escapeHtml(v) {
-
-  return String(
-    v ?? ""
-  ).replace(
-    /[&<>"']/g,
-    m => ({
-
-      "&": "&amp;",
-      "<": "&lt;",
-      ">": "&gt;",
-      '"': "&quot;",
-      "'": "&#039;"
-
-    }[m])
-  );
-
-}
-
-
-
 /* =========================================================
    CARREGAR API
 ========================================================= */
 
-async function carregar() {
+async function carregar(){
 
-  const listaProximos =
+  const lista =
     document.getElementById(
       "listaProximos"
     );
 
 
-  listaProximos.innerHTML =
-    `<div class="loading">
-      Atualizando…
-    </div>`;
+  lista.innerHTML =
+    '<div class="loading">Atualizando lembretes…</div>';
 
 
-  try {
+  try{
+
 
     const resposta =
       await fetch(
         API,
         {
-          cache:
-            "no-store"
+          cache:"no-store"
         }
       );
 
 
-    if (!resposta.ok) {
+    if(!resposta.ok){
 
       throw new Error(
         "HTTP " +
@@ -1795,19 +2187,20 @@ async function carregar() {
     );
 
 
-    renderizar(
+    render(
       data.itens || []
     );
 
 
-  } catch (erro) {
+  }catch(erro){
 
     console.error(
+      "Erro ao carregar:",
       erro
     );
 
 
-    listaProximos.innerHTML = `
+    lista.innerHTML = `
 
       <div class="error">
 
@@ -1815,27 +2208,36 @@ async function carregar() {
           Não foi possível atualizar.
         </b>
 
+
         <p>
           ${escapeHtml(
             erro.message
           )}
         </p>
 
+
         <button
-          class="save-btn"
+          class="btn btn-secondary"
           onclick="carregar()"
         >
+
           Tentar novamente
+
         </button>
 
       </div>
 
     `;
 
+
+    document.getElementById(
+      "atualizado"
+    ).textContent =
+      "Falha na atualização";
+
   }
 
 }
-
 
 
 /* =========================================================
@@ -1845,17 +2247,20 @@ async function carregar() {
 function abrirAba(
   id,
   botao
-) {
+){
 
   document
     .querySelectorAll(
       ".view"
     )
     .forEach(
-      view =>
+      function(view){
+
         view.classList.remove(
           "active"
-        )
+        );
+
+      }
     );
 
 
@@ -1864,15 +2269,20 @@ function abrirAba(
       ".tab"
     )
     .forEach(
-      tab =>
+      function(tab){
+
         tab.classList.remove(
           "active"
-        )
+        );
+
+      }
     );
 
 
   document
-    .getElementById(id)
+    .getElementById(
+      id
+    )
     .classList.add(
       "active"
     );
@@ -1885,96 +2295,74 @@ function abrirAba(
 }
 
 
-
 /* =========================================================
-   INSTALAÇÃO PWA
+   SEGURANÇA HTML
 ========================================================= */
 
-let deferredPrompt = null;
+function escapeHtml(v){
 
+  return String(
+    v ?? ""
+  ).replace(
+    /[&<>"']/g,
 
-window.addEventListener(
-  "beforeinstallprompt",
-  event => {
+    function(m){
 
-    event.preventDefault();
+      return {
 
-    deferredPrompt =
-      event;
+        "&":"&amp;",
+        "<":"&lt;",
+        ">":"&gt;",
+        '"':"&quot;",
+        "'":"&#039;"
 
-
-    const btn =
-      document.getElementById(
-        "installBtn"
-      );
-
-
-    if (btn) {
-
-      btn.style.display =
-        "block";
+      }[m];
 
     }
+  );
 
-  }
-);
-
-
-document.getElementById(
-  "installBtn"
-).addEventListener(
-  "click",
-  async () => {
-
-    if (!deferredPrompt) {
-      return;
-    }
-
-
-    deferredPrompt.prompt();
-
-
-    await deferredPrompt.userChoice;
-
-
-    deferredPrompt =
-      null;
-
-
-    document.getElementById(
-      "installBtn"
-    ).style.display =
-      "none";
-
-  }
-);
-
+}
 
 
 /* =========================================================
    SERVICE WORKER
 ========================================================= */
 
-if (
+if(
   "serviceWorker"
   in navigator
-) {
+){
 
   window.addEventListener(
     "load",
-    () => {
+
+    function(){
 
       navigator
         .serviceWorker
         .register(
           "sw.js"
         )
+
+        .then(
+          function(){
+
+            console.log(
+              "Service Worker ativado."
+            );
+
+          }
+        )
+
         .catch(
-          erro =>
+          function(erro){
+
             console.error(
-              "Service Worker:",
+              "Erro no Service Worker:",
               erro
-            )
+            );
+
+          }
         );
 
     }
@@ -1983,9 +2371,8 @@ if (
 }
 
 
-
 /* =========================================================
-   INICIALIZAÇÃO
+   INICIAR
 ========================================================= */
 
 carregarConfiguracoes();
@@ -1993,12 +2380,19 @@ carregarConfiguracoes();
 carregar();
 
 
+/*
+   Atualiza os dados automaticamente
+   a cada 5 minutos.
+*/
+
 setInterval(
   carregar,
   5 * 60 * 1000
 );
 
+
 </script>
+
 
 </body>
 </html>
