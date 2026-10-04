@@ -1601,36 +1601,145 @@ firebase.initializeApp(firebaseConfig);
 const messaging = firebase.messaging();
 
 async function ativarNotificacoesPush() {
+
   if (!("Notification" in window)) {
-    alert("Seu navegador não oferece suporte a notificações.");
+
+    alert(
+      "Seu navegador não oferece suporte a notificações."
+    );
+
     return;
+
   }
+
 
   try {
-   const registration = await navigator.serviceWorker.register('/carrinho-village/sw.js');
-    console.log('Service Worker registado com sucesso:', registration);
 
-    const permissao = await Notification.requestPermission();
+    /*
+     * Registra o mesmo Service Worker
+     * que já está funcionando no seu app.
+     */
+
+    const registration =
+      await navigator.serviceWorker.register(
+        "/carrinho-village/sw.js"
+      );
+
+
+    console.log(
+      "Service Worker registado com sucesso:",
+      registration
+    );
+
+
+    /*
+     * Solicita permissão para notificações.
+     */
+
+    const permissao =
+      await Notification.requestPermission();
+
+
     atualizarStatusNotificacao();
 
-    if (permissao === 'granted') {
-      const currentToken = await messaging.getToken({
-        serviceWorkerRegistration: registration,
-        vapidKey: 'BAgSnPtwqAW9Law8171fvD9Vjisz-ctGKhnxc-6uJjsezn9FG-sxpLbG0TQ72hxohy1CSanXzcEAGfQTe6wMfCE'
+
+    if (permissao !== "granted") {
+
+      alert(
+        "Permissão de notificação negada."
+      );
+
+      return;
+
+    }
+
+
+    /*
+     * Gera o token FCM deste dispositivo.
+     *
+     * IMPORTANTE:
+     * computador e celular terão tokens diferentes.
+     */
+
+    const currentToken =
+      await messaging.getToken({
+
+        serviceWorkerRegistration:
+          registration,
+
+        vapidKey:
+          "BAgSnPtwqAW9Law8171fvD9Vjisz-ctGKhnxc-6uJjsezn9FG-sxpLbG0TQ72hxohy1CSanXzcEAGfQTe6wMfCE"
+
       });
 
-      if (currentToken) {
-        console.log('Token FCM obtido com sucesso:', currentToken);
-        alert('Notificações ativadas com sucesso! Token gerado.');
-      } else {
-        console.warn('Não foi possível encontrar um token de registo.');
-      }
-    } else {
-      alert('Permissão de notificação negada.');
+
+    if (!currentToken) {
+
+      console.warn(
+        "Não foi possível encontrar um token de registro."
+      );
+
+      alert(
+        "Não foi possível gerar o token de notificação."
+      );
+
+      return;
+
     }
+
+
+    /*
+     * Mostra o token no Console para podermos
+     * confirmar que ele foi gerado.
+     */
+
+    console.log(
+      "Token FCM obtido com sucesso:",
+      currentToken
+    );
+
+
+    /*
+     * Guarda o token localmente.
+     *
+     * Isso não substitui o cadastro no Apps Script.
+     * Apenas mantém o token disponível neste dispositivo.
+     */
+
+    localStorage.setItem(
+      "controleCarrinhosFCMToken",
+      currentToken
+    );
+
+
+    /*
+     * Por enquanto NÃO enviamos o token para a API.
+     *
+     * Primeiro vamos confirmar que esta função
+     * continua funcionando perfeitamente.
+     */
+
+    alert(
+      "Notificações ativadas com sucesso!\n\n" +
+      "Token FCM gerado e salvo neste dispositivo."
+    );
+
+
   } catch (error) {
-    console.error('Erro ao configurar notificações push:', error);
+
+    console.error(
+      "Erro ao configurar notificações push:",
+      error
+    );
+
+
+    alert(
+      "Erro ao ativar as notificações.\n\n" +
+      error.message
+    );
+
   }
+
 }
 
 
