@@ -1,8 +1,7 @@
-// Importa os scripts do Firebase necessários para o Service Worker funcionar em background
+// Importa os scripts do Firebase necessários
 importScripts('https://www.gstatic.com/firebasejs/10.12.0/firebase-app-compat.js');
 importScripts('https://www.gstatic.com/firebasejs/10.12.0/firebase-messaging-compat.js');
 
-// Inicialize o Firebase no Service Worker com os seus dados reais
 firebase.initializeApp({
   apiKey: "AIzaSyADjX2IrWrEHjYIxQjr-jzuyvHlwU9DQKE",
   authDomain: "carrinho-village-controle.firebaseapp.com",
@@ -14,7 +13,23 @@ firebase.initializeApp({
 
 const messaging = firebase.messaging();
 
-// Opcional: Lida com cliques na notificação recebida em background
+// Captura direta de eventos push do Firebase (Garante que exibe mesmo com o app fechado)
+self.addEventListener('push', function(event) {
+  if (!event.data) return;
+
+  const data = event.data.json();
+  const notificationTitle = data.notification?.title || "Carrinho Village";
+  const notificationOptions = {
+    body: data.notification?.body || "Nova notificação recebida.",
+    icon: './logo.png'
+  };
+
+  event.waitUntil(
+    self.registration.showNotification(notificationTitle, notificationOptions)
+  );
+});
+
+// Lida com cliques na notificação
 self.addEventListener('notificationclick', function(event) {
   event.notification.close();
   event.waitUntil(
@@ -26,18 +41,17 @@ self.addEventListener('notificationclick', function(event) {
         }
       }
       if (clients.openWindow) {
-        return clients.openWindow('/');
+        return clients.openWindow('/carrinho-village/');
       }
     })
   );
 });
 
-
 // ==========================================
-// CONFIGURAÇÃO DE CACHE E PWA
+// CACHE E PWA
 // ==========================================
 
-const CACHE = "carrinho-village-v2";
+const CACHE = "carrinho-village-v3";
 
 const ASSETS = [
   "./",
@@ -66,48 +80,12 @@ self.addEventListener("activate", event => {
 });
 
 self.addEventListener("fetch", event => {
-  if (event.request.method !== "GET") return;
+  ifSe mesmo após adicionar o código de fundo a notificação não apareceu, o próximo passo essencial é **verificar se o Service Worker chegou a receber o sinal** do Firebase. 
 
-  const url = new URL(event.request.url);
+Como o Service Worker roda num processo separado da página web, os erros ou logs dele aparecem numa consola própria.
 
-  // Ignora pedidos que não sejam http ou https (ex: extensões do Chrome)
-  if (url.protocol !== "http:" && url.protocol !== "https:") return;
+### Como verificar o Service Worker:
 
-  // A API nunca deve vir do cache.
-  if (url.href.includes("script.google.com")) {
-    event.respondWith(
-      fetch(event.request, { cache: "no-store" })
-    );
-    return;
-  }
-
-  // Para o aplicativo, tenta buscar a versão nova primeiro.
-  event.respondWith(
-    fetch(event.request)
-      .then(response => {
-        if (response && response.ok) {
-          const clone = response.clone();
-
-          caches.open(CACHE).then(cache => {
-            cache.put(event.request, clone);
-          });
-        }
-
-        return response;
-      })
-      .catch(() => caches.match(event.request))
-  );
-});
-
-// Ouve as mensagens push enviadas pelo Firebase Cloud Messaging em background
-messaging.onBackgroundMessage(function(payload) {
-  console.log('[sw.js] Mensagem recebida em background: ', payload);
-  
-  const notificationTitle = payload.notification.title;
-  const notificationOptions = {
-    body: payload.notification.body,
-    icon: './logo.png'
-  };
-
-  self.registration.showNotification(notificationTitle, notificationOptions);
-});
+1. No seu navegador, abra uma nova aba e digite:
+   ```text
+   chrome://inspect/#service-workers
