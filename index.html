@@ -3156,23 +3156,19 @@ async function carregar() {
   try {
 
 
-    const resposta =
+    const urlAPI =
+  API.includes("?")
+    ? API + "&_=" + Date.now()
+    : API + "?_=" + Date.now();
 
-      await fetch(
-
-        API +
-
-        "?_=" +
-
-        Date.now(),
-
-        {
-          cache:
-            "no-store"
-        }
-
-      );
-
+const resposta =
+  await fetch(
+    urlAPI,
+    {
+      cache:
+        "no-store"
+    }
+  );
 
     if (
       !resposta.ok
