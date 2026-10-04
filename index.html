@@ -1607,7 +1607,7 @@ async function ativarNotificacoesPush() {
   }
 
   try {
-    const registration = await navigator.serviceWorker.register('/sw.js');
+    const registration = await navigator.serviceWorker.register('./sw.js');
     console.log('Service Worker registado com sucesso:', registration);
 
     const permissao = await Notification.requestPermission();
