@@ -14,48 +14,27 @@ firebase.initializeApp({
 const messaging = firebase.messaging();
 
 // Captura direta de eventos push do Firebase (Garante que exibe mesmo com o app fechado)
-self.addEventListener('push', function(event) {
-  if (!event.data) return;
+self.addEventListener("push", function(event) {
 
-  let notificationTitle = "Carrinho Village";
-  let notificationBody = "Nova notificação recebida.";
+  console.log("[SW] PUSH RECEBIDO");
 
-  try {
+  let texto = "Teste de notificação";
 
-    // Mensagem enviada pelo Firebase
-    const data = event.data.json();
-
-    notificationTitle =
-      data.notification?.title ||
-      data.data?.title ||
-      notificationTitle;
-
-    notificationBody =
-      data.notification?.body ||
-      data.data?.body ||
-      notificationBody;
-
-  } catch (erro) {
-
-    // Mensagem simples enviada pelo Chrome DevTools
-    notificationBody =
-      event.data.text() ||
-      notificationBody;
-
+  if (event.data) {
+    texto = event.data.text();
   }
-
-  const notificationOptions = {
-    body: notificationBody,
-    icon: './logo.png',
-    badge: './logo.png'
-  };
 
   event.waitUntil(
     self.registration.showNotification(
-      notificationTitle,
-      notificationOptions
+      "Controle de Carrinhos",
+      {
+        body: texto,
+        icon: "./logo.png",
+        badge: "./logo.png"
+      }
     )
   );
+
 });
 
 // Lida com cliques na notificação
