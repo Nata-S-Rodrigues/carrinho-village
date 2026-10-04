@@ -80,7 +80,7 @@ self.addEventListener('notificationclick', function(event) {
 // CACHE E PWA
 // ==========================================
 
-const CACHE = "carrinho-village-v3";
+const CACHE = "carrinho-village-v4";
 
 const ASSETS = [
   "./",
