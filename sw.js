@@ -70,6 +70,9 @@ self.addEventListener("fetch", event => {
 
   const url = new URL(event.request.url);
 
+  // Ignora pedidos que não sejam http ou https (ex: extensões do Chrome)
+  if (url.protocol !== "http:" && url.protocol !== "https:") return;
+
   // A API nunca deve vir do cache.
   if (url.href.includes("script.google.com")) {
     event.respondWith(
