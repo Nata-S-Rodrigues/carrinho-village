@@ -2144,20 +2144,9 @@ function abrirWhatsAppPorIndex(index) {
     return;
   }
 
-  // 1. Vai buscar a mensagem personalizada das configurações (ex: do localStorage ou do input)
-  // Substitua "mensagemConfigurada" pela chave exata ou ID do elemento onde guarda a configuração
-  let mensagemConfig = localStorage.getItem("mensagemConfigurada") || ""; 
-  
-  // Se preferir ler diretamente de um input de configurações na página, use algo como:
-  // let mensagemConfig = document.getElementById("idDoInputDeConfiguracao").value;
-
-  // 2. Se a mensagem tiver variáveis como {nome}, substitui pelo nome do item atual
-  let textoFinal = mensagemConfig.replace(/{nome}/g, item.nome || "");
-
-  // Se o utilizador não tiver configurado nada, pode usar uma mensagem padrão de segurança:
-  if (!textoFinal.trim()) {
-    textoFinal = `Olá ${item.nome || ""}, tudo bem?`;
-  }
+  // Utiliza a função original 'mensagem(item)' do seu sistema, 
+  // que já puxa as configurações salvas e substitui {nome}, {dupla}, {data} e {horario} corretamente.
+  const textoFinal = mensagem(item);
 
   const url =
     "https://wa.me/" +
