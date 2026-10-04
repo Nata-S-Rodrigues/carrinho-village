@@ -1718,10 +1718,195 @@ function obterHorarioDoGrupo(pessoas) {
 function agruparDuplas(lista) {
 
   const grupos = [];
-
   const usados = new Set();
 
+  /*
+   * Procura o cadastro de uma pessoa pelo nome.
+   *
+   * Isso permite que uma pessoa seja usada como
+   * dupla mesmo quando ela não possui uma linha
+   * específica para aquela mesma designação.
+   */
+  function encontrarCadastroPorNome(nome) {
 
+    const nomeNormalizado =
+      normalizarNome(nome);
+
+    if (!nomeNormalizado) {
+      return null;
+    }
+
+    /*
+     * Primeiro procura alguém com nome igual
+     * e WhatsApp preenchido.
+     */
+    for (let i = 0; i < lista.length; i++) {
+
+      const pessoa = lista[i];
+
+      if (
+        normalizarNome(pessoa.nome) ===
+        nomeNormalizado
+      ) {
+
+        const whatsapp =
+          String(
+            pessoa.whatsapp || ""
+          ).trim();
+
+        if (whatsapp) {
+          return {
+            ...pessoa
+          };
+        }
+
+      }
+
+    }
+
+    /*
+     * Se não encontrou WhatsApp,
+     * ainda tenta encontrar o cadastro.
+     */
+    for (let i = 0; i < lista.length; i++) {
+
+      const pessoa = lista[i];
+
+      if (
+        normalizarNome(pessoa.nome) ===
+        nomeNormalizado
+      ) {
+
+        return {
+          ...pessoa
+        };
+
+      }
+
+    }
+
+    return null;
+  }
+
+
+  /*
+   * Procura uma linha real da dupla
+   * na mesma data.
+   *
+   * Só usamos essa linha como o segundo
+   * integrante quando a relação é realmente
+   * correspondente.
+   */
+  function encontrarCorrespondenciaReal(
+    pessoa,
+    nomeDupla,
+    indiceAtual
+  ) {
+
+    let melhorIndice = -1;
+    let melhorPontuacao = -1;
+
+    for (
+      let j = 0;
+      j < lista.length;
+      j++
+    ) {
+
+      if (
+        j === indiceAtual ||
+        usados.has(j)
+      ) {
+        continue;
+      }
+
+      const candidata =
+        lista[j];
+
+      /*
+       * O nome precisa ser exatamente
+       * o nome indicado no campo Dupla.
+       */
+      if (
+        normalizarNome(
+          candidata.nome
+        ) !== nomeDupla
+      ) {
+        continue;
+      }
+
+      /*
+       * A data precisa ser a mesma.
+       */
+      if (
+        !mesmaData(
+          pessoa.data,
+          candidata.data
+        )
+      ) {
+        continue;
+      }
+
+      let pontuacao = 1;
+
+      /*
+       * Se a candidata também aponta
+       * de volta para a pessoa, melhor ainda.
+       */
+      if (
+        normalizarNome(
+          candidata.dupla
+        ) ===
+        normalizarNome(
+          pessoa.nome
+        )
+      ) {
+        pontuacao += 10;
+      }
+
+      /*
+       * Se os horários existem e são iguais,
+       * damos preferência a essa correspondência.
+       */
+      if (
+        horarioValido(
+          pessoa.horario
+        ) &&
+        horarioValido(
+          candidata.horario
+        ) &&
+        formatarHorario(
+          pessoa.horario
+        ) ===
+        formatarHorario(
+          candidata.horario
+        )
+      ) {
+        pontuacao += 2;
+      }
+
+      if (
+        pontuacao >
+        melhorPontuacao
+      ) {
+
+        melhorPontuacao =
+          pontuacao;
+
+        melhorIndice =
+          j;
+
+      }
+
+    }
+
+    return melhorIndice;
+
+  }
+
+
+  /*
+   * Monta os grupos.
+   */
   for (
     let i = 0;
     i < lista.length;
@@ -1732,16 +1917,8 @@ function agruparDuplas(lista) {
       continue;
     }
 
-
     const pessoa =
       lista[i];
-
-
-    const nomePessoa =
-      normalizarNome(
-        pessoa.nome
-      );
-
 
     const nomeDupla =
       normalizarNome(
@@ -1749,84 +1926,170 @@ function agruparDuplas(lista) {
       );
 
 
-    let indiceDupla = -1;
+    /*
+     * Não possui dupla.
+     */
+    if (!nomeDupla) {
 
+      grupos.push({
 
-    if (nomeDupla) {
+        dataHora:
+          dataHora(pessoa),
 
-      for (
-        let j = 0;
-        j < lista.length;
-        j++
-      ) {
+        horario:
+          obterHorarioDoGrupo([
+            pessoa
+          ]),
 
-        if (
-          j === i ||
-          usados.has(j)
-        ) {
-          continue;
-        }
+        pessoas: [
+          pessoa
+        ]
 
+      });
 
-        const outra =
-          lista[j];
+      usados.add(i);
 
-
-        const nomeOutra =
-          normalizarNome(
-            outra.nome
-          );
-
-
-        const duplaOutra =
-          normalizarNome(
-            outra.dupla
-          );
-
-
-        const duplaReciproca =
-          nomeOutra === nomeDupla &&
-          duplaOutra === nomePessoa;
-
-
-        if (!duplaReciproca) {
-          continue;
-        }
-
-
-        if (
-          !mesmaData(
-            pessoa.data,
-            outra.data
-          )
-        ) {
-          continue;
-        }
-
-        indiceDupla = j;
-
-        break;
-
-      }
+      continue;
 
     }
 
 
-    if (indiceDupla !== -1) {
+    /*
+     * Primeiro tentamos encontrar
+     * uma linha real da dupla na mesma data.
+     */
+    const indiceReal =
+      encontrarCorrespondenciaReal(
+        pessoa,
+        nomeDupla,
+        i
+      );
+
+
+    /*
+     * Encontrou a outra pessoa na
+     * mesma designação.
+     */
+    if (indiceReal !== -1) {
 
       const outra =
-        lista[indiceDupla];
-
-      // Se uma pessoa está com horário vazio e a outra preencheu, sincronizamos para evitar inconsistência
-      if (!horarioValido(pessoa.horario) && horarioValido(outra.horario)) {
-        pessoa.horario = outra.horario;
-      } else if (horarioValido(pessoa.horario) && !horarioValido(outra.horario)) {
-        outra.horario = pessoa.horario;
-      }
+        lista[indiceReal];
 
       const pessoasGrupo = [
         pessoa,
         outra
+      ];
+
+      grupos.push({
+
+        dataHora:
+          dataHora(pessoa),
+
+        /*
+         * O horário vem da própria
+         * designação.
+         */
+        horario:
+          obterHorarioDoGrupo(
+            pessoasGrupo
+          ),
+
+        pessoas:
+          pessoasGrupo
+
+      });
+
+      usados.add(i);
+      usados.add(indiceReal);
+
+      continue;
+
+    }
+
+
+    /*
+     * =================================================
+     * OPÇÃO B
+     *
+     * Não existe uma linha da dupla
+     * nessa mesma data.
+     *
+     * Então buscamos o cadastro geral
+     * dessa pessoa apenas para obter:
+     *
+     * - nome
+     * - WhatsApp
+     *
+     * NÃO usamos a data/hora do cadastro dela.
+     * A data e o horário continuam sendo
+     * os da designação atual.
+     * =================================================
+     */
+
+    const cadastroDupla =
+      encontrarCadastroPorNome(
+        pessoa.dupla
+      );
+
+
+    if (cadastroDupla) {
+
+      const pessoaVirtual = {
+
+        /*
+         * Nome correto da dupla.
+         */
+        nome:
+          cadastroDupla.nome,
+
+        /*
+         * WhatsApp encontrado no
+         * cadastro existente.
+         */
+        whatsapp:
+          cadastroDupla.whatsapp,
+
+        /*
+         * IMPORTANTE:
+         * usamos a data da designação atual.
+         */
+        data:
+          pessoa.data,
+
+        /*
+         * IMPORTANTE:
+         * usamos o horário da designação atual.
+         */
+        horario:
+          pessoa.horario,
+
+        /*
+         * A dupla dessa pessoa virtual
+         * é a pessoa que originou a designação.
+         */
+        dupla:
+          pessoa.nome,
+
+        status:
+          pessoa.status || "Pendente",
+
+        mensagem:
+          cadastroDupla.mensagem || "",
+
+        /*
+         * Marca que esse objeto foi criado
+         * pelo aplicativo e não veio como
+         * uma linha independente da API.
+         */
+        _virtual:
+          true
+
+      };
+
+
+      const pessoasGrupo = [
+        pessoa,
+        pessoaVirtual
       ];
 
 
@@ -1846,31 +2109,43 @@ function agruparDuplas(lista) {
       });
 
 
+      /*
+       * Só marcamos a pessoa atual como usada.
+       *
+       * NÃO marcamos o cadastro do Fabio,
+       * por exemplo.
+       *
+       * Assim o Fabio poderá aparecer
+       * normalmente em outra designação.
+       */
       usados.add(i);
-      usados.add(indiceDupla);
 
-    } else {
-
-      grupos.push({
-
-        dataHora:
-          dataHora(pessoa),
-
-        horario:
-          obterHorarioDoGrupo([
-            pessoa
-          ]),
-
-        pessoas: [
-          pessoa
-        ]
-
-      });
-
-
-      usados.add(i);
+      continue;
 
     }
+
+
+    /*
+     * Se nem o cadastro da dupla
+     * existir, mantém a pessoa sozinha.
+     */
+    grupos.push({
+
+      dataHora:
+        dataHora(pessoa),
+
+      horario:
+        obterHorarioDoGrupo([
+          pessoa
+        ]),
+
+      pessoas: [
+        pessoa
+      ]
+
+    });
+
+    usados.add(i);
 
   }
 
