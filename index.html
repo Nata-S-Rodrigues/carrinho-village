@@ -2130,57 +2130,43 @@ function mensagem(item) {
 ===================================================== */
 
 function abrirWhatsAppPorIndex(index) {
-
-  const item =
-    lembretes[index];
-
+  const item = lembretes[index];
 
   if (!item) {
-
-    alert(
-      "Não foi possível encontrar este cadastro."
-    );
-
+    alert("Não foi possível encontrar este cadastro.");
     return;
-
   }
 
-
-  const numero =
-    normalizarNumero(
-      item.whatsapp
-    );
-
+  const numero = normalizarNumero(item.whatsapp);
 
   if (!numero) {
-
-    alert(
-      "Este cadastro não possui número de WhatsApp."
-    );
-
+    alert("Este cadastro não possui número de WhatsApp.");
     return;
-
   }
 
+  // 1. Vai buscar a mensagem personalizada das configurações (ex: do localStorage ou do input)
+  // Substitua "mensagemConfigurada" pela chave exata ou ID do elemento onde guarda a configuração
+  let mensagemConfig = localStorage.getItem("mensagemConfigurada") || ""; 
+  
+  // Se preferir ler diretamente de um input de configurações na página, use algo como:
+  // let mensagemConfig = document.getElementById("idDoInputDeConfiguracao").value;
+
+  // 2. Se a mensagem tiver variáveis como {nome}, substitui pelo nome do item atual
+  let textoFinal = mensagemConfig.replace(/{nome}/g, item.nome || "");
+
+  // Se o utilizador não tiver configurado nada, pode usar uma mensagem padrão de segurança:
+  if (!textoFinal.trim()) {
+    textoFinal = `Olá ${item.nome || ""}, tudo bem?`;
+  }
 
   const url =
-
     "https://wa.me/" +
-
     numero +
-
     "?text=" +
+    encodeURIComponent(textoFinal);
 
-    encodeURIComponent(
-      mensagem(item)
-    );
-
-
-  window.location.href =
-    url;
-
+  window.location.href = url;
 }
-
 
 /* =====================================================
    AGRUPAR DUPLAS (CORRIGIDO)
