@@ -1327,18 +1327,28 @@ function formatarData(valor){
 ========================================================= */
 
 function formatarHorario(valor) {
+
   if (valor === null || valor === undefined || valor === "") {
     return "Horário não informado";
   }
 
   const texto = String(valor).trim();
 
-  // Se a API já trouxe 08:30 ou 16:30,
-  // simplesmente devolve o mesmo horário.
-  const match = texto.match(/^(\d{1,2}):(\d{2})/);
+  // Se já vier como 08:30 ou 16:30
+  const simples = texto.match(/^(\d{1,2}):(\d{2})/);
 
-  if (match) {
-    return `${match[1].padStart(2, "0")}:${match[2]}`;
+  if (simples) {
+    return `${simples[1].padStart(2, "0")}:${simples[2]}`;
+  }
+
+  // Se vier como:
+  // Sat Dec 30 1899 05:23:32 GMT-0306
+  const google = texto.match(
+    /\b(\d{2}):(\d{2}):\d{2}\b/
+  );
+
+  if (google) {
+    return `${google[1]}:${google[2]}`;
   }
 
   return texto;
