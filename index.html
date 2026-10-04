@@ -17,48 +17,33 @@
 
   <meta
     name="description"
-    content="Controle de Carrinhos - Testemunho público"
+    content="Controle de Carrinhos - lembretes de testemunho público"
   >
 
   <link rel="manifest" href="manifest.json">
 
   <title>Controle de Carrinhos</title>
 
-
   <style>
 
     :root {
 
-      --bg: #f5f7f9;
-
+      --bg: #f6f7f9;
       --surface: #ffffff;
+      --surface-2: #f1f3f5;
 
-      --surface-soft: #f1f3f5;
-
-      --text: #101828;
-
+      --text: #111827;
       --muted: #667085;
 
-      --border: #e4e7ec;
+      --border: #e5e7eb;
 
-      --primary: #13b96d;
+      --primary: #1677ff;
+      --primary-dark: #0b5bd3;
 
-      --primary-dark: #079455;
-
-      --blue: #175cd3;
-
-      --blue-soft: #eff8ff;
-
-      --purple: #6941c6;
-
-      --purple-soft: #f4f3ff;
-
-      --orange: #b54708;
-
-      --orange-soft: #fffaeb;
+      --green: #12b76a;
 
       --shadow:
-        0 3px 12px rgba(16, 24, 40, .055);
+        0 4px 18px rgba(16, 24, 40, .07);
 
       --radius: 18px;
 
@@ -102,49 +87,42 @@
 
 
     button {
-      -webkit-tap-highlight-color: transparent;
+      cursor: pointer;
     }
 
 
     .app {
 
-      width: 100%;
-
       max-width: 760px;
 
       min-height: 100vh;
 
-      margin: 0 auto;
+      margin: auto;
 
       padding-bottom: 90px;
 
     }
 
 
-    /* ==========================================
+    /* ================================
        HEADER
-    ========================================== */
-
+    ================================= */
 
     header {
 
-      position: sticky;
-
-      top: 0;
-
-      z-index: 30;
-
-      background:
-        rgba(255,255,255,.96);
-
-      backdrop-filter:
-        blur(14px);
+      background: var(--surface);
 
       border-bottom:
         1px solid var(--border);
 
       padding:
-        14px 18px;
+        17px 18px;
+
+      position: sticky;
+
+      top: 0;
+
+      z-index: 20;
 
     }
 
@@ -170,26 +148,46 @@
 
       gap: 11px;
 
-      min-width: 0;
-
     }
 
 
-    .logo {
+    .brand-logo {
 
-      width: 52px;
+      width: 44px;
 
-      height: 52px;
+      height: 44px;
+
+      border-radius: 12px;
 
       object-fit: contain;
 
-      flex-shrink: 0;
+      background: #ffffff;
 
     }
 
 
-    .brand-text {
-      min-width: 0;
+    .brand-fallback {
+
+      width: 44px;
+
+      height: 44px;
+
+      border-radius: 12px;
+
+      background: #eef4ff;
+
+      color: var(--primary);
+
+      display: none;
+
+      align-items: center;
+
+      justify-content: center;
+
+      font-weight: 800;
+
+      font-size: 13px;
+
     }
 
 
@@ -199,9 +197,9 @@
 
       font-size: 17px;
 
-      font-weight: 800;
+      font-weight: 750;
 
-      letter-spacing: -.25px;
+      letter-spacing: -.2px;
 
     }
 
@@ -219,58 +217,51 @@
 
     .refresh {
 
-      width: 42px;
+      width: 40px;
 
-      height: 42px;
-
-      flex-shrink: 0;
+      height: 40px;
 
       border:
         1px solid var(--border);
 
-      border-radius: 13px;
-
       background:
         var(--surface);
 
-      color: var(--text);
+      border-radius: 12px;
 
-      cursor: pointer;
+      font-size: 19px;
 
-      font-size: 20px;
-
-      display: grid;
-
-      place-items: center;
+      color: #475467;
 
     }
 
 
     .refresh:active {
-      transform: scale(.95);
+
+      transform: scale(.96);
+
     }
 
 
-    /* ==========================================
+    /* ================================
        MAIN
-    ========================================== */
-
+    ================================= */
 
     main {
+
       padding: 18px;
+
     }
 
 
     .page-title {
 
       margin:
-        3px 0 5px;
+        4px 0 5px;
 
       font-size: 25px;
 
-      line-height: 1.15;
-
-      letter-spacing: -.6px;
+      letter-spacing: -.5px;
 
     }
 
@@ -287,10 +278,9 @@
     }
 
 
-    /* ==========================================
+    /* ================================
        ABAS
-    ========================================== */
-
+    ================================= */
 
     .tab-content {
       display: none;
@@ -302,24 +292,23 @@
     }
 
 
-    /* ==========================================
-       PRÓXIMO LEMBRETE
-    ========================================== */
-
+    /* ================================
+       PRÓXIMO
+    ================================= */
 
     .next-label {
 
-      margin-bottom: 8px;
-
-      color: var(--primary-dark);
-
       font-size: 11px;
 
-      font-weight: 800;
+      font-weight: 750;
+
+      color: var(--primary);
 
       text-transform: uppercase;
 
       letter-spacing: .7px;
+
+      margin-bottom: 8px;
 
     }
 
@@ -332,17 +321,14 @@
       border:
         1px solid var(--border);
 
-      border-radius:
-        22px;
+      border-radius: 22px;
 
-      padding:
-        20px;
+      padding: 20px;
 
       box-shadow:
         var(--shadow);
 
-      margin-bottom:
-        22px;
+      margin-bottom: 22px;
 
     }
 
@@ -353,13 +339,13 @@
 
       align-items: center;
 
-      gap: 7px;
+      gap: 8px;
 
       color: var(--muted);
 
       font-size: 13px;
 
-      margin-bottom: 12px;
+      margin-bottom: 13px;
 
     }
 
@@ -368,13 +354,11 @@
 
       font-size: 24px;
 
-      line-height: 1.2;
+      font-weight: 800;
 
-      font-weight: 850;
+      letter-spacing: -.5px;
 
-      letter-spacing: -.6px;
-
-      margin-bottom: 10px;
+      margin-bottom: 8px;
 
     }
 
@@ -383,7 +367,7 @@
 
       display: flex;
 
-      gap: 7px;
+      gap: 8px;
 
       flex-wrap: wrap;
 
@@ -395,22 +379,18 @@
     .info-pill {
 
       background:
-        var(--surface-soft);
+        var(--surface-2);
 
-      border-radius:
-        9px;
+      border-radius: 10px;
 
       padding:
         7px 10px;
 
-      color:
-        #344054;
+      color: #344054;
 
-      font-size:
-        11px;
+      font-size: 12px;
 
-      font-weight:
-        700;
+      font-weight: 650;
 
     }
 
@@ -422,54 +402,51 @@
       grid-template-columns:
         repeat(2, 1fr);
 
-      gap: 8px;
+      gap: 9px;
 
     }
 
 
     .whatsapp-btn {
 
-      min-height: 45px;
-
       border: 0;
 
       border-radius: 13px;
 
+      padding:
+        12px 10px;
+
       background:
-        var(--primary);
+        var(--green);
 
       color: white;
 
-      font-weight: 800;
-
-      cursor: pointer;
+      font-weight: 750;
 
       transition:
-        .15s ease;
-
-    }
-
-
-    .whatsapp-btn:hover {
-
-      background:
-        var(--primary-dark);
+        transform .12s ease,
+        opacity .12s ease;
 
     }
 
 
     .whatsapp-btn:active {
 
-      transform:
-        scale(.98);
+      transform: scale(.98);
 
     }
 
 
-    /* ==========================================
-       PRÓXIMOS
-    ========================================== */
+    .whatsapp-btn:hover {
 
+      opacity: .92;
+
+    }
+
+
+    /* ================================
+       PRÓXIMOS
+    ================================= */
 
     .section-title {
 
@@ -491,8 +468,6 @@
 
       font-size: 17px;
 
-      letter-spacing: -.2px;
-
     }
 
 
@@ -500,7 +475,7 @@
 
       color: var(--muted);
 
-      font-size: 11px;
+      font-size: 12px;
 
     }
 
@@ -516,6 +491,16 @@
 
     .upcoming-card {
 
+      background:
+        var(--surface);
+
+      border:
+        1px solid var(--border);
+
+      border-radius: 16px;
+
+      padding: 14px;
+
       display: flex;
 
       align-items: center;
@@ -524,64 +509,45 @@
 
       gap: 12px;
 
-      background:
-        var(--surface);
-
-      border:
-        1px solid var(--border);
-
-      border-radius:
-        16px;
-
-      padding:
-        14px;
-
     }
 
 
     .upcoming-main {
+
       min-width: 0;
+
     }
 
 
     .upcoming-date {
 
-      color:
-        var(--blue);
+      font-size: 11px;
 
-      font-size:
-        11px;
+      color: var(--primary);
 
-      font-weight:
-        750;
+      font-weight: 750;
 
-      margin-bottom:
-        4px;
+      margin-bottom: 4px;
 
     }
 
 
     .upcoming-name {
 
-      font-size:
-        14px;
+      font-weight: 700;
 
-      font-weight:
-        750;
+      font-size: 14px;
 
     }
 
 
     .upcoming-time {
 
-      margin-top:
-        3px;
+      color: var(--muted);
 
-      color:
-        var(--muted);
+      font-size: 12px;
 
-      font-size:
-        11px;
+      margin-top: 3px;
 
     }
 
@@ -592,39 +558,31 @@
 
       border: 0;
 
-      border-radius:
-        10px;
+      border-radius: 10px;
 
       background:
-        var(--blue-soft);
+        #eef4ff;
 
       color:
-        var(--blue);
+        var(--primary);
 
       padding:
         9px 11px;
 
-      font-size:
-        11px;
+      font-size: 12px;
 
-      font-weight:
-        750;
-
-      cursor:
-        pointer;
+      font-weight: 700;
 
     }
 
 
-    /* ==========================================
+    /* ================================
        LISTA
-    ========================================== */
-
+    ================================= */
 
     .filters {
 
-      margin-bottom:
-        15px;
+      margin-bottom: 15px;
 
     }
 
@@ -639,20 +597,14 @@
       background:
         var(--surface);
 
-      border-radius:
-        13px;
+      border-radius: 13px;
 
       padding:
         12px 13px;
 
-      outline:
-        none;
+      outline: none;
 
-      font-size:
-        14px;
-
-      color:
-        var(--text);
+      font-size: 14px;
 
     }
 
@@ -661,9 +613,6 @@
 
       border-color:
         var(--primary);
-
-      box-shadow:
-        0 0 0 3px rgba(19,185,109,.10);
 
     }
 
@@ -685,14 +634,9 @@
       border:
         1px solid var(--border);
 
-      border-radius:
-        17px;
+      border-radius: 17px;
 
-      padding:
-        15px;
-
-      box-shadow:
-        0 2px 8px rgba(16,24,40,.025);
+      padding: 15px;
 
     }
 
@@ -701,8 +645,7 @@
 
       display: flex;
 
-      justify-content:
-        space-between;
+      justify-content: space-between;
 
       gap: 10px;
 
@@ -711,125 +654,93 @@
 
     .list-name {
 
-      font-size:
-        15px;
+      font-weight: 750;
 
-      font-weight:
-        800;
+      font-size: 15px;
 
     }
 
 
     .list-date {
 
-      margin-top:
-        4px;
+      margin-top: 4px;
 
-      color:
-        var(--muted);
+      color: var(--muted);
 
-      font-size:
-        11px;
+      font-size: 12px;
 
     }
 
 
     .status {
 
-      align-self:
-        flex-start;
+      align-self: flex-start;
 
-      white-space:
-        nowrap;
-
-      border-radius:
-        999px;
+      border-radius: 999px;
 
       padding:
-        5px 9px;
+        5px 8px;
 
-      font-size:
-        10px;
+      font-size: 10px;
 
-      font-weight:
-        800;
+      font-weight: 750;
 
       background:
-        var(--orange-soft);
+        #fff4e5;
 
       color:
-        var(--orange);
+        #b54708;
 
     }
 
 
     .list-details {
 
-      display:
-        flex;
+      display: flex;
 
-      gap:
-        7px;
+      gap: 8px;
 
-      flex-wrap:
-        wrap;
+      flex-wrap: wrap;
 
-      margin-top:
-        12px;
+      margin-top: 12px;
 
     }
 
 
     .list-pill {
 
-      display:
-        inline-flex;
-
-      align-items:
-        center;
-
-      gap:
-        4px;
-
       background:
-        var(--surface-soft);
+        var(--surface-2);
 
-      border-radius:
-        9px;
+      border-radius: 9px;
 
       padding:
         6px 9px;
 
-      font-size:
-        11px;
+      font-size: 11px;
 
-      color:
-        #475467;
+      color: #475467;
 
     }
 
 
     .list-actions {
 
-      display:
-        grid;
+      display: grid;
 
       grid-template-columns:
-        repeat(2,1fr);
+        repeat(2, 1fr);
 
-      gap:
-        8px;
+      gap: 8px;
 
-      margin-top:
-        12px;
+      margin-top: 12px;
 
     }
 
 
-    /* ==========================================
+    /* ================================
        NOTIFICAÇÕES
-    ========================================== */
-
+    ================================= */
 
     .notification-card {
 
@@ -839,11 +750,9 @@
       border:
         1px solid var(--border);
 
-      border-radius:
-        20px;
+      border-radius: 20px;
 
-      padding:
-        20px;
+      padding: 20px;
 
       box-shadow:
         var(--shadow);
@@ -851,61 +760,34 @@
     }
 
 
-    .notification-label {
-
-      color:
-        var(--primary-dark);
-
-      font-size:
-        11px;
-
-      font-weight:
-        800;
-
-      letter-spacing:
-        .7px;
-
-      margin-bottom:
-        8px;
-
-    }
-
-
     .notification-status {
 
-      font-size:
-        18px;
+      font-size: 18px;
 
-      font-weight:
-        800;
+      font-weight: 750;
 
-      margin-bottom:
-        8px;
+      margin-bottom: 8px;
 
     }
 
 
     .notification-description {
 
+      font-size: 13px;
+
+      color: var(--muted);
+
+      line-height: 1.5;
+
       margin:
-        0 0 17px;
-
-      color:
-        var(--muted);
-
-      font-size:
-        13px;
-
-      line-height:
-        1.5;
+        0 0 16px;
 
     }
 
 
-    /* ==========================================
+    /* ================================
        ESTADOS
-    ========================================== */
-
+    ================================= */
 
     .empty,
     .loading,
@@ -917,93 +799,74 @@
       border:
         1px solid var(--border);
 
-      border-radius:
-        18px;
+      border-radius: 18px;
 
       padding:
         30px 20px;
 
-      text-align:
-        center;
+      text-align: center;
 
       color:
         var(--muted);
-
-      font-size:
-        13px;
 
     }
 
 
     .empty strong,
-    .loading strong,
     .error strong {
 
-      display:
-        block;
+      display: block;
 
       color:
         var(--text);
 
-      margin-bottom:
-        5px;
-
-      font-size:
-        14px;
+      margin-bottom: 5px;
 
     }
 
 
-    /* ==========================================
-       MENU INFERIOR
-    ========================================== */
-
+    /* ================================
+       NAVEGAÇÃO
+    ================================= */
 
     .bottom-nav {
 
-      position:
-        fixed;
+      position: fixed;
 
-      left:
-        50%;
+      left: 50%;
 
-      bottom:
-        0;
+      bottom: 0;
 
       transform:
         translateX(-50%);
 
       width:
-        min(760px,100%);
+        min(760px, 100%);
 
-      height:
-        70px;
+      height: 70px;
 
       background:
         rgba(255,255,255,.97);
 
       backdrop-filter:
-        blur(15px);
+        blur(12px);
 
       border-top:
         1px solid var(--border);
 
-      display:
-        grid;
+      display: grid;
 
       grid-template-columns:
-        repeat(3,1fr);
+        repeat(3, 1fr);
 
-      z-index:
-        50;
+      z-index: 50;
 
     }
 
 
     .nav-btn {
 
-      border:
-        0;
+      border: 0;
 
       background:
         transparent;
@@ -1011,31 +874,20 @@
       color:
         #98a2b3;
 
-      cursor:
-        pointer;
+      font-size: 11px;
 
-      font-size:
-        10px;
-
-      font-weight:
-        700;
+      font-weight: 650;
 
     }
 
 
     .nav-btn span {
 
-      display:
-        block;
+      display: block;
 
-      font-size:
-        20px;
+      font-size: 20px;
 
-      line-height:
-        22px;
-
-      margin-bottom:
-        3px;
+      margin-bottom: 3px;
 
     }
 
@@ -1043,77 +895,43 @@
     .nav-btn.active {
 
       color:
-        var(--primary-dark);
+        var(--primary);
 
     }
 
 
-    /* ==========================================
+    /* ================================
        INSTALAÇÃO
-    ========================================== */
-
+    ================================= */
 
     .install {
 
-      display:
-        none;
+      display: none;
 
-      width:
-        100%;
+      width: 100%;
 
-      margin-bottom:
-        15px;
+      margin-bottom: 15px;
 
-      border:
-        0;
+      border: 0;
 
-      border-radius:
-        13px;
+      border-radius: 13px;
 
-      padding:
-        12px;
+      padding: 12px;
 
       background:
-        #101828;
+        #111827;
 
       color:
-        #fff;
+        white;
 
-      font-weight:
-        750;
-
-      cursor:
-        pointer;
+      font-weight: 700;
 
     }
 
 
-    /* ==========================================
+    /* ================================
        RESPONSIVO
-    ========================================== */
-
-
-    @media (max-width: 500px) {
-
-      main {
-        padding: 15px;
-      }
-
-
-      .next-names {
-        font-size: 21px;
-      }
-
-
-      .people-buttons {
-
-        grid-template-columns:
-          1fr;
-
-      }
-
-    }
-
+    ================================= */
 
     @media (min-width: 700px) {
 
@@ -1124,6 +942,44 @@
 
         border-right:
           1px solid var(--border);
+
+      }
+
+      .bottom-nav {
+
+        border-left:
+          1px solid var(--border);
+
+        border-right:
+          1px solid var(--border);
+
+      }
+
+    }
+
+
+    @media (max-width: 430px) {
+
+      main {
+
+        padding:
+          15px;
+
+      }
+
+
+      .next-names {
+
+        font-size:
+          21px;
+
+      }
+
+
+      .people-buttons {
+
+        grid-template-columns:
+          1fr;
 
       }
 
@@ -1140,10 +996,9 @@
 <div class="app">
 
 
-  <!-- ==========================================
+  <!-- =====================================
        HEADER
-  ========================================== -->
-
+  ====================================== -->
 
   <header>
 
@@ -1152,14 +1007,24 @@
 
       <div class="brand">
 
+
         <img
           src="logo.png"
-          class="logo"
-          alt="Village"
+          class="brand-logo"
+          alt="Logo"
+          onerror="
+            this.style.display='none';
+            document.querySelector('.brand-fallback').style.display='flex';
+          "
         >
 
 
-        <div class="brand-text">
+        <div class="brand-fallback">
+          CV
+        </div>
+
+
+        <div>
 
           <h1 class="brand-title">
             Controle de Carrinhos
@@ -1171,16 +1036,16 @@
 
         </div>
 
+
       </div>
 
 
       <button
         class="refresh"
         onclick="carregar()"
-        aria-label="Atualizar">
-
+        aria-label="Atualizar"
+      >
         ↻
-
       </button>
 
 
@@ -1189,33 +1054,25 @@
   </header>
 
 
-
   <main>
-
-
-    <!-- ==========================================
-         BOTÃO INSTALAÇÃO
-    ========================================== -->
 
 
     <button
       id="installBtn"
-      class="install">
-
+      class="install"
+    >
       📲 Instalar aplicativo
-
     </button>
 
 
-
-    <!-- ==========================================
+    <!-- =====================================
          INÍCIO
-    ========================================== -->
-
+    ====================================== -->
 
     <section
       id="inicio"
-      class="tab-content active">
+      class="tab-content active"
+    >
 
 
       <h2 class="page-title">
@@ -1224,18 +1081,11 @@
 
 
       <p class="page-subtitle">
-        Veja rapidamente as próximas designações.
+        Veja rapidamente quem você precisa lembrar.
       </p>
 
 
-      <div id="proximo">
-
-        <div class="loading">
-          Carregando…
-        </div>
-
-      </div>
-
+      <div id="proximo"></div>
 
 
       <div class="section-title">
@@ -1246,10 +1096,9 @@
 
         <span
           class="section-count"
-          id="proximosCount">
-
+          id="proximosCount"
+        >
           —
-
         </span>
 
       </div>
@@ -1257,7 +1106,12 @@
 
       <div
         id="proximos"
-        class="upcoming-list">
+        class="upcoming-list"
+      >
+
+        <div class="loading">
+          Carregando…
+        </div>
 
       </div>
 
@@ -1265,15 +1119,14 @@
     </section>
 
 
-
-    <!-- ==========================================
+    <!-- =====================================
          LISTA
-    ========================================== -->
-
+    ====================================== -->
 
     <section
       id="listaTab"
-      class="tab-content">
+      class="tab-content"
+    >
 
 
       <h2 class="page-title">
@@ -1282,7 +1135,7 @@
 
 
       <p class="page-subtitle">
-        Consulte todas as designações cadastradas.
+        Consulte todas as pessoas e horários.
       </p>
 
 
@@ -1301,7 +1154,8 @@
 
       <div
         id="listaCompleta"
-        class="all-list">
+        class="all-list"
+      >
 
         <div class="loading">
           Carregando…
@@ -1313,15 +1167,14 @@
     </section>
 
 
-
-    <!-- ==========================================
+    <!-- =====================================
          NOTIFICAÇÕES
-    ========================================== -->
-
+    ====================================== -->
 
     <section
       id="notificacoes"
-      class="tab-content">
+      class="tab-content"
+    >
 
 
       <h2 class="page-title">
@@ -1337,35 +1190,28 @@
       <div class="notification-card">
 
 
-        <div class="notification-label">
-          STATUS
-        </div>
-
-
         <div
           id="statusNotificacao"
-          class="notification-status">
-
+          class="notification-status"
+        >
           Verificando…
-
         </div>
 
 
         <p class="notification-description">
 
-          Autorize as notificações para que o
-          aplicativo possa avisar você sobre
-          seus próximos lembretes.
+          Permita as notificações para que o aplicativo
+          possa avisar você quando chegar o momento
+          de enviar um lembrete.
 
         </p>
 
 
         <button
           class="whatsapp-btn"
-          onclick="ativarNotificacoes()">
-
+          onclick="ativarNotificacoes()"
+        >
           🔔 Ativar notificações
-
         </button>
 
 
@@ -1378,20 +1224,26 @@
   </main>
 
 
-
-  <!-- ==========================================
+  <!-- =====================================
        MENU
-  ========================================== -->
-
+  ====================================== -->
 
   <nav class="bottom-nav">
 
 
     <button
       class="nav-btn active"
-      onclick="abrirAba('inicio', this)">
+      onclick="
+        abrirAba(
+          'inicio',
+          this
+        )
+      "
+    >
 
-      <span>⌂</span>
+      <span>
+        ⌂
+      </span>
 
       Início
 
@@ -1400,9 +1252,17 @@
 
     <button
       class="nav-btn"
-      onclick="abrirAba('listaTab', this)">
+      onclick="
+        abrirAba(
+          'listaTab',
+          this
+        )
+      "
+    >
 
-      <span>☷</span>
+      <span>
+        ☷
+      </span>
 
       Lista
 
@@ -1411,9 +1271,17 @@
 
     <button
       class="nav-btn"
-      onclick="abrirAba('notificacoes', this)">
+      onclick="
+        abrirAba(
+          'notificacoes',
+          this
+        )
+      "
+    >
 
-      <span>♧</span>
+      <span>
+        🔔
+      </span>
 
       Notificações
 
@@ -1426,7 +1294,6 @@
 </div>
 
 
-
 <script>
 
 
@@ -1434,75 +1301,54 @@
    API
 ===================================================== */
 
-
 const API =
-  "https://script.google.com/macros/s/AKfycbw2oS_My7_WG0XWVF36aRWYwbNhO3u_h7cyNj9xYml6TKGAgkMK5pIo0E1SboMtAvr1PQ/exec?api=lembretes";
-
+  "https://script.google.com/macros/s/AKfycbxigrLwmQlKyAAg_fxvQnFPy5NiXWbkYUOWJX0tQdD9ldQWrDcqx2hcLCrGNugRCukS/exec?api=lembretes";
 
 
 /* =====================================================
-   VARIÁVEIS
+   DADOS
 ===================================================== */
-
 
 let lembretes = [];
 
 let filtrados = [];
 
 
-
 /* =====================================================
-   ESCAPE HTML
+   SEGURANÇA
 ===================================================== */
-
 
 function escapeHtml(valor) {
 
   return String(valor ?? "")
+
     .replace(
       /[&<>"']/g,
+
       m => ({
-        "&": "&amp;",
-        "<": "&lt;",
-        ">": "&gt;",
-        '"': "&quot;",
-        "'": "&#039;"
+
+        "&":"&amp;",
+        "<":"&lt;",
+        ">":"&gt;",
+        '"':"&quot;",
+        "'":"&#039;"
+
       }[m])
+
     );
 
 }
-
-
-
-/* =====================================================
-   NORMALIZAR NOME
-===================================================== */
-
-
-function normalizarNome(nome) {
-
-  return String(nome || "")
-    .normalize("NFD")
-    .replace(/[\u0300-\u036f]/g, "")
-    .trim()
-    .toLowerCase()
-    .replace(/\s+/g, " ");
-
-}
-
 
 
 /* =====================================================
    WHATSAPP
 ===================================================== */
 
-
 function normalizarNumero(valor) {
 
   let numero =
     String(valor || "")
       .replace(/\D/g, "");
-
 
   if (
     numero &&
@@ -1514,25 +1360,18 @@ function normalizarNumero(valor) {
 
   }
 
-
   return numero;
 
 }
-
 
 
 /* =====================================================
    DATA
 ===================================================== */
 
-
 function formatarData(valor) {
 
-  if (
-    valor === null ||
-    valor === undefined ||
-    valor === ""
-  ) {
+  if (!valor) {
 
     return "Data não informada";
 
@@ -1551,23 +1390,18 @@ function formatarData(valor) {
 
   if (brasileira) {
 
-    return `${brasileira[1].padStart(2, "0")}/${brasileira[2].padStart(2, "0")}/${brasileira[3]}`;
+    return (
 
-  }
+      brasileira[1].padStart(2,"0")
 
+      + "/" +
 
-  const data =
-    new Date(texto);
+      brasileira[2].padStart(2,"0")
 
+      + "/" +
 
-  if (!isNaN(data)) {
+      brasileira[3]
 
-    return data.toLocaleDateString(
-      "pt-BR",
-      {
-        timeZone:
-          "America/Sao_Paulo"
-      }
     );
 
   }
@@ -1578,11 +1412,27 @@ function formatarData(valor) {
 }
 
 
-
 /* =====================================================
    HORÁRIO
 ===================================================== */
 
+/*
+   IMPORTANTE:
+
+   A API já está enviando:
+
+   "08:30"
+
+   ou
+
+   "16:30"
+
+   Portanto NÃO usamos new Date()
+   para interpretar o horário.
+
+   O aplicativo simplesmente pega
+   o texto que veio da API.
+*/
 
 function formatarHorario(valor) {
 
@@ -1592,7 +1442,7 @@ function formatarHorario(valor) {
     valor === ""
   ) {
 
-    return "";
+    return "Horário não informado";
 
   }
 
@@ -1602,11 +1452,11 @@ function formatarHorario(valor) {
 
 
   /*
-   * API correta:
-   *
-   * 08:30
-   * 16:30
-   */
+    Caso normal:
+
+    08:30
+    16:30
+  */
 
   const simples =
     texto.match(
@@ -1616,14 +1466,25 @@ function formatarHorario(valor) {
 
   if (simples) {
 
-    return `${simples[1].padStart(2, "0")}:${simples[2]}`;
+    return (
+
+      simples[1].padStart(2,"0")
+
+      + ":" +
+
+      simples[2]
+
+    );
 
   }
 
 
   /*
-   * Compatibilidade com Date
-   */
+    Compatibilidade com registros antigos
+    que eventualmente ainda venham como:
+
+    Sat Dec 30 1899 05:23:32 GMT...
+  */
 
   const google =
     texto.match(
@@ -1633,62 +1494,38 @@ function formatarHorario(valor) {
 
   if (google) {
 
-    return `${google[1]}:${google[2]}`;
+    return (
+
+      google[1]
+      + ":"
+      + google[2]
+
+    );
 
   }
 
 
-  return "";
+  return texto;
 
 }
 
 
-
 /* =====================================================
-   HORÁRIO NORMALIZADO
+   DATA/HORA PARA ORDENAÇÃO
 ===================================================== */
-
-
-function obterHorario(valor) {
-
-  const horario =
-    formatarHorario(valor);
-
-
-  if (
-    !horario ||
-    horario === "Horário não informado"
-  ) {
-
-    return "";
-
-  }
-
-
-  return horario;
-
-}
-
-
-
-/* =====================================================
-   DATA PARA ORDENAÇÃO
-===================================================== */
-
 
 function dataHora(item) {
 
   const data =
-    formatarData(item.data);
+    String(item.data || "")
+      .trim();
 
 
   const partes =
     data.split("/");
 
 
-  if (
-    partes.length !== 3
-  ) {
+  if (partes.length !== 3) {
 
     return Infinity;
 
@@ -1707,13 +1544,24 @@ function dataHora(item) {
     Number(partes[2]);
 
 
+  /*
+    IMPORTANTE:
+
+    Aqui também NÃO usamos
+    new Date(item.horario).
+
+    O horário é tratado apenas como
+    texto HH:mm.
+  */
+
   const horario =
-    obterHorario(item.horario);
+    String(item.horario || "")
+      .trim();
 
 
   const hm =
     horario.match(
-      /^(\d{2}):(\d{2})$/
+      /^(\d{1,2}):(\d{2})/
     );
 
 
@@ -1740,43 +1588,69 @@ function dataHora(item) {
 }
 
 
-
 /* =====================================================
    MENSAGEM
 ===================================================== */
 
-
 function mensagem(item) {
 
-  if (item.mensagem) {
+  if (
+    item.mensagem &&
+    String(item.mensagem).trim()
+  ) {
 
     return item.mensagem;
 
   }
 
 
-  const horario =
-    obterHorario(item.horario);
+  return (
 
+    `Olá, ${item.nome || ""}! 😊\n\n` +
 
-  return `Olá, ${item.nome || ""}! 😊
+    `Passando para lembrar que você está ` +
 
-Passando para lembrar que você está designado(a) para o carrinho de testemunho público no dia ${formatarData(item.data)}${horario ? `, às ${horario}` : ""}.
+    `designado(a) para o carrinho de ` +
 
-Sua dupla será: ${item.dupla || ""}.
+    `testemunho público no dia ` +
 
-Agradecemos pela sua disposição em apoiar essa atividade! 💚`;
+    `${formatarData(item.data)}, às ` +
+
+    `${formatarHorario(item.horario)}.\n\n` +
+
+    `Sua dupla será: ` +
+
+    `${item.dupla || ""}.\n\n` +
+
+    `Agradecemos pela sua disposição ` +
+
+    `em apoiar essa atividade! 💚`
+
+  );
 
 }
 
 
-
 /* =====================================================
-   WHATSAPP
+   ABRIR WHATSAPP
 ===================================================== */
 
+function abrirWhatsAppPorIndex(index) {
 
-function abrirWhatsApp(item) {
+  const item =
+    lembretes[index];
+
+
+  if (!item) {
+
+    alert(
+      "Não foi possível encontrar este cadastro."
+    );
+
+    return;
+
+  }
+
 
   const numero =
     normalizarNumero(
@@ -1796,9 +1670,13 @@ function abrirWhatsApp(item) {
 
 
   const url =
+
     "https://wa.me/" +
+
     numero +
+
     "?text=" +
+
     encodeURIComponent(
       mensagem(item)
     );
@@ -1810,334 +1688,143 @@ function abrirWhatsApp(item) {
 }
 
 
-
 /* =====================================================
-   ABRIR WHATSAPP POR ÍNDICE
+   AGRUPAR DUPLAS
 ===================================================== */
 
-
-function abrirWhatsAppPorIndex(index) {
-
-  const item =
-    lembretes[index];
-
-
-  if (!item) {
-
-    return;
-
-  }
-
-
-  abrirWhatsApp(item);
-
+function normalizarNome(nome) {
+  return String(nome || "")
+    .normalize("NFD")
+    .replace(/[\u0300-\u036f]/g, "")
+    .trim()
+    .toLowerCase()
+    .replace(/\s+/g, " ");
 }
-
-
-
-/* =====================================================
-   AGRUPAMENTO DAS DUPLAS
-===================================================== */
 
 
 function agruparDuplas(lista) {
 
   const grupos = [];
+  const usados = new Set();
 
-  const usados =
-    new Set();
+  for (let i = 0; i < lista.length; i++) {
 
-
-  for (
-    let i = 0;
-    i < lista.length;
-    i++
-  ) {
-
-
-    if (
-      usados.has(i)
-    ) {
-
+    if (usados.has(i)) {
       continue;
-
     }
 
-
-    const pessoa =
-      lista[i];
-
+    const pessoa = lista[i];
 
     const nomePessoa =
-      normalizarNome(
-        pessoa.nome
-      );
-
+      normalizarNome(pessoa.nome);
 
     const nomeDupla =
-      normalizarNome(
-        pessoa.dupla
-      );
+      normalizarNome(pessoa.dupla);
 
-
-    const dataPessoa =
-      formatarData(
-        pessoa.data
-      );
-
-
-    const horarioPessoa =
-      obterHorario(
-        pessoa.horario
-      );
-
-
-    let indiceDupla =
-      -1;
-
+    let indiceDupla = -1;
 
 
     /*
-     * Só procuramos uma dupla
-     * se existir valor na coluna Dupla.
+     * Procura pelo nome informado
+     * no campo "dupla".
      */
 
     if (nomeDupla) {
 
+      for (let j = 0; j < lista.length; j++) {
 
-      for (
-        let j = 0;
-        j < lista.length;
-        j++
-      ) {
-
-
-        if (
-          j === i ||
-          usados.has(j)
-        ) {
-
+        if (j === i || usados.has(j)) {
           continue;
-
         }
 
+        const outraPessoa = lista[j];
 
-        const outra =
-          lista[j];
-
-
-        const nomeOutra =
-          normalizarNome(
-            outra.nome
-          );
+        const nomeOutraPessoa =
+          normalizarNome(outraPessoa.nome);
 
 
         /*
-         * A outra pessoa precisa
-         * ter exatamente o nome
-         * informado na coluna Dupla.
-         */
-
-        if (
-          nomeOutra !==
-          nomeDupla
-        ) {
-
-          continue;
-
-        }
-
-
-        /*
-         * Mesma data.
-         */
-
-        const dataOutra =
-          formatarData(
-            outra.data
-          );
-
-
-        if (
-          dataOutra !==
-          dataPessoa
-        ) {
-
-          continue;
-
-        }
-
-
-        /*
-         * A outra pessoa também
-         * precisa apontar de volta
-         * para a primeira.
-         */
-
-        const duplaDaOutra =
-          normalizarNome(
-            outra.dupla
-          );
-
-
-        if (
-          duplaDaOutra !==
-          nomePessoa
-        ) {
-
-          continue;
-
-        }
-
-
-        /*
-         * Horários.
+         * Aqui só verificamos:
          *
-         * Se os dois têm horário,
-         * precisam ser iguais.
+         * Albertina → dupla = Elma
          *
-         * Se um estiver vazio,
-         * aceitamos a dupla.
+         * e procuramos alguém chamado Elma.
+         *
+         * NÃO verificamos horário.
          */
 
-        const horarioOutra =
-          obterHorario(
-            outra.horario
-          );
+        if (nomeOutraPessoa === nomeDupla) {
 
+          indiceDupla = j;
 
-        if (
-          horarioPessoa &&
-          horarioOutra &&
-          horarioPessoa !== horarioOutra
-        ) {
-
-          continue;
+          break;
 
         }
-
-
-        indiceDupla =
-          j;
-
-
-        break;
 
       }
 
     }
 
 
-
     /*
-     * ==========================================
-     * DUPLA ENCONTRADA
-     * ==========================================
+     * ENCONTROU A DUPLA
      */
 
-
-    if (
-      indiceDupla !== -1
-    ) {
-
-
-      const outra =
-        lista[indiceDupla];
-
-
-      const horarioOutra =
-        obterHorario(
-          outra.horario
-        );
-
-
-      /*
-       * Escolhe o horário que existir.
-       */
-
-      const horarioGrupo =
-        horarioPessoa ||
-        horarioOutra ||
-        "";
-
+    if (indiceDupla !== -1) {
 
       grupos.push({
 
-        dataHora:
-          dataHora(pessoa),
+        dataHora: dataHora(pessoa),
 
         pessoas: [
           pessoa,
-          outra
-        ],
-
-        horarioGrupo:
-          horarioGrupo
+          lista[indiceDupla]
+        ]
 
       });
 
-
       usados.add(i);
-
-      usados.add(
-        indiceDupla
-      );
-
-
-      continue;
+      usados.add(indiceDupla);
 
     }
 
 
-
     /*
-     * ==========================================
-     * PESSOA SOZINHA
-     * ==========================================
+     * NÃO ENCONTROU DUPLA
      */
 
+    else {
 
-    grupos.push({
+      grupos.push({
 
-      dataHora:
-        dataHora(pessoa),
+        dataHora: dataHora(pessoa),
 
-      pessoas: [
-        pessoa
-      ],
+        pessoas: [
+          pessoa
+        ]
 
-      horarioGrupo:
-        horarioPessoa
+      });
 
-    });
+      usados.add(i);
 
-
-    usados.add(i);
+    }
 
   }
 
 
-
-  /*
-   * Ordenação.
-   */
-
   return grupos.sort(
     (a, b) =>
-      a.dataHora -
-      b.dataHora
+      a.dataHora - b.dataHora
   );
 
 }
-
-
 
 /* =====================================================
    RENDER INÍCIO
 ===================================================== */
 
-
 function renderInicio() {
+
 
   const proximo =
     document.getElementById(
@@ -2157,13 +1844,10 @@ function renderInicio() {
     );
 
 
-  /*
-   * Nenhum lembrete.
-   */
-
   if (
     !grupos.length
   ) {
+
 
     proximo.innerHTML = `
 
@@ -2189,11 +1873,6 @@ function renderInicio() {
   }
 
 
-
-  /*
-   * Próximo grupo.
-   */
-
   const primeiro =
     grupos[0];
 
@@ -2204,12 +1883,14 @@ function renderInicio() {
 
   const nomes =
     pessoas
+
       .map(
-        pessoa =>
+        p =>
           escapeHtml(
-            pessoa.nome
+            p.nome
           )
       )
+
       .join(" + ");
 
 
@@ -2220,23 +1901,28 @@ function renderInicio() {
 
 
   /*
-   * IMPORTANTE:
-   *
-   * Não pegamos mais
-   * pessoas[0].horario.
-   *
-   * Usamos o horário calculado
-   * para o grupo inteiro.
-   */
+    AQUI está a correção principal.
+
+    Pegamos o horário diretamente
+    do objeto recebido pela API.
+
+    Não transformamos em Date.
+  */
 
   const horario =
-    primeiro.horarioGrupo;
+    formatarHorario(
+      pessoas[0].horario
+    );
 
 
+  console.log(
+    "PRÓXIMO:",
+    pessoas[0].nome,
+    pessoas[0].horario,
+    "=>",
+    horario
+  );
 
-  /*
-   * Próximo lembrete.
-   */
 
   proximo.innerHTML = `
 
@@ -2250,9 +1936,7 @@ function renderInicio() {
 
       <div class="next-date">
 
-        📅
-
-        ${escapeHtml(data)}
+        📅 ${escapeHtml(data)}
 
       </div>
 
@@ -2269,25 +1953,22 @@ function renderInicio() {
 
         <div class="info-pill">
 
-          🕐
-
-          ${
-            escapeHtml(
-              horario ||
-              "Horário não informado"
-            )
-          }
+          🕐 ${escapeHtml(horario)}
 
         </div>
 
 
         <div class="info-pill">
 
-          👥
+          👥 ${pessoas.length}
 
-          ${pessoas.length}
+          pessoa${
 
-          pessoa${pessoas.length > 1 ? "s" : ""}
+            pessoas.length > 1
+              ? "s"
+              : ""
+
+          }
 
         </div>
 
@@ -2298,23 +1979,31 @@ function renderInicio() {
       <div class="people-buttons">
 
 
-        ${pessoas.map(
-          pessoa => `
+        ${pessoas
 
-            <button
-              class="whatsapp-btn"
-              onclick="abrirWhatsAppPorIndex(${lembretes.indexOf(pessoa)})">
+          .map(
+            p => `
 
-              💬
+              <button
 
-              ${escapeHtml(
-                pessoa.nome
-              )}
+                class="whatsapp-btn"
 
-            </button>
+                onclick="
+                  abrirWhatsAppPorIndex(
+                    ${lembretes.indexOf(p)}
+                  )
+                "
+              >
 
-          `
-        ).join("")}
+                💬
+                ${escapeHtml(p.nome)}
+
+              </button>
+
+            `
+          )
+
+          .join("")}
 
 
       </div>
@@ -2325,25 +2014,25 @@ function renderInicio() {
   `;
 
 
-
   /*
-   * Próximos grupos.
-   */
+    Próximos 5 grupos.
+  */
 
   const proximosGrupos =
-    grupos.slice(1, 6);
+    grupos.slice(1,6);
 
 
   document.getElementById(
     "proximosCount"
   ).textContent =
-    `${proximosGrupos.length} próximos`;
 
+    `${proximosGrupos.length} próximos`;
 
 
   if (
     !proximosGrupos.length
   ) {
+
 
     proximos.innerHTML = `
 
@@ -2363,101 +2052,117 @@ function renderInicio() {
   }
 
 
-
   proximos.innerHTML =
-    proximosGrupos.map(
-      grupo => {
+
+    proximosGrupos
+
+      .map(
+        grupo => {
 
 
-        const pessoasGrupo =
-          grupo.pessoas;
+          const pessoasGrupo =
+            grupo.pessoas;
 
 
-        const primeiroGrupo =
-          pessoasGrupo[0];
+          const nomesGrupo =
 
+            pessoasGrupo
 
-        const nomesGrupo =
-          pessoasGrupo
-            .map(
-              pessoa =>
-                escapeHtml(
-                  pessoa.nome
-                )
-            )
-            .join(" + ");
-
-
-        return `
-
-          <div class="upcoming-card">
-
-
-            <div class="upcoming-main">
-
-
-              <div class="upcoming-date">
-
-                ${escapeHtml(
-                  formatarData(
-                    primeiroGrupo.data
-                  )
-                )}
-
-              </div>
-
-
-              <div class="upcoming-name">
-
-                ${nomesGrupo}
-
-              </div>
-
-
-              <div class="upcoming-time">
-
-                ${
+              .map(
+                p =>
                   escapeHtml(
-                    grupo.horarioGrupo ||
-                    "Horário não informado"
+                    p.nome
                   )
-                }
+              )
+
+              .join(" + ");
+
+
+          const p =
+            pessoasGrupo[0];
+
+
+          const horarioGrupo =
+            formatarHorario(
+              p.horario
+            );
+
+
+          return `
+
+            <div class="upcoming-card">
+
+
+              <div class="upcoming-main">
+
+
+                <div class="upcoming-date">
+
+                  ${escapeHtml(
+                    formatarData(
+                      p.data
+                    )
+                  )}
+
+                </div>
+
+
+                <div class="upcoming-name">
+
+                  ${nomesGrupo}
+
+                </div>
+
+
+                <div class="upcoming-time">
+
+                  🕐 ${escapeHtml(
+                    horarioGrupo
+                  )}
+
+                </div>
+
 
               </div>
+
+
+              <button
+
+                class="mini-btn"
+
+                onclick="
+                  abrirAba(
+                    'listaTab',
+                    document.querySelectorAll(
+                      '.nav-btn'
+                    )[1]
+                  )
+                "
+              >
+
+                Ver
+
+              </button>
 
 
             </div>
 
+          `;
 
-            <button
-              class="mini-btn"
-              onclick="abrirAba(
-                'listaTab',
-                document.querySelectorAll('.nav-btn')[1]
-              )">
+        }
+      )
 
-              Ver
-
-            </button>
-
-
-          </div>
-
-        `;
-
-      }
-    ).join("");
+      .join("");
 
 }
-
 
 
 /* =====================================================
    RENDER LISTA
 ===================================================== */
 
-
 function renderLista(lista) {
+
 
   const container =
     document.getElementById(
@@ -2465,15 +2170,10 @@ function renderLista(lista) {
     );
 
 
-  const grupos =
-    agruparDuplas(
-      lista
-    );
-
-
   if (
-    !grupos.length
+    !lista.length
   ) {
+
 
     container.innerHTML = `
 
@@ -2495,196 +2195,211 @@ function renderLista(lista) {
   }
 
 
+  const grupos =
+    agruparDuplas(
+      lista
+    );
+
 
   container.innerHTML =
-    grupos.map(
-      grupo => {
+
+    grupos
+
+      .map(
+        grupo => {
 
 
-        const pessoas =
-          grupo.pessoas;
+          const pessoas =
+            grupo.pessoas;
 
 
-        const primeiro =
-          pessoas[0];
+          const primeiro =
+            pessoas[0];
 
 
-        const nomes =
-          pessoas
-            .map(
-              pessoa =>
-                escapeHtml(
-                  pessoa.nome
-                )
-            )
-            .join(" + ");
+          const nomes =
+
+            pessoas
+
+              .map(
+                p =>
+                  escapeHtml(
+                    p.nome
+                  )
+              )
+
+              .join(" + ");
 
 
-        const horario =
-          grupo.horarioGrupo;
+          const horario =
+            formatarHorario(
+              primeiro.horario
+            );
 
 
+          return `
 
-        return `
-
-          <article class="list-card">
-
-
-            <div class="list-top">
+            <article class="list-card">
 
 
-              <div>
+              <div class="list-top">
 
 
-                <div class="list-name">
+                <div>
 
-                  ${nomes}
+
+                  <div class="list-name">
+
+                    ${nomes}
+
+                  </div>
+
+
+                  <div class="list-date">
+
+                    📅 ${escapeHtml(
+                      formatarData(
+                        primeiro.data
+                      )
+                    )}
+
+                  </div>
+
 
                 </div>
 
 
-                <div class="list-date">
-
-                  📅
+                <span class="status">
 
                   ${escapeHtml(
-                    formatarData(
-                      primeiro.data
-                    )
+                    primeiro.status ||
+                    "Pendente"
                   )}
 
-                </div>
+                </span>
 
 
               </div>
 
 
-              <span class="status">
-
-                🟡
-
-                ${escapeHtml(
-                  primeiro.status ||
-                  "Pendente"
-                )}
-
-              </span>
+              <div class="list-details">
 
 
-            </div>
+                <span class="list-pill">
+
+                  🕐 ${escapeHtml(
+                    horario
+                  )}
+
+                </span>
 
 
+                <span class="list-pill">
 
-            <div class="list-details">
+                  👥 ${pessoas.length}
+                  pessoa${
+
+                    pessoas.length > 1
+                      ? "s"
+                      : ""
+
+                  }
+
+                </span>
 
 
-              <span class="list-pill">
+              </div>
 
-                🕐
 
-                ${
-                  escapeHtml(
-                    horario ||
-                    "Horário não informado"
+              <div class="list-actions">
+
+
+                ${pessoas
+
+                  .map(
+                    p => `
+
+                      <button
+
+                        class="whatsapp-btn"
+
+                        onclick="
+                          abrirWhatsAppPorIndex(
+                            ${lembretes.indexOf(p)}
+                          )
+                        "
+                      >
+
+                        💬
+                        ${escapeHtml(p.nome)}
+
+                      </button>
+
+                    `
                   )
-                }
 
-              </span>
-
-
-              <span class="list-pill">
-
-                👥
-
-                ${pessoas.length}
-
-                pessoa${pessoas.length > 1 ? "s" : ""}
-
-              </span>
+                  .join("")}
 
 
-            </div>
+              </div>
 
 
+            </article>
 
-            <div class="list-actions">
+          `;
 
+        }
+      )
 
-              ${pessoas.map(
-                pessoa => `
-
-                  <button
-                    class="whatsapp-btn"
-                    onclick="abrirWhatsAppPorIndex(${lembretes.indexOf(pessoa)})">
-
-                    💬
-
-                    ${escapeHtml(
-                      pessoa.nome
-                    )}
-
-                  </button>
-
-                `
-              ).join("")}
-
-
-            </div>
-
-
-          </article>
-
-        `;
-
-      }
-    ).join("");
+      .join("");
 
 }
 
 
-
 /* =====================================================
-   FILTRO
+   PESQUISA
 ===================================================== */
-
 
 function filtrarLista() {
 
+
   const termo =
+
     document
+
       .getElementById(
         "busca"
       )
+
       .value
+
       .toLowerCase()
+
       .trim();
 
 
   filtrados =
+
     lembretes.filter(
-      item => {
+      item =>
 
 
-        const nome =
-          String(
-            item.nome || ""
-          )
-          .toLowerCase();
+        String(
+          item.nome || ""
+        )
+        .toLowerCase()
+        .includes(termo)
 
 
-        const dupla =
-          String(
-            item.dupla || ""
-          )
-          .toLowerCase();
+        ||
 
 
-        return (
-          nome.includes(termo) ||
-          dupla.includes(termo)
-        );
+        String(
+          item.dupla || ""
+        )
+        .toLowerCase()
+        .includes(termo)
 
-      }
     );
 
 
@@ -2695,26 +2410,31 @@ function filtrarLista() {
 }
 
 
-
 /* =====================================================
    CARREGAR API
 ===================================================== */
 
-
 async function carregar() {
+
 
   try {
 
 
     const resposta =
+
       await fetch(
+
         API +
+
         "&_=" +
+
         Date.now(),
+
         {
           cache:
             "no-store"
         }
+
       );
 
 
@@ -2740,30 +2460,45 @@ async function carregar() {
     );
 
 
+    /*
+      Aqui mantemos exatamente
+      os dados enviados pela API.
+
+      Não convertemos o horário.
+    */
+
     lembretes =
+
       Array.isArray(
         dados.itens
       )
+
         ? dados.itens
         : [];
 
 
+    console.log(
+      "PRIMEIRO HORÁRIO DA API:",
+      lembretes[0]?.horario
+    );
+
+
     /*
-     * Ordena os registros
-     * antes de agrupar.
-     */
+      Ordenação.
+
+      dataHora() trabalha com
+      o texto HH:mm.
+    */
 
     lembretes.sort(
-      (a, b) =>
+      (a,b) =>
         dataHora(a) -
         dataHora(b)
     );
 
 
     filtrados =
-      [
-        ...lembretes
-      ];
+      [...lembretes];
 
 
     renderInicio();
@@ -2778,7 +2513,6 @@ async function carregar() {
 
 
     console.error(
-      "ERRO AO CARREGAR API:",
       erro
     );
 
@@ -2802,7 +2536,8 @@ async function carregar() {
 
         <button
           class="mini-btn"
-          onclick="carregar()">
+          onclick="carregar()"
+        >
 
           Tentar novamente
 
@@ -2823,11 +2558,9 @@ async function carregar() {
 }
 
 
-
 /* =====================================================
    ABAS
 ===================================================== */
-
 
 function abrirAba(
   id,
@@ -2836,9 +2569,11 @@ function abrirAba(
 
 
   document
+
     .querySelectorAll(
       ".tab-content"
     )
+
     .forEach(
       secao =>
         secao.classList.remove(
@@ -2847,15 +2582,15 @@ function abrirAba(
     );
 
 
-  const secao =
+  const aba =
     document.getElementById(
       id
     );
 
 
-  if (secao) {
+  if (aba) {
 
-    secao.classList.add(
+    aba.classList.add(
       "active"
     );
 
@@ -2863,9 +2598,11 @@ function abrirAba(
 
 
   document
+
     .querySelectorAll(
       ".nav-btn"
     )
+
     .forEach(
       btn =>
         btn.classList.remove(
@@ -2891,13 +2628,12 @@ function abrirAba(
 }
 
 
-
 /* =====================================================
    NOTIFICAÇÕES
 ===================================================== */
 
-
 function atualizarStatusNotificacao() {
+
 
   const elemento =
     document.getElementById(
@@ -2909,8 +2645,10 @@ function atualizarStatusNotificacao() {
     !("Notification" in window)
   ) {
 
+
     elemento.textContent =
       "Não disponível neste navegador.";
+
 
     return;
 
@@ -2922,8 +2660,10 @@ function atualizarStatusNotificacao() {
     "granted"
   ) {
 
+
     elemento.textContent =
       "Notificações autorizadas ✓";
+
 
   }
 
@@ -2932,12 +2672,15 @@ function atualizarStatusNotificacao() {
     "denied"
   ) {
 
+
     elemento.textContent =
       "Notificações bloqueadas.";
+
 
   }
 
   else {
+
 
     elemento.textContent =
       "Notificações ainda não autorizadas.";
@@ -2947,16 +2690,18 @@ function atualizarStatusNotificacao() {
 }
 
 
-
 async function ativarNotificacoes() {
+
 
   if (
     !("Notification" in window)
   ) {
 
+
     alert(
       "Seu navegador não oferece suporte a notificações."
     );
+
 
     return;
 
@@ -2991,11 +2736,9 @@ async function ativarNotificacoes() {
 }
 
 
-
 /* =====================================================
    PWA
 ===================================================== */
-
 
 let deferredPrompt;
 
@@ -3012,54 +2755,58 @@ window.addEventListener(
       event;
 
 
-    document.getElementById(
-      "installBtn"
-    ).style.display =
-      "block";
+    const botao =
+      document.getElementById(
+        "installBtn"
+      );
+
+
+    if (botao) {
+
+      botao.style.display =
+        "block";
+
+    }
 
   }
 );
 
 
-
 document.getElementById(
   "installBtn"
-).onclick =
-  async () => {
+).onclick = async () => {
 
 
-    if (
-      !deferredPrompt
-    ) {
+  if (
+    !deferredPrompt
+  ) {
 
-      return;
+    return;
 
-    }
-
-
-    deferredPrompt.prompt();
+  }
 
 
-    await deferredPrompt.userChoice;
+  deferredPrompt.prompt();
 
 
-    deferredPrompt =
-      null;
+  await deferredPrompt.userChoice;
 
 
-    document.getElementById(
-      "installBtn"
-    ).style.display =
-      "none";
+  deferredPrompt =
+    null;
 
-  };
 
+  document.getElementById(
+    "installBtn"
+  ).style.display =
+    "none";
+
+};
 
 
 /* =====================================================
    SERVICE WORKER
 ===================================================== */
-
 
 if (
   "serviceWorker" in navigator
@@ -3076,6 +2823,7 @@ if (
         .register(
           "sw.js"
         )
+
         .catch(
           erro =>
             console.error(
@@ -3090,11 +2838,9 @@ if (
 }
 
 
-
 /* =====================================================
    INICIALIZAÇÃO
 ===================================================== */
-
 
 atualizarStatusNotificacao();
 
@@ -3102,14 +2848,13 @@ carregar();
 
 
 /*
- * Atualiza os dados a cada 5 minutos.
- */
+  Atualiza os dados a cada 5 minutos.
+*/
 
 setInterval(
   carregar,
   5 * 60 * 1000
 );
-
 
 </script>
 
