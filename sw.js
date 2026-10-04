@@ -1,3 +1,18 @@
+// Verifica se o navegador suporta Service Workers
+if ('serviceWorker' in navigator) {
+  window.addEventListener('load', function() {
+    navigator.serviceWorker.register('./sw.js')
+      .then(function(registration) {
+        // Registo bem-sucedido
+        console.log('Service Worker registado com sucesso. Escopo:', registration.scope);
+      })
+      .catch(function(error) {
+        // Falha no registo
+        console.error('Falha ao registar o Service Worker:', error);
+      });
+  });
+}
+
 // Importa os scripts do Firebase necessários
 importScripts('https://www.gstatic.com/firebasejs/10.12.0/firebase-app-compat.js');
 importScripts('https://www.gstatic.com/firebasejs/10.12.0/firebase-messaging-compat.js');
