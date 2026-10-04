@@ -1,58 +1,33 @@
-const CACHE = "carrinho-village-v2";
+// Importa os scripts do Firebase necessários para o Service Worker funcionar em background
+importScripts('https://www.gstatic.com/firebasejs/10.12.0/firebase-app-compat.js');
+importScripts('https://www.gstatic.com/firebasejs/10.12.0/firebase-messaging-compat.js');
 
-const ASSETS = [
-  "./",
-  "./index.html",
-  "./manifest.json"
-];
-
-self.addEventListener("install", event => {
-  event.waitUntil(
-    caches.open(CACHE)
-      .then(cache => cache.addAll(ASSETS))
-      .then(() => self.skipWaiting())
-  );
+// Inicialize o Firebase no Service Worker (certifique-se de usar os mesmos dados do seu projeto)
+firebase.initializeApp({
+  apiKey: "SEU_API_KEY",
+  authDomain: "SEU_AUTH_DOMAIN",
+  projectId: "carrinho-village-controle",
+  storageBucket: "SEU_STORAGE_BUCKET",
+  messagingSenderId: "680890955138", // ID do remetente obtido do painel
+  appId: "SEU_APP_ID"
 });
 
-self.addEventListener("activate", event => {
+const messaging = firebase.messaging();
+
+// Opcional: Lida com cliques na notificação recebida em background
+self.addEventListener('notificationclick', function(event) {
+  event.notification.close();
   event.waitUntil(
-    caches.keys().then(keys =>
-      Promise.all(
-        keys
-          .filter(key => key !== CACHE)
-          .map(key => caches.delete(key))
-      )
-    ).then(() => self.clients.claim())
-  );
-});
-
-self.addEventListener("fetch", event => {
-  if (event.request.method !== "GET") return;
-
-  const url = new URL(event.request.url);
-
-  // A API nunca deve vir do cache.
-  if (url.href.includes("script.google.com")) {
-    event.respondWith(
-      fetch(event.request, { cache: "no-store" })
-    );
-    return;
-  }
-
-  // Para o aplicativo, tenta buscar a versão nova primeiro.
-  event.respondWith(
-    fetch(event.request)
-      .then(response => {
-        if (response && response.ok) {
-          const clone = response.clone();
-
-          caches.open(CACHE).then(cache => {
-            cache.put(event.request, clone);
-          });
+    clients.matchAll({ type: 'window', includeUncontrolled: true }).then(windowClients => {
+      for (let i = 0; i < windowClients.length; i++) {
+        let client = windowClients[i];
+        if (client.url && 'focus' in client) {
+          return client.focus();
         }
-
-        return response;
-      })
-      .catch(() => caches.match(event.request))
+      }
+      if (clients.openWindow) {
+        return clients.openWindow('/');
+      }
+    })
   );
 });
