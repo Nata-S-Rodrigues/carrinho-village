@@ -3,293 +3,1632 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-  <meta name="theme-color" content="#111827">
-  <meta name="description" content="Lembretes do Carrinho Village">
+  <meta name="theme-color" content="#ffffff">
+  <meta name="description" content="Carrinho Village - lembretes de testemunho público">
+
   <link rel="manifest" href="manifest.json">
+
   <title>Carrinho Village</title>
+
   <style>
-    :root{
-      --bg:#f4f7fb; --card:#fff; --text:#101828; --muted:#667085;
-      --primary:#1677ff; --primary2:#0b5bd3; --green:#12b76a;
-      --yellow:#f79009; --red:#f04438; --border:#e4e7ec;
-      --shadow:0 8px 30px rgba(16,24,40,.08); --radius:22px;
+    :root {
+      --bg: #f6f7f9;
+      --surface: #ffffff;
+      --surface-2: #f1f3f5;
+      --text: #111827;
+      --muted: #667085;
+      --border: #e5e7eb;
+      --primary: #1677ff;
+      --primary-dark: #0b5bd3;
+      --green: #12b76a;
+      --yellow: #f79009;
+      --shadow: 0 4px 18px rgba(16, 24, 40, .07);
+      --radius: 18px;
     }
-    *{box-sizing:border-box}
-    body{margin:0;font-family:Inter,system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;background:var(--bg);color:var(--text)}
-    button{font:inherit}
-    .app{max-width:720px;margin:auto;min-height:100vh;padding-bottom:32px}
-    header{background:linear-gradient(135deg,#111827,#1f2937);color:#fff;padding:24px 18px 26px;border-radius:0 0 28px 28px}
-    .top{display:flex;align-items:center;justify-content:space-between;gap:12px}
-    .brand{display:flex;align-items:center;gap:12px}
-    .logo{width:48px;height:48px;border-radius:15px;background:#fff1;display:grid;place-items:center;font-size:25px;border:1px solid #ffffff22}
-    h1{font-size:21px;margin:0 0 3px}
-    .subtitle{font-size:13px;color:#d0d5dd}
-    .refresh{border:1px solid #ffffff2b;background:#ffffff12;color:#fff;width:42px;height:42px;border-radius:13px;cursor:pointer}
-    .hero{margin-top:22px}
-    .hero-title{font-size:28px;font-weight:750;margin:0 0 6px}
-    .hero-text{margin:0;color:#d0d5dd;font-size:14px}
-    main{padding:18px}
-    .summary{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:18px}
-    .stat{background:var(--card);border:1px solid var(--border);border-radius:18px;padding:16px;box-shadow:var(--shadow)}
-    .stat strong{display:block;font-size:24px;margin-bottom:3px}.stat span{font-size:12px;color:var(--muted)}
-    .section-head{display:flex;align-items:center;justify-content:space-between;margin:8px 2px 12px}
-    .section-head h2{font-size:17px;margin:0}.count{font-size:12px;color:var(--muted)}
-    .list{display:grid;gap:12px}
-    .card{background:var(--card);border:1px solid var(--border);border-radius:var(--radius);padding:17px;box-shadow:var(--shadow)}
-    .card-top{display:flex;justify-content:space-between;gap:12px}
-    .person{font-size:18px;font-weight:750;margin:0 0 4px}
-    .date{font-size:13px;color:var(--muted)}
-    .badge{align-self:flex-start;border-radius:999px;padding:6px 10px;font-size:11px;font-weight:700;background:#fff4e5;color:#b54708}
-    .badge.enviado{background:#ecfdf3;color:#027a48}.badge.erro{background:#fef3f2;color:#b42318}
-    .details{display:grid;grid-template-columns:1fr 1fr;gap:9px;margin:15px 0}
-    .detail{background:#f8fafc;border-radius:13px;padding:10px}.detail small{display:block;color:var(--muted);font-size:10px;margin-bottom:3px}.detail b{font-size:13px}
-    .message{background:#f8fafc;border:1px dashed #d0d5dd;border-radius:14px;padding:11px;font-size:12px;line-height:1.45;color:#475467;margin-bottom:13px}
-    .actions{display:grid;grid-template-columns:1fr 1fr;gap:9px}
-    .btn{border:0;border-radius:13px;padding:12px 10px;font-weight:700;cursor:pointer}
-    .btn-primary{background:var(--primary);color:#fff}.btn-primary:active{background:var(--primary2)}
-    .btn-secondary{background:#eef4ff;color:#155eef}
-    .empty,.loading,.error{background:var(--card);border:1px solid var(--border);border-radius:18px;padding:26px;text-align:center;color:var(--muted)}
-    .empty-icon{font-size:34px;margin-bottom:8px}
-    .install{display:none;margin-top:12px;background:#111827;color:#fff;border-radius:15px;padding:12px 14px;border:0;width:100%;font-weight:700}
-    .footer{text-align:center;color:#98a2b3;font-size:11px;padding:18px}
-    @media(max-width:430px){main{padding:14px}.summary{gap:8px}.card{padding:14px}.hero-title{font-size:24px}}
+
+    * {
+      box-sizing: border-box;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      margin: 0;
+      background: var(--bg);
+      color: var(--text);
+      font-family:
+        Inter,
+        -apple-system,
+        BlinkMacSystemFont,
+        "Segoe UI",
+        Roboto,
+        Arial,
+        sans-serif;
+    }
+
+    button {
+      font: inherit;
+    }
+
+    .app {
+      max-width: 760px;
+      min-height: 100vh;
+      margin: auto;
+      padding-bottom: 90px;
+    }
+
+    /* HEADER */
+
+    header {
+      background: var(--surface);
+      border-bottom: 1px solid var(--border);
+      padding: 20px 18px 18px;
+      position: sticky;
+      top: 0;
+      z-index: 20;
+    }
+
+    .header-row {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 15px;
+    }
+
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .brand-icon {
+      width: 42px;
+      height: 42px;
+      border-radius: 13px;
+      background: #eef4ff;
+      color: var(--primary);
+      display: grid;
+      place-items: center;
+      font-size: 20px;
+      font-weight: 800;
+    }
+
+    .brand-title {
+      margin: 0;
+      font-size: 18px;
+      font-weight: 750;
+      letter-spacing: -.2px;
+    }
+
+    .brand-subtitle {
+      margin-top: 2px;
+      font-size: 12px;
+      color: var(--muted);
+    }
+
+    .refresh {
+      width: 40px;
+      height: 40px;
+      border: 1px solid var(--border);
+      background: var(--surface);
+      border-radius: 12px;
+      cursor: pointer;
+      font-size: 19px;
+    }
+
+    .refresh:active {
+      transform: scale(.96);
+    }
+
+    /* MAIN */
+
+    main {
+      padding: 18px;
+    }
+
+    .page-title {
+      margin: 4px 0 5px;
+      font-size: 25px;
+      letter-spacing: -.5px;
+    }
+
+    .page-subtitle {
+      margin: 0 0 20px;
+      color: var(--muted);
+      font-size: 13px;
+    }
+
+    /* TABS */
+
+    .tab-content {
+      display: none;
+    }
+
+    .tab-content.active {
+      display: block;
+    }
+
+    /* NEXT */
+
+    .next-label {
+      font-size: 12px;
+      font-weight: 750;
+      color: var(--primary);
+      text-transform: uppercase;
+      letter-spacing: .6px;
+      margin-bottom: 8px;
+    }
+
+    .next-card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 22px;
+      padding: 20px;
+      box-shadow: var(--shadow);
+      margin-bottom: 22px;
+    }
+
+    .next-date {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      color: var(--muted);
+      font-size: 13px;
+      margin-bottom: 13px;
+    }
+
+    .next-names {
+      font-size: 24px;
+      font-weight: 800;
+      letter-spacing: -.5px;
+      margin-bottom: 8px;
+    }
+
+    .next-info {
+      display: flex;
+      gap: 8px;
+      flex-wrap: wrap;
+      margin-bottom: 18px;
+    }
+
+    .info-pill {
+      background: var(--surface-2);
+      border-radius: 10px;
+      padding: 7px 10px;
+      color: #344054;
+      font-size: 12px;
+      font-weight: 650;
+    }
+
+    .people-buttons {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 9px;
+    }
+
+    .whatsapp-btn {
+      border: 0;
+      border-radius: 13px;
+      padding: 12px 10px;
+      background: #12b76a;
+      color: white;
+      font-weight: 750;
+      cursor: pointer;
+    }
+
+    .whatsapp-btn:active {
+      transform: scale(.98);
+    }
+
+    /* UPCOMING */
+
+    .section-title {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin: 22px 2px 11px;
+    }
+
+    .section-title h2 {
+      margin: 0;
+      font-size: 17px;
+    }
+
+    .section-count {
+      color: var(--muted);
+      font-size: 12px;
+    }
+
+    .upcoming-list {
+      display: grid;
+      gap: 9px;
+    }
+
+    .upcoming-card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      padding: 14px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+    }
+
+    .upcoming-main {
+      min-width: 0;
+    }
+
+    .upcoming-date {
+      font-size: 11px;
+      color: var(--primary);
+      font-weight: 750;
+      margin-bottom: 4px;
+    }
+
+    .upcoming-name {
+      font-weight: 700;
+      font-size: 14px;
+    }
+
+    .upcoming-time {
+      color: var(--muted);
+      font-size: 12px;
+      margin-top: 3px;
+    }
+
+    .mini-btn {
+      flex-shrink: 0;
+      border: 0;
+      border-radius: 10px;
+      background: #eef4ff;
+      color: var(--primary);
+      padding: 9px 11px;
+      font-size: 12px;
+      font-weight: 700;
+      cursor: pointer;
+    }
+
+    /* LIST */
+
+    .filters {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 8px;
+      margin-bottom: 15px;
+    }
+
+    .search {
+      width: 100%;
+      border: 1px solid var(--border);
+      background: var(--surface);
+      border-radius: 13px;
+      padding: 12px 13px;
+      outline: none;
+      font-size: 14px;
+    }
+
+    .search:focus {
+      border-color: var(--primary);
+    }
+
+    .all-list {
+      display: grid;
+      gap: 10px;
+    }
+
+    .list-card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 17px;
+      padding: 15px;
+    }
+
+    .list-top {
+      display: flex;
+      justify-content: space-between;
+      gap: 10px;
+    }
+
+    .list-name {
+      font-weight: 750;
+      font-size: 15px;
+    }
+
+    .list-date {
+      margin-top: 4px;
+      color: var(--muted);
+      font-size: 12px;
+    }
+
+    .status {
+      align-self: flex-start;
+      border-radius: 999px;
+      padding: 5px 8px;
+      font-size: 10px;
+      font-weight: 750;
+      background: #fff4e5;
+      color: #b54708;
+    }
+
+    .list-details {
+      display: flex;
+      gap: 8px;
+      flex-wrap: wrap;
+      margin-top: 12px;
+    }
+
+    .list-pill {
+      background: var(--surface-2);
+      border-radius: 9px;
+      padding: 6px 9px;
+      font-size: 11px;
+      color: #475467;
+    }
+
+    .list-actions {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 8px;
+      margin-top: 12px;
+    }
+
+    .copy-btn {
+      border: 0;
+      border-radius: 11px;
+      background: #eef4ff;
+      color: var(--primary);
+      padding: 10px;
+      font-weight: 700;
+      cursor: pointer;
+    }
+
+    /* EMPTY / LOADING */
+
+    .empty,
+    .loading,
+    .error {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 18px;
+      padding: 30px 20px;
+      text-align: center;
+      color: var(--muted);
+    }
+
+    .empty strong {
+      display: block;
+      color: var(--text);
+      margin-bottom: 5px;
+    }
+
+    /* NAVIGATION */
+
+    .bottom-nav {
+      position: fixed;
+      left: 50%;
+      bottom: 0;
+      transform: translateX(-50%);
+      width: min(760px, 100%);
+      height: 70px;
+      background: rgba(255,255,255,.96);
+      backdrop-filter: blur(12px);
+      border-top: 1px solid var(--border);
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      z-index: 50;
+    }
+
+    .nav-btn {
+      border: 0;
+      background: transparent;
+      color: #98a2b3;
+      cursor: pointer;
+      font-size: 11px;
+      font-weight: 650;
+    }
+
+    .nav-btn span {
+      display: block;
+      font-size: 20px;
+      margin-bottom: 3px;
+    }
+
+    .nav-btn.active {
+      color: var(--primary);
+    }
+
+    /* INSTALL */
+
+    .install {
+      display: none;
+      width: 100%;
+      margin-bottom: 15px;
+      border: 0;
+      border-radius: 13px;
+      padding: 12px;
+      background: #111827;
+      color: #fff;
+      font-weight: 700;
+      cursor: pointer;
+    }
+
+    /* DESKTOP */
+
+    @media(min-width: 700px) {
+      .app {
+        border-left: 1px solid var(--border);
+        border-right: 1px solid var(--border);
+      }
+
+      .bottom-nav {
+        border-left: 1px solid var(--border);
+        border-right: 1px solid var(--border);
+      }
+    }
+
+    @media(max-width: 430px) {
+      main {
+        padding: 15px;
+      }
+
+      .next-names {
+        font-size: 21px;
+      }
+
+      .people-buttons {
+        grid-template-columns: 1fr;
+      }
+    }
   </style>
 </head>
+
 <body>
+
 <div class="app">
+
   <header>
-    <div class="top">
+    <div class="header-row">
+
       <div class="brand">
-        <div class="logo">🚗</div>
-        <div><h1>Carrinho Village</h1><div class="subtitle">Lembretes de testemunho público</div></div>
+
+        <div class="brand-icon">
+          CV
+        </div>
+
+        <div>
+          <h1 class="brand-title">Carrinho Village</h1>
+          <div class="brand-subtitle">
+            Lembretes de testemunho público
+          </div>
+        </div>
+
       </div>
-      <button class="refresh" onclick="carregar()" aria-label="Atualizar">↻</button>
-    </div>
-    <div class="hero">
-      <p class="hero-title">Seus próximos lembretes</p>
-      <p class="hero-text">Toque em “Abrir WhatsApp” para revisar e enviar a mensagem.</p>
+
+      <button
+        class="refresh"
+        onclick="carregar()"
+        aria-label="Atualizar">
+        ↻
+      </button>
+
     </div>
   </header>
 
   <main>
-    <button id="installBtn" class="install">📲 Instalar Carrinho Village</button>
-    <div class="summary">
-      <div class="stat"><strong id="pendentes">—</strong><span>Lembretes pendentes</span></div>
-      <div class="stat"><strong id="total">—</strong><span>Designações carregadas</span></div>
-    </div>
 
-    <div class="section-head">
-      <h2>Próximas designações</h2><span class="count" id="atualizado">Atualizando…</span>
-    </div>
-    <div id="lista" class="list"><div class="loading">Carregando seus lembretes…</div></div>
+    <button id="installBtn" class="install">
+      📲 Instalar Carrinho Village
+    </button>
+
+
+    <!-- INÍCIO -->
+
+    <section id="inicio" class="tab-content active">
+
+      <h2 class="page-title">
+        Próximos lembretes
+      </h2>
+
+      <p class="page-subtitle">
+        Veja rapidamente quem você precisa lembrar.
+      </p>
+
+      <div id="proximo"></div>
+
+      <div class="section-title">
+        <h2>Próximos</h2>
+        <span class="section-count" id="proximosCount">
+          —
+        </span>
+      </div>
+
+      <div id="proximos" class="upcoming-list">
+        <div class="loading">
+          Carregando…
+        </div>
+      </div>
+
+    </section>
+
+
+    <!-- LISTA -->
+
+    <section id="listaTab" class="tab-content">
+
+      <h2 class="page-title">
+        Todas as designações
+      </h2>
+
+      <p class="page-subtitle">
+        Consulte todas as pessoas e horários.
+      </p>
+
+      <div class="filters">
+
+        <input
+          id="busca"
+          class="search"
+          type="search"
+          placeholder="Pesquisar nome…"
+          oninput="filtrarLista()"
+        >
+
+      </div>
+
+      <div id="listaCompleta" class="all-list">
+        <div class="loading">
+          Carregando…
+        </div>
+      </div>
+
+    </section>
+
+
+    <!-- NOTIFICAÇÕES -->
+
+    <section id="notificacoes" class="tab-content">
+
+      <h2 class="page-title">
+        Notificações
+      </h2>
+
+      <p class="page-subtitle">
+        Configurações dos lembretes do aplicativo.
+      </p>
+
+      <div class="next-card">
+
+        <div class="next-label">
+          STATUS
+        </div>
+
+        <div
+          id="statusNotificacao"
+          style="font-size:18px;font-weight:750;margin-bottom:8px;">
+          Verificando…
+        </div>
+
+        <p
+          style="font-size:13px;color:var(--muted);line-height:1.5;margin:0 0 16px;">
+          As notificações do navegador precisam ser autorizadas no celular
+          para que o aplicativo possa avisar você.
+        </p>
+
+        <button
+          class="whatsapp-btn"
+          onclick="ativarNotificacoes()">
+          🔔 Ativar notificações
+        </button>
+
+      </div>
+
+    </section>
+
   </main>
-  <div class="footer">Carrinho Village • versão 1.0</div>
+
+
+  <!-- NAVEGAÇÃO -->
+
+  <nav class="bottom-nav">
+
+    <button
+      class="nav-btn active"
+      onclick="abrirAba('inicio',this)">
+      <span>⌂</span>
+      Início
+    </button>
+
+    <button
+      class="nav-btn"
+      onclick="abrirAba('listaTab',this)">
+      <span>☷</span>
+      Lista
+    </button>
+
+    <button
+      class="nav-btn"
+      onclick="abrirAba('notificacoes',this)">
+      <span>♧</span>
+      Notificações
+    </button>
+
+  </nav>
+
 </div>
 
+
 <script>
-const API = "https://script.google.com/macros/s/AKfycbw2oS_My7_WG0XWVF36aRWYwbNhO3u_h7cyNj9xYml6TKGAgkMK5pIo0E1SboMtAvr1PQ/exec?api=lembretes";
-function escapeHtml(v){
-  return String(v ?? "").replace(/[&<>"']/g,m=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#039;"}[m]));
-}
-function normalizarNumero(v){
-  let s=String(v||"").replace(/\D/g,"");
-  if(s && !s.startsWith("55")) s="55"+s;
-  return s;
-}
-function formatarData(v){
-  if(!v) return "Data não informada";
-  const s=String(v);
-  const m=s.match(/^(\d{1,2})\/(\d{1,2})\/(\d{4})/);
-  if(m) return `${m[1].padStart(2,"0")}/${m[2].padStart(2,"0")}/${m[3]}`;
-  const d=new Date(s);
-  if(!isNaN(d)) return d.toLocaleDateString("pt-BR",{timeZone:"America/Sao_Paulo"});
-  return s;
-}
-function mensagem(item){
-  if(item.mensagem) return item.mensagem;
-  return `Olá, ${item.nome || ""}! 😊\\n\\nPassando para lembrar que você está designado(a) para o carrinho de testemunho público no dia ${formatarData(item.data)}, às ${item.horario || ""}.\\n\\nSua dupla será: ${item.dupla || ""}.\\n\\nAgradecemos pela sua disposição em apoiar essa atividade! 💚`;
-}
-function abrirWhatsApp(item){
-  const numero=normalizarNumero(item.whatsapp);
-  const texto=mensagem(item);
-  if(!numero){ alert("Este cadastro não possui número de WhatsApp."); return; }
-  window.location.href=`https://wa.me/${numero}?text=${encodeURIComponent(texto)}`;
-}
-function marcarCopiar(item){
-  navigator.clipboard?.writeText(mensagem(item)).then(()=>alert("Mensagem copiada!")).catch(()=>alert(mensagem(item)));
-}
-function render(items){
-  const lista = document.getElementById("lista");
 
-  if (!Array.isArray(items)) {
-    items = [];
+/* ==========================================
+   API
+========================================== */
+
+const API =
+  "https://script.google.com/macros/s/AKfycbw2oS_My7_WG0XWVF36aRWYwbNhO3u_h7cyNj9xYml6TKGAgkMK5pIo0E1SboMtAvr1PQ/exec?api=lembretes";
+
+
+/* ==========================================
+   VARIÁVEIS
+========================================== */
+
+let lembretes = [];
+let filtrados = [];
+
+
+/* ==========================================
+   SEGURANÇA HTML
+========================================== */
+
+function escapeHtml(valor) {
+
+  return String(valor ?? "")
+    .replace(/[&<>"']/g, m => ({
+      "&":"&amp;",
+      "<":"&lt;",
+      ">":"&gt;",
+      '"':"&quot;",
+      "'":"&#039;"
+    }[m]));
+
+}
+
+
+/* ==========================================
+   NÚMERO WHATSAPP
+========================================== */
+
+function normalizarNumero(valor) {
+
+  let numero =
+    String(valor || "").replace(/\D/g,"");
+
+  if (
+    numero &&
+    !numero.startsWith("55")
+  ) {
+    numero = "55" + numero;
   }
 
-  console.log("ITENS PARA RENDERIZAR:", items);
+  return numero;
 
-  document.getElementById("total").textContent = items.length;
-
-  const pendentes = items.filter(item =>
-    String(item.status || "").toLowerCase().includes("pend")
-  ).length;
-
-  document.getElementById("pendentes").textContent = pendentes;
-
-  document.getElementById("atualizado").textContent = "Atualizado agora";
-
-  if (items.length === 0) {
-    lista.innerHTML = `
-      <div class="empty">
-        <div class="empty-icon">🎉</div>
-        <b>Nenhum lembrete pendente</b>
-        <p>Quando houver uma nova designação, ela aparecerá aqui.</p>
-      </div>
-    `;
-    return;
-  }
-
-  lista.innerHTML = items.map((item, index) => {
-
-    const nome = item.nome || "Sem nome";
-    const data = item.data || "Data não informada";
-    const horario = item.horario || "—";
-    const dupla = item.dupla || "—";
-    const status = item.status || "Pendente";
-    const whatsapp = item.whatsapp || "";
-
-    return `
-      <article class="card">
-
-        <div class="card-top">
-
-          <div>
-            <p class="person">${escapeHtml(nome)}</p>
-
-            <div class="date">
-              📅 ${escapeHtml(formatarData(data))}
-            </div>
-          </div>
-
-          <span class="badge">
-            ${escapeHtml(status)}
-          </span>
-
-        </div>
-
-        <div class="details">
-
-          <div class="detail">
-            <small>Horário</small>
-            <b>🕐 ${escapeHtml(horario)}</b>
-          </div>
-
-          <div class="detail">
-            <small>Dupla</small>
-            <b>👥 ${escapeHtml(dupla)}</b>
-          </div>
-
-        </div>
-
-        <div class="actions">
-
-          <button
-            class="btn btn-primary"
-            onclick="abrirWhatsApp(${index})">
-            💬 Abrir WhatsApp
-          </button>
-
-          <button
-            class="btn btn-secondary"
-            onclick="copiarMensagem(${index})">
-            📋 Copiar
-          </button>
-
-        </div>
-
-      </article>
-    `;
-
-  }).join("");
-
-  window.lembretesAtuais = items;
 }
 
- function abrirWhatsApp(index) {
 
-  const item = window.lembretesAtuais[index];
+/* ==========================================
+   DATA
+========================================== */
 
-  if (!item) return;
+function formatarData(valor) {
 
-  const numero = String(item.whatsapp || "").replace(/\D/g, "");
-
-  if (!numero) {
-    alert("Este cadastro não possui número de WhatsApp.");
-    return;
+  if (!valor) {
+    return "Data não informada";
   }
 
-  const texto =
-`Olá, ${item.nome || ""}! 😊
+  const texto = String(valor);
 
-Passando para lembrar que você está designado(a) para o carrinho de testemunho público no dia ${formatarData(item.data)}, às ${item.horario || ""}.
+  const brasileira =
+    texto.match(/^(\d{1,2})\/(\d{1,2})\/(\d{4})/);
+
+  if (brasileira) {
+
+    return `${brasileira[1].padStart(2,"0")}/${brasileira[2].padStart(2,"0")}/${brasileira[3]}`;
+
+  }
+
+  const data = new Date(texto);
+
+  if (!isNaN(data)) {
+
+    return data.toLocaleDateString(
+      "pt-BR",
+      {
+        timeZone:"America/Sao_Paulo"
+      }
+    );
+
+  }
+
+  return texto;
+
+}
+
+
+/* ==========================================
+   HORÁRIO
+========================================== */
+
+function formatarHorario(valor) {
+
+  if (!valor) {
+    return "Horário não informado";
+  }
+
+  const texto = String(valor);
+
+  /*
+   * Caso venha:
+   * Sat Dec 30 1899 05:23:32 GMT-0306
+   */
+
+  const match =
+    texto.match(/(\d{2}):(\d{2})(?::(\d{2}))?/);
+
+  if (match) {
+
+    return `${match[1]}:${match[2]}`;
+
+  }
+
+  /*
+   * Caso venha HH:MM
+   */
+
+  const simples =
+    texto.match(/^(\d{1,2}):(\d{2})/);
+
+  if (simples) {
+
+    return `${simples[1].padStart(2,"0")}:${simples[2]}`;
+
+  }
+
+  return texto;
+
+}
+
+
+/* ==========================================
+   DATA + HORA PARA ORDENAÇÃO
+========================================== */
+
+function dataHora(item) {
+
+  const data = String(item.data || "");
+
+  const partes = data.split("/");
+
+  if (partes.length !== 3) {
+    return Infinity;
+  }
+
+  const dia = Number(partes[0]);
+  const mes = Number(partes[1]) - 1;
+  const ano = Number(partes[2]);
+
+  const horario =
+    formatarHorario(item.horario);
+
+  const hm =
+    horario.match(/(\d{2}):(\d{2})/);
+
+  const hora =
+    hm ? Number(hm[1]) : 0;
+
+  const minuto =
+    hm ? Number(hm[2]) : 0;
+
+  return new Date(
+    ano,
+    mes,
+    dia,
+    hora,
+    minuto
+  ).getTime();
+
+}
+
+
+/* ==========================================
+   MENSAGEM
+========================================== */
+
+function mensagem(item) {
+
+  if (item.mensagem) {
+    return item.mensagem;
+  }
+
+  return `Olá, ${item.nome || ""}! 😊
+
+Passando para lembrar que você está designado(a) para o carrinho de testemunho público no dia ${formatarData(item.data)}, às ${formatarHorario(item.horario)}.
 
 Sua dupla será: ${item.dupla || ""}.
 
 Agradecemos pela sua disposição em apoiar essa atividade! 💚`;
 
+}
+
+
+/* ==========================================
+   WHATSAPP
+========================================== */
+
+function abrirWhatsApp(item) {
+
+  const numero =
+    normalizarNumero(item.whatsapp);
+
+  if (!numero) {
+
+    alert(
+      "Este cadastro não possui número de WhatsApp."
+    );
+
+    return;
+
+  }
+
   const url =
     "https://wa.me/" +
     numero +
     "?text=" +
-    encodeURIComponent(texto);
+    encodeURIComponent(
+      mensagem(item)
+    );
 
-  window.open(url, "_blank");
+  window.location.href = url;
+
 }
 
 
-function copiarMensagem(index) {
+/* ==========================================
+   COPIAR
+========================================== */
 
-  const item = window.lembretesAtuais[index];
+function copiarMensagem(item) {
 
-  if (!item) return;
+  navigator.clipboard
+    ?.writeText(mensagem(item))
+    .then(() => {
+      alert("Mensagem copiada!");
+    })
+    .catch(() => {
+      alert(mensagem(item));
+    });
 
-  const texto =
-`Olá, ${item.nome || ""}! 😊
-
-Passando para lembrar que você está designado(a) para o carrinho de testemunho público no dia ${formatarData(item.data)}, às ${item.horario || ""}.
-
-Sua dupla será: ${item.dupla || ""}.`;
-
-  navigator.clipboard.writeText(texto)
-    .then(() => alert("Mensagem copiada!"))
-    .catch(() => alert("Não foi possível copiar a mensagem."));
 }
-async function carregar(){
-  const lista=document.getElementById("lista");
-  lista.innerHTML='<div class="loading">Atualizando lembretes…</div>';
-  try{
-    const r=await fetch(API,{cache:"no-store"});
-    if(!r.ok) throw new Error("HTTP "+r.status);
-    const data=await r.json();
-    console.log("DADOS RECEBIDOS DA API:", data);
-    render(data.itens || data.items || data || []);
-  }catch(e){
-    lista.innerHTML=`<div class="error"><b>Não foi possível atualizar.</b><p>${escapeHtml(e.message)}</p><button class="btn btn-secondary" onclick="carregar()">Tentar novamente</button></div>`;
-    document.getElementById("atualizado").textContent="Falha na atualização";
+
+
+/* ==========================================
+   AGRUPAR DUPLAS
+========================================== */
+
+function agruparDuplas(lista) {
+
+  const grupos = [];
+  const usados = new Set();
+
+  lista.forEach((item, index) => {
+
+    if (usados.has(index)) {
+      return;
+    }
+
+    const duplaNome =
+      String(item.dupla || "")
+        .trim()
+        .toLowerCase();
+
+    if (!duplaNome) {
+
+      grupos.push({
+        dataHora: dataHora(item),
+        pessoas: [item]
+      });
+
+      usados.add(index);
+
+      return;
+
+    }
+
+    const parceiroIndex =
+      lista.findIndex((outro, i) => {
+
+        if (i === index || usados.has(i)) {
+          return false;
+        }
+
+        const nomeOutro =
+          String(outro.nome || "")
+            .trim()
+            .toLowerCase();
+
+        const duplaOutro =
+          String(outro.dupla || "")
+            .trim()
+            .toLowerCase();
+
+        const nomeItem =
+          String(item.nome || "")
+            .trim()
+            .toLowerCase();
+
+        return (
+          nomeOutro === duplaNome &&
+          duplaOutro === nomeItem &&
+          formatarData(outro.data) === formatarData(item.data) &&
+          formatarHorario(outro.horario) === formatarHorario(item.horario)
+        );
+
+      });
+
+    if (parceiroIndex >= 0) {
+
+      grupos.push({
+        dataHora: Math.min(
+          dataHora(item),
+          dataHora(lista[parceiroIndex])
+        ),
+        pessoas: [
+          item,
+          lista[parceiroIndex]
+        ]
+      });
+
+      usados.add(index);
+      usados.add(parceiroIndex);
+
+    } else {
+
+      grupos.push({
+        dataHora: dataHora(item),
+        pessoas: [item]
+      });
+
+      usados.add(index);
+
+    }
+
+  });
+
+  return grupos.sort(
+    (a,b) => a.dataHora - b.dataHora
+  );
+
+}
+
+
+/* ==========================================
+   RENDER INÍCIO
+========================================== */
+
+function renderInicio() {
+
+  const proximo =
+    document.getElementById("proximo");
+
+  const proximos =
+    document.getElementById("proximos");
+
+  const grupos =
+    agruparDuplas(lembretes);
+
+  if (!grupos.length) {
+
+    proximo.innerHTML = `
+      <div class="empty">
+        <strong>Nenhum lembrete encontrado</strong>
+        <span>Não há designações disponíveis.</span>
+      </div>
+    `;
+
+    proximos.innerHTML = "";
+
+    return;
+
   }
+
+
+  const primeiro =
+    grupos[0];
+
+  const pessoas =
+    primeiro.pessoas;
+
+
+  const nomes =
+    pessoas
+      .map(p => escapeHtml(p.nome))
+      .join(" + ");
+
+
+  const data =
+    formatarData(
+      pessoas[0].data
+    );
+
+
+  const horario =
+    formatarHorario(
+      pessoas[0].horario
+    );
+
+
+  proximo.innerHTML = `
+
+    <div class="next-label">
+      PRÓXIMO LEMBRETE
+    </div>
+
+    <div class="next-card">
+
+      <div class="next-date">
+        📅 ${escapeHtml(data)}
+      </div>
+
+      <div class="next-names">
+        ${nomes}
+      </div>
+
+      <div class="next-info">
+
+        <div class="info-pill">
+          🕐 ${escapeHtml(horario)}
+        </div>
+
+        <div class="info-pill">
+          👥 ${pessoas.length} pessoa${pessoas.length > 1 ? "s" : ""}
+        </div>
+
+      </div>
+
+      <div class="people-buttons">
+
+        ${pessoas.map(p => `
+
+          <button
+            class="whatsapp-btn"
+            onclick='abrirWhatsApp(${JSON.stringify(p).replace(/'/g,"&#039;")})'>
+
+            💬 ${escapeHtml(p.nome)}
+
+          </button>
+
+        `).join("")}
+
+      </div>
+
+    </div>
+  `;
+
+
+  const proximosGrupos =
+    grupos.slice(1,6);
+
+
+  document.getElementById(
+    "proximosCount"
+  ).textContent =
+    `${proximosGrupos.length} próximos`;
+
+
+  if (!proximosGrupos.length) {
+
+    proximos.innerHTML = `
+      <div class="empty">
+        <strong>Não há outros lembretes.</strong>
+      </div>
+    `;
+
+    return;
+
+  }
+
+
+  proximos.innerHTML =
+    proximosGrupos.map(grupo => {
+
+      const pessoasGrupo =
+        grupo.pessoas;
+
+      const nomesGrupo =
+        pessoasGrupo
+          .map(p => escapeHtml(p.nome))
+          .join(" + ");
+
+      const p =
+        pessoasGrupo[0];
+
+      return `
+
+        <div class="upcoming-card">
+
+          <div class="upcoming-main">
+
+            <div class="upcoming-date">
+              ${escapeHtml(formatarData(p.data))}
+            </div>
+
+            <div class="upcoming-name">
+              ${nomesGrupo}
+            </div>
+
+            <div class="upcoming-time">
+              ${escapeHtml(formatarHorario(p.horario))}
+            </div>
+
+          </div>
+
+          <button
+            class="mini-btn"
+            onclick="abrirAba('listaTab',document.querySelectorAll('.nav-btn')[1])">
+
+            Ver
+
+          </button>
+
+        </div>
+      `;
+
+    }).join("");
+
 }
+
+
+/* ==========================================
+   RENDER LISTA
+========================================== */
+
+function renderLista(lista) {
+
+  const container =
+    document.getElementById(
+      "listaCompleta"
+    );
+
+  if (!lista.length) {
+
+    container.innerHTML = `
+      <div class="empty">
+        <strong>Nenhum resultado.</strong>
+        <span>Não encontramos nenhuma designação.</span>
+      </div>
+    `;
+
+    return;
+
+  }
+
+
+  const grupos =
+    agruparDuplas(lista);
+
+
+  container.innerHTML =
+    grupos.map(grupo => {
+
+      const pessoas =
+        grupo.pessoas;
+
+      const primeiro =
+        pessoas[0];
+
+      const nomes =
+        pessoas
+          .map(p => escapeHtml(p.nome))
+          .join(" + ");
+
+
+      return `
+
+        <article class="list-card">
+
+          <div class="list-top">
+
+            <div>
+
+              <div class="list-name">
+                ${nomes}
+              </div>
+
+              <div class="list-date">
+                📅 ${escapeHtml(formatarData(primeiro.data))}
+              </div>
+
+            </div>
+
+            <span class="status">
+              ${escapeHtml(primeiro.status || "Pendente")}
+            </span>
+
+          </div>
+
+
+          <div class="list-details">
+
+            <span class="list-pill">
+              🕐 ${escapeHtml(formatarHorario(primeiro.horario))}
+            </span>
+
+            <span class="list-pill">
+              👥 ${pessoas.length} pessoa${pessoas.length > 1 ? "s" : ""}
+            </span>
+
+          </div>
+
+
+          <div class="list-actions">
+
+            ${pessoas.map(p => `
+
+              <button
+                class="whatsapp-btn"
+                onclick='abrirWhatsApp(${JSON.stringify(p).replace(/'/g,"&#039;")})'>
+
+                💬 ${escapeHtml(p.nome)}
+
+              </button>
+
+            `).join("")}
+
+          </div>
+
+        </article>
+
+      `;
+
+    }).join("");
+
+}
+
+
+/* ==========================================
+   FILTRO
+========================================== */
+
+function filtrarLista() {
+
+  const termo =
+    document
+      .getElementById("busca")
+      .value
+      .toLowerCase()
+      .trim();
+
+  filtrados =
+    lembretes.filter(item =>
+      String(item.nome || "")
+        .toLowerCase()
+        .includes(termo) ||
+
+      String(item.dupla || "")
+        .toLowerCase()
+        .includes(termo)
+    );
+
+  renderLista(filtrados);
+
+}
+
+
+/* ==========================================
+   CARREGAR API
+========================================== */
+
+async function carregar() {
+
+  try {
+
+    const resposta =
+      await fetch(
+        API + "&_=" + Date.now(),
+        {
+          cache: "no-store"
+        }
+      );
+
+
+    if (!resposta.ok) {
+
+      throw new Error(
+        "HTTP " + resposta.status
+      );
+
+    }
+
+
+    const dados =
+      await resposta.json();
+
+
+    console.log(
+      "DADOS RECEBIDOS DA API:",
+      dados
+    );
+
+
+    lembretes =
+      Array.isArray(dados.itens)
+        ? dados.itens
+        : [];
+
+
+    lembretes.sort(
+      (a,b) =>
+        dataHora(a) - dataHora(b)
+    );
+
+
+    filtrados =
+      [...lembretes];
+
+
+    renderInicio();
+    renderLista(filtrados);
+
+  }
+  catch (erro) {
+
+    console.error(erro);
+
+    document.getElementById(
+      "proximo"
+    ).innerHTML = `
+
+      <div class="error">
+
+        <strong>
+          Não foi possível atualizar.
+        </strong>
+
+        <p>
+          ${escapeHtml(erro.message)}
+        </p>
+
+        <button
+          class="mini-btn"
+          onclick="carregar()">
+
+          Tentar novamente
+
+        </button>
+
+      </div>
+
+    `;
+
+    document.getElementById(
+      "listaCompleta"
+    ).innerHTML = "";
+
+  }
+
+}
+
+
+/* ==========================================
+   ABAS
+========================================== */
+
+function abrirAba(id, botao) {
+
+  document
+    .querySelectorAll(".tab-content")
+    .forEach(secao =>
+      secao.classList.remove("active")
+    );
+
+
+  document
+    .getElementById(id)
+    .classList.add("active");
+
+
+  document
+    .querySelectorAll(".nav-btn")
+    .forEach(btn =>
+      btn.classList.remove("active")
+    );
+
+
+  if (botao) {
+    botao.classList.add("active");
+  }
+
+
+  window.scrollTo({
+    top:0,
+    behavior:"smooth"
+  });
+
+}
+
+
+/* ==========================================
+   NOTIFICAÇÕES
+========================================== */
+
+function atualizarStatusNotificacao() {
+
+  const elemento =
+    document.getElementById(
+      "statusNotificacao"
+    );
+
+  if (!("Notification" in window)) {
+
+    elemento.textContent =
+      "Não disponível neste navegador.";
+
+    return;
+
+  }
+
+
+  if (Notification.permission === "granted") {
+
+    elemento.textContent =
+      "Notificações autorizadas ✓";
+
+  }
+  else if (
+    Notification.permission === "denied"
+  ) {
+
+    elemento.textContent =
+      "Notificações bloqueadas.";
+
+  }
+  else {
+
+    elemento.textContent =
+      "Notificações ainda não autorizadas.";
+
+  }
+
+}
+
+
+async function ativarNotificacoes() {
+
+  if (!("Notification" in window)) {
+
+    alert(
+      "Seu navegador não oferece suporte a notificações."
+    );
+
+    return;
+
+  }
+
+
+  const permissao =
+    await Notification.requestPermission();
+
+
+  atualizarStatusNotificacao();
+
+
+  if (permissao === "granted") {
+
+    new Notification(
+      "Carrinho Village",
+      {
+        body:
+          "As notificações foram ativadas.",
+        icon:
+          "./icon-192.png"
+      }
+    );
+
+  }
+
+}
+
+
+/* ==========================================
+   PWA
+========================================== */
+
 let deferredPrompt;
-window.addEventListener("beforeinstallprompt",e=>{
-  e.preventDefault(); deferredPrompt=e;
-  document.getElementById("installBtn").style.display="block";
-});
-document.getElementById("installBtn").onclick=async()=>{
-  if(!deferredPrompt)return;
-  deferredPrompt.prompt(); await deferredPrompt.userChoice; deferredPrompt=null;
-  document.getElementById("installBtn").style.display="none";
-};
-if("serviceWorker" in navigator) window.addEventListener("load",()=>navigator.serviceWorker.register("sw.js"));
+
+
+window.addEventListener(
+  "beforeinstallprompt",
+  event => {
+
+    event.preventDefault();
+
+    deferredPrompt = event;
+
+    document
+      .getElementById(
+        "installBtn"
+      )
+      .style.display = "block";
+
+  }
+);
+
+
+document
+  .getElementById("installBtn")
+  .onclick = async () => {
+
+    if (!deferredPrompt) {
+      return;
+    }
+
+    deferredPrompt.prompt();
+
+    await deferredPrompt.userChoice;
+
+    deferredPrompt = null;
+
+    document
+      .getElementById(
+        "installBtn"
+      )
+      .style.display = "none";
+
+  };
+
+
+/* ==========================================
+   SERVICE WORKER
+========================================== */
+
+if ("serviceWorker" in navigator) {
+
+  window.addEventListener(
+    "load",
+    () => {
+
+      navigator
+        .serviceWorker
+        .register("sw.js")
+        .catch(
+          erro =>
+            console.error(
+              "Service Worker:",
+              erro
+            )
+        );
+
+    }
+  );
+
+}
+
+
+/* ==========================================
+   INICIALIZAÇÃO
+========================================== */
+
+atualizarStatusNotificacao();
+
 carregar();
-setInterval(carregar,5*60*1000);
+
+setInterval(
+  carregar,
+  5 * 60 * 1000
+);
+
 </script>
+
 </body>
 </html>
