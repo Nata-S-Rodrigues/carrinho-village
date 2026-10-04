@@ -116,3 +116,23 @@ self.addEventListener('fetch', event => {
   );
 
 });
+
+// sw.js - Service Worker para gerir notificações
+self.addEventListener('push', function(event) {
+  const data = event.data ? event.data.json() : {};
+  const title = data.title || "Controle de Carrinhos";
+  const options = {
+    body: data.body || "🔔 Notificação recebida.",
+    icon: './logo.png'
+  };
+  event.waitUntil(
+    self.registration.showNotification(title, options)
+  );
+});
+
+self.addEventListener('notificationclick', function(event) {
+  event.notification.close();
+  event.waitUntil(
+    clients.openWindow('/')
+  );
+});
