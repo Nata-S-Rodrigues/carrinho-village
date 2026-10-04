@@ -79,7 +79,7 @@
 
   <div class="container">
     <h1>Painel de Designações</h1>
-    <div id="painel-container">Carregando dados...</div>
+    <div id="painel-container">Carregando dados da API...</div>
   </div>
 
   <script>
@@ -93,10 +93,6 @@
         .trim()
         .toLowerCase()
         .replace(/\s+/g, " ");
-    }
-
-    function formatarData(dataStr) {
-      return dataStr || "";
     }
 
     function formatarHorario(horarioStr) {
@@ -230,18 +226,20 @@
     ===================================================== */
     async function carregarDados() {
       try {
-        // Substitua a URL abaixo pela URL real da sua API/Endpoint
-        const resposta = await fetch('SUA_URL_DA_API_AQUI');
+        // Substitua pelo link real da sua API
+        const urlApi = 'COLOQUE_O_LINK_DA_SUA_API_AQUI';
+        
+        const resposta = await fetch(urlApi);
         const resultado = await resposta.json();
         
         if (resultado.sucesso && Array.isArray(resultado.itens)) {
           renderizarPainel(resultado.itens);
         } else {
-          document.getElementById('painel-container').innerHTML = '<p>Erro ao carregar os dados da API.</p>';
+          document.getElementById('painel-container').innerHTML = '<p>A API não retornou os itens esperados.</p>';
         }
       } catch (erro) {
         console.error('Erro:', erro);
-        document.getElementById('painel-container').innerHTML = '<p>Erro de conexão ao carregar a API.</p>';
+        document.getElementById('painel-container').innerHTML = '<p>Erro de conexão ao carregar a API. Verifique a ligação ou as permissões de CORS.</p>';
       }
     }
 
