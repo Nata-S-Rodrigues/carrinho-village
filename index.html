@@ -1664,6 +1664,9 @@ async function ativarNotificacoesPush() {
      * computador e celular terão tokens diferentes.
      */
 
+    
+  console.log("ANTES DO GETTOKEN");
+    
     const currentToken =
       await messaging.getToken({
 
@@ -1674,7 +1677,7 @@ async function ativarNotificacoesPush() {
           "BAgSnPtwqAW9Law8171fvD9Vjisz-ctGKhnxc-6uJjsezn9FG-sxpLbG0TQ72hxohy1CSanXzcEAGfQTe6wMfCE"
 
       });
-
+console.log("DEPOIS DO GETTOKEN");
 
     if (!currentToken) {
 
